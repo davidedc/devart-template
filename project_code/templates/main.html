@@ -1,0 +1,68 @@
+<html>
+  <head>
+    <script type="text/javascript">
+      //all this first bit is to make touch events work like mouse events
+      //so slider() can be triggered by simple onmouseup
+      function touchHandler(event)
+      {
+          var touches = event.changedTouches,
+              first = touches[0],
+              type = "";
+               switch(event.type)
+          {
+              case "touchstart": type = "mousedown"; break;
+              case "touchmove":  type = "mousemove"; break;        
+              case "touchend":   type = "mouseup"; break;
+              default: return;
+          }
+
+          var simulatedEvent = document.createEvent("MouseEvent");
+          simulatedEvent.initMouseEvent(type, true, true, window, 1, 
+                 first.screenX, first.screenY, first.clientX, first.clientY,
+                 false, false, false, false, 0/*left*/, null);
+
+          first.target.dispatchEvent(simulatedEvent);
+          event.preventDefault();
+      }
+
+      function init() 
+      {
+          document.addEventListener("touchstart", touchHandler, true);
+          document.addEventListener("touchmove", touchHandler, true);
+          document.addEventListener("touchend", touchHandler, true);
+          document.addEventListener("touchcancel", touchHandler, true);    
+      }
+      
+      function slider(index)
+      {
+          var this_val = document.getElementById("val" + index);
+          var val = parseInt(document.getElementById("slide" + index).value);
+          if (val > 100 || val < 0) return false;
+          
+          this_val.innerHTML = val;
+          //XMLHttpRequest done here
+          xmlhttp = new XMLHttpRequest();
+          xmlhttp.open("GET","/update/" + index + "/" + val, false);
+          xmlhttp.send();
+          var myObject = JSON.parse(xmlhttp.responseText);
+          for (var i=0; i < 3; i++) {
+            document.getElementById("slide" + i).value = myObject[1][i];
+          }
+      }
+    </script>
+    <style>
+      <!-- or whatever -->
+      .controls{
+          width:75%;
+          height:2%;
+          padding:0 5px;
+      }
+    </style>
+  </head>
+  <body onload="init()">
+    <span id="val0">0</span> <input type="range" id="slide0" class="controls" value="50" min="0" max="100" maxlength="3" onmouseup="slider('0')"><br />
+    <span id="val1">0</span> <input type="range" id="slide1" class="controls" value="50" min="0" max="100" maxlength="3" onmouseup="slider('1')"><br />
+    <span id="val2">0</span> <input type="range" id="slide2" class="controls" value="50" min="0" max="100" maxlength="3" onmouseup="slider('2')">
+    <!-- etc etc -->
+  </body>
+</html>
