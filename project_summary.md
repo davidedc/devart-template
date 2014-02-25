@@ -1,5 +1,4 @@
-# Project Title
-Playful geometries
+# Playful geometries
 
 ## Authors
 - Davide, Della Casa, davidedc
@@ -26,13 +25,11 @@ function test() {
 }
 ```
 ## Links to External Libraries
-[pi3d](https://github.com/tipam/pi3d "pi3d raspberry pi opengl es 2")
+[pi3d raspberry pi opengl es 2](https://github.com/tipam/pi3d "pi3d raspberry pi opengl es 2")
 
 ## Images & Videos
 NOTE: For additional images you can either use a relative link to an image on this repo or an absolute link to an externally hosted image.
 
 ![Playful geometries](project_images/cover.jpg?raw=true "Starting point")
 
-http://www.youtube.com/watch?v=NLW30kXaIkA
-
-![First outline ideas](project_images/sketchy_sketch.jpg?raw=true "Outline sketch")
+![Here is a video constructed from initial tests](http://www.youtube.com/watch?v=NLW30kXaIkA "youtube video")
