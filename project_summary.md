@@ -8,9 +8,9 @@ Playful geometries
 ## Description
 The primary aim is to have fun. Fun making something and fun playing with
 the result. In terms of pushing boundaries we are setting out to make a
-device from a $25 Raspberry Pi computer that can compete with VJ's mac.
+device from a $25 Raspberry Pi computer that can compete with a VJ's mac.
 Hopefully using a large number of networked cheap computers will produce
-something beyone the scope of a single expensive one.
+something beyond the scope of a single expensive one.
 
 ## Link to Prototype
 NOTE: ... Make sure you have a stable version of your project running before
