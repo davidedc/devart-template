@@ -1,13 +1,17 @@
 {
     "technologies": {
-        "apis": [
-            "insert apis"
+        "languages": [
+            "python",
+            "javascript",
+            "opengles"
         ],
         "platforms": [
-            "insert platforms"
+            "raspberry pi",
+            "android"
         ],
         "toolkits": [
-            "insert toolkits"
+            "angularjs",
+            "flask"
         ]
     },
     "themes": [

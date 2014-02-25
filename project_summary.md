@@ -1,15 +1,20 @@
 # Project Title
-Insert the name of your project
+Playful geometries
 
 ## Authors
-- Insert main author name, surname, github account
-- Insert other author(s) name, surname, github account (one per list element)
+- Davide, Della Casa, davidedc
+- Patrick, Gaunt, paddywwoof
 
 ## Description
-Insert a description containing about 100 to 150 words, including your motivation and the meaning behind your idea and execution. The Judges will be keen to know how your idea pushes the boundaries of code and technology. 
+The primary aim is to have fun. Fun making something and fun playing with
+the result. In terms of pushing boundaries we are setting out to make a
+device from a $25 Raspberry Pi computer that can compete with VJ's mac.
+Hopefully using a large number of networked cheap computers will produce
+something beyone the scope of a single expensive one.
 
 ## Link to Prototype
-NOTE: If your project lives online you can add one or more links here. Make sure you have a stable version of your project running before linking it.
+NOTE: ... Make sure you have a stable version of your project running before
+linking it... watch this space
 
 [Example Link](http://www.google.com "Example Link")
 
@@ -21,13 +26,13 @@ function test() {
 }
 ```
 ## Links to External Libraries
- NOTE: You can also use this space to link to external libraries or Github repositories you used on your project.
-
-[Example Link](http://www.google.com "Example Link")
+[pi3d](https://github.com/tipam/pi3d "pi3d raspberry pi opengl es 2")
 
 ## Images & Videos
 NOTE: For additional images you can either use a relative link to an image on this repo or an absolute link to an externally hosted image.
 
-![Example Image](project_images/cover.jpg?raw=true "Example Image")
+![Playful geometries](project_images/cover.jpg?raw=true "Starting point")
 
-https://www.youtube.com/watch?v=30yGOxJJ2PQ
+http://www.youtube.com/watch?v=NLW30kXaIkA
+
+![First outline ideas](project_images/sketchy_sketch.jpg?raw=true "Outline sketch")
