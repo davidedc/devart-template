@@ -24,7 +24,7 @@ class Geometry(object):
     self.fground = fground
     # add myself to the list of geometries so I can be picked
     # for drawing
-    GeometryTypes.add(self)
+    #GeometryTypes.add(self)
     
   def draw(self, ani_state):
     geometry = self.geometry # little shortcut
@@ -160,4 +160,7 @@ class Geometry(object):
     geometry.set_custom_data(54, [shaderScale, petalSmooth, powerRing]) # number of stripes etc
 
     geometry.draw(camera=self.cameraToUse)
- 
+
+  def pos(self):
+    """returns angular displacements for synchronising with other pis"""
+    return self.geometry.unif[3:6]

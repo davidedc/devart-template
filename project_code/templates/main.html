@@ -42,12 +42,31 @@
           this_val.innerHTML = val;
           //XMLHttpRequest done here
           xmlhttp = new XMLHttpRequest();
-          xmlhttp.open("GET","/update/" + index + "/" + val, false);
+          xmlhttp.open("GET","/update/1/0/" + index + "/" + val, false);
           xmlhttp.send();
           var myObject = JSON.parse(xmlhttp.responseText);
-          for (var i=0; i < 3; i++) {
-            document.getElementById("slide" + i).value = myObject[1][i];
+          for (var i=1; i < 4; i++) {
+            document.getElementById("slide" + i).value = myObject.state[1][0][i];
           }
+      }
+
+      //Convert HSV representation to RGB, may use this if colour mixing
+      //is included TODO do we need to feed colours back to contoller?
+      //Credits to http://www.raphaeljs.com
+      function hsv2rgb(hue, sat, val) {
+          var R, G, B, X, C;
+          var h = (hue % 360) / 60;
+          
+          C = val * sat;
+          X = C * (1 - Math.abs(h % 2 - 1));
+          R = G = B = val - C;
+
+          h = Math.floor(h);
+          R += [C, X, 0, 0, X, C][h];
+          G += [X, C, C, X, 0, 0][h];
+          B += [0, 0, X, C, C, X][h];
+
+          return [R, G, B];
       }
     </script>
     <style>
@@ -60,9 +79,11 @@
     </style>
   </head>
   <body onload="init()">
-    <span id="val0">0</span> <input type="range" id="slide0" class="controls" value="50" min="0" max="100" maxlength="3" onmouseup="slider('0')"><br />
-    <span id="val1">0</span> <input type="range" id="slide1" class="controls" value="50" min="0" max="100" maxlength="3" onmouseup="slider('1')"><br />
-    <span id="val2">0</span> <input type="range" id="slide2" class="controls" value="50" min="0" max="100" maxlength="3" onmouseup="slider('2')">
-    <!-- etc etc -->
+    <div class="background">
+      <input type="range" id="slide1" class="controls" value="50" min="0" max="100" maxlength="3" onmouseup="slider('1')"><span id="val1">0</span><br />
+      <input type="range" id="slide2" class="controls" value="50" min="0" max="100" maxlength="3" onmouseup="slider('2')"><span id="val2">0</span><br />
+      <input type="range" id="slide3" class="controls" value="50" min="0" max="100" maxlength="3" onmouseup="slider('3')"><span id="val3">0</span>
+      <!-- etc etc -->
+    </div>
   </body>
 </html>

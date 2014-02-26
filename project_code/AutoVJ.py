@@ -10,7 +10,7 @@ import re
 import math
 
 from Background import Background
-
+from Colors import Colors
 from AnimationState import AnimationState
 from GeometryTypeSimpleCube import GeometryTypeSimpleCube
 from Midground import Midground
@@ -32,7 +32,7 @@ box = GeometryTypeSimpleCube(perspectiveCamera)
 background = Background(perspectiveCamera)
 
 animation_state = AnimationState()
-midground = Midground()
+#midground = Midground()
 
 writeState = 0 # waiting / sliding in / blink-in / showing / blinkout / sliding out
 startSlideInMs = 0
@@ -41,12 +41,80 @@ startShowInMS = 0
 startBlinkOutMS = 0
 startSlideOutMS = 0
 
+#### server process and queue
+from multiprocessing import Process, Queue
+from flask import Flask, render_template
+import json
+
+app = Flask(__name__)
+queue_down = Queue()
+queue_up = Queue()
+STATE = {}
+
+@app.route("/")
+def hello():
+  templateData = {} # could current state I suppose
+  return render_template('main.html', **templateData)
+
+@app.route("/update/<int:index1>/<int:index2>/<int:index3>/<value>")
+def check(index1, index2, index3, value):
+  global STATE
+  queue_up.put([index1, index2, index3, value])
+  if not queue_down.empty():
+    STATE = queue_down.get()
+  return json.dumps(STATE, separators=(',',':'))
+
+def start_server():
+  app.run(host='0.0.0.0', port=80, debug=True, use_reloader=False)
+
+p = Process(target=start_server)
+p.start()
+
+nextTime = time.time()
+geomoPreset = 0
+colorPreset = 0
+
 while DISPLAY.loop_running():
 
   animation_state.updateTimeAndFrameCount()
   if (animation_state.frameCount % 10) == 0:
-    animation_state.randomiseOne()
-  midground.draw(animation_state)
+    #first check if anything has been sent from tablets and eat to last one
+    msg = None
+    while not queue_up.empty():
+      msg = queue_up.get()
+    if msg:
+      """msg[0]==0 background state
+         msg[0]==1 box state
+         msg[0]==2 msg[1]==0 msg[2]==0  select geometry preset
+         msg[0]==2 msg[1]==0 msg[2]==1  select colour preset
+         msg[0]==2 msg[1]==1 msg[2]==0  colour1 rgb
+         msg[0]==2 msg[1]==1 msg[2]==1  colour2 rgb
+      """
+      if msg[0] < 2:
+        animation_state.state[msg[0]][msg[1]][msg[2]] = float(msg[3])
+      elif msg[1] == 0 and msg[2] == 0:
+        animation_state.jumpToPreset(msg[3])#TODO split colour and geometry
+        geomoPreset = msg[3]
+      elif msg[1] == 0 and msg[2] == 1:
+        animation_state.jumpToPreset(msg[3])#TODO split colour and geometry
+        colorPreset = msg[3]
+      elif msg[1] == 1 and msg[2] == 0:
+        animation_state.jumpToPreset(0)#TODO split colour and geometry
+        colorPreset = 0
+        Colors.user1 = [float(i) for i in msg[3].split(',')]
+      elif msg[1] == 1 and msg[2] == 1:
+        animation_state.jumpToPreset(0)#TODO split colour and geometry
+        colorPreset = 0
+        Colors.user2 = [float(i) for i in msg[3].split(',')]
+      nextTime = time.time() + 5.0
+    #clear it if nothing has consumed previous input to queue
+    while not queue_down.empty():
+      queue_down.get()
+    queue_down.put({'state':animation_state.state,
+          'pos':[background.pos(), box.pos()]})
+    if time.time() > nextTime:
+      animation_state.randomiseOne()
+  box.draw(animation_state)
   background.draw(animation_state)
 
   theKey = mykeys.read()

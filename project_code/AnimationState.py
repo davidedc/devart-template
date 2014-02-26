@@ -74,6 +74,7 @@ class AnimationState(object):
     self.millis = curTime
     self.frameCount += 1
 
+  #TODO split presets in to geometry and colour
   def jumpToPreset(self, num=0):
     num = (num - 1) % len(preset)
     for i in range(2):
