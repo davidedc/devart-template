@@ -25,4 +25,4 @@ class ShaderTypes(object):
    ]
     
     ShaderTypes.petalTable = [0.01, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35]
-    ShaderTypes.powerTable = [-2.0, -1.5, -1.02, -0.1, -0.000, 0.000, 0.02, 0.1, 1.0, 1.4, 3.0]
+    ShaderTypes.powerTable = [-2.0, -1.5, -1.02, -0.1, -0.00001, 0.00001, 0.02, 0.1, 1.0, 1.4, 3.0]

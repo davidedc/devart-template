@@ -1,9 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-
-from random import randrange, uniform
-import time
+import random, time
 
 from Presets import geom_preset, color_preset
 
@@ -13,60 +11,16 @@ class AnimationState(object):
   frameCount = 0
   millisDelta = 0
   
-  # the state is stored in 3-dim array where
-  # the first element defines the affected part of the drawing
-  # the second is the aspect being defined
-  # the third is the quality of the aspect
-  
-  # initialise all to zero (overwritten in __init__)
-  # note that if you use this nested way of defining matrixes,
-  # the first index length goes last and the last index length goes first.
-  state = [[[0 for i in range(6)] for j in range(3)] for k in range(3)]
-
-  # affected part of the drawing
-  background =  0
-  midground = 1
-  foreground = 2
-  
-  # aspect being defined
-  geometry = 0
-  shader = 1
-  palette = 2
-  
-  # quality of the aspect
-  theType = 0
-  scale = 1
-  animationType = 2
-  animationSpeed = 3
-  petalSmooth = 4 # value passed to shader controls either petals or smoothing
-  powerRing = 5 # exponent of atan() function or ring multiplier
-
-  """
-  [][0][1] scale is 1 + this value % 5, background alway 20.0
-  [][0][2] spinZ, spinX, spinY, spinZSpinX, spinXSpinYSpinZ, noise
-  [][0][3] backfast, backmid, backslow, halt, slow, mid, fast
-
-  [][1][0] index of ShaderTypes.shadersTable: dot, rings, gradient, stripe
-  [][1][1] scale multiplier for dots, rings, stripes
-  [][1][4] petals for dot, smoothing for ring 0-7 increases both
-  [][1][5] formula exponent for dot shader. 0-3 petals grow from middle
-            4-5 circular dots 6-10 shard pattern. For ring shader this
-            controls the number of rings
-
-  [1][2][0] index PaletteTypes.paletteTable 45 entries NB on midgound used
-  [][2][1] inverts palletteEntry colours if odd value
-  [][2][2] colour change every 8 frames just for one frame
-            0 -> swap
-            1 -> 8th frame halve, 4th frame double rgb values
-            2 -> randomise rgb values
-            3 -> flash, col1 and col2 to white
-  """
+  state = {'b_scale':0, 'b_spin':0, 'b_speed':0, 'b_shader':0, 'b_mult':0,
+          'b_petals':0, 'b_param2':0, 'b_paltt':0, 'b_inv':0, 'b_fx1':0,
+          'b_fx2':0, 'b_fx3':0, 'b_fx4':0,
+          'f_scale':0, 'f_spin':0, 'f_speed':0, 'f_shader':0, 'f_mult':0,
+          'f_petals':0, 'f_param2':0, 'f_paltt':0, 'f_inv':0, 'f_fx1':0,
+          'f_fx2':0, 'f_fx3':0, 'f_fx4':03}
 
   def randomiseOne(self):
-    dim1 = randrange(0, 3)
-    dim2 = randrange(0, 3)
-    dim3 = randrange(0, 6)
-    self.state[dim1][dim2][dim3] = uniform(0, 147)
+    key = random.choice(list(self.state.keys()))
+    self.state[key] = random.randint(0, 147)
   
   # TODO music related function for animation effects
   def updateTimeAndFrameCount(self):
@@ -77,16 +31,13 @@ class AnimationState(object):
 
   def jumpToGeometry(self, num=0):
     num = num % len(geom_preset)
-    for i in range(2):
-      for j in range(2):
-        for k in range(6):
-          self.state[i][j][k] = geom_preset[num][i][j][k]    
+    for i in geom_preset[num]:
+      self.state[i] = geom_preset[num][i]
     
   def jumpToColor(self, num=0):
     num = num % len(color_preset)
-    for i in range(2):
-      for k in range(6):
-        self.state[i][2][k] = color_preset[num][i][0][k]    
+    for i in color_preset[num]:
+      self.state[i] = color_preset[num][i]
   
   # you can also make a method to undo / redo
   # you can make a method to mark one or two states and periodically
@@ -94,5 +45,5 @@ class AnimationState(object):
  
   def __init__(self):
     self.jumpToGeometry(num=0)
-    self.jumpToColor(num=1)
+    self.jumpToColor(num=0)
 

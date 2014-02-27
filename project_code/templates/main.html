@@ -37,17 +37,23 @@
       function slider(index)
       {
           var this_val = document.getElementById("val" + index);
-          var val = parseInt(document.getElementById("slide" + index).value);
+          var val = parseInt(document.getElementById(index).value);
           if (val > 100 || val < 0) return false;
           
           this_val.innerHTML = val;
           //XMLHttpRequest done here
+          var msg = {};
+          msg[index] = val;
+          var jsonMsg = JSON.stringify(msg);
           xmlhttp = new XMLHttpRequest();
-          xmlhttp.open("GET","/update/1/0/" + index + "/" + val, false);
+          xmlhttp.open("GET","/update/?msg=" + jsonMsg, false);
           xmlhttp.send();
           var myObject = JSON.parse(xmlhttp.responseText);
-          for (var i=1; i < 4; i++) {
-            document.getElementById("slide" + i).value = myObject.state[1][0][i];
+          for (var key in myObject) {
+            elmnt = document.getElementById(key)
+            if (elmnt) {
+              elmnt.value = myObject[key];
+            }
           }
       }
 
@@ -84,9 +90,9 @@
   </head>
   <body onload="init()">
     <div class="background">
-      <input type="range" id="slide1" class="controls" value="50" min="0" max="100" maxlength="3" onmouseup="slider('1')"><span id="val1">0</span><br />
-      <input type="range" id="slide2" class="controls" value="50" min="0" max="100" maxlength="3" onmouseup="slider('2')"><span id="val2">0</span><br />
-      <input type="range" id="slide3" class="controls" value="50" min="0" max="100" maxlength="3" onmouseup="slider('3')"><span id="val3">0</span>
+      <input type="range" id="f_scale" class="controls" value="50" min="0" max="100" maxlength="3" onmouseup="slider('f_scale')"><span id="valf_scale">0</span><br />
+      <input type="range" id="f_spin" class="controls" value="50" min="0" max="100" maxlength="3" onmouseup="slider('f_spin')"><span id="valf_spin">0</span><br />
+      <input type="range" id="f_speed" class="controls" value="50" min="0" max="100" maxlength="3" onmouseup="slider('f_speed')"><span id="valf_speed">0</span>
       <!-- etc etc -->
     </div>
   </body>

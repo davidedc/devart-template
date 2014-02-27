@@ -1,50 +1,33 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-[][0][1] scale cube 1 + n % 5, background 16 + n % 10
-[][0][2] spinZ, spinX, spinY, spinZSpinX, spinXSpinYSpinZ, noise
-[][0][3] backfast, backmid, backslow, halt, slow, mid, fast
-
-[][1][0] index of ShaderTypes.shadersTable: dot, rings, gradient, stripe, check
-[][1][1] scale multiplier for dots, rings, stripes
-[][1][4] petals for dot, smoothing for ring 0-7 increases both
-[][1][5] formula exponent for dot shader. 0-3 petals grow from middle
-          4-5 circular dots 6-10 shard pattern. For ring shader this
-          controls the number of rings
-
-[1][2][0] index PaletteTypes.paletteTable 45 entries NB only midgound used
-[][2][1] inverts palletteEntry colours if odd value
-[][2][2] colour change every 8 frames just for one frame
-          0 -> swap
-          1 -> 8th frame halve, 4th frame double rgb values
-          2 -> randomise rgb values
-          3 -> flash, col1 and col2 to white
-"""
-
-############### geometery  [[[back geom],[back shader]],[[box geom],[box shader]]]
+{'b_scale':0, 'b_spin':0, 'b_speed':0, 'b_shader':0, 'b_mult':0, 'b_param1':0,
+  'b_param2':0, 'b_paltt':0, 'b_inv':0, 'b_fx1':0, 'b_fx2':0, 'b_fx3':0, 'b_fx4':0,
+  'f_scale':0, 'f_spin':0, 'f_speed':0, 'f_shader':0, 'f_mult':0, 'f_param1':0,
+  'f_param2':0, 'f_paltt':0, 'f_inv':0, 'f_fx1':0, 'f_fx2':0, 'f_fx3':0, 'f_fx4':0,
+  'geom_jump':0, 'colr_jump':0, 'user1':[0.3, 0.3, 0.3], 'user2':[0.6, 0.6, 0.6]}"""
+############### geometery 
 # 1=>preset[0] 2=>preset[1] etc
-geom_preset = [
-                [[[0, 1, 0, 0, 0, 0], [0, 9, 0, 0, 2, 2]],
-                 [[0, 1, 4, 5, 0, 0], [1, 63, 0, 0, 2, 3]]
-                ],
-                [[[0, 1, 0, 6, 0, 0], [1, 6, 0, 0, 0, 4]],
-                 [[0, 2, 4, 1, 0, 0], [2, 1, 0, 0, 2, 4]]
-                ],
-                [[[0, 1, 0, 5, 0, 0], [1, 6, 0, 0, 0, 4]],
-                 [[0, 2, 4, 2, 0, 0], [1, 1, 0, 0, 4, 4]]
-                ],
-                [[[0, 1, 0, 0, 0, 0], [0, 9, 0, 0, 1, 2]],
-                 [[0, 4, 4, 5, 0, 0], [0, 63, 0, 0, 6, 3]]
-                ],
-                [[[0, 1, 0, 6, 0, 0], [4, 6, 0, 0, 0, 4]],
-                 [[0, 4, 4, 1, 0, 0], [0, 1, 0, 0, 2, 4]]
-                ]
-              ]
-############### palette [[[background]],[[box]]]
-color_preset = [
-                [[[0, 0, 0, 0, 1, 2]],[[11, 0, 0, 0, 2, 3]]],
-                [[[0, 0, 0, 0, 3, 4]], [[24, 0, 0, 0, 4, 5]]],
-                [[[0, 0, 0, 0, 5, 6]], [[27, 0, 0, 0, 6, 7]]],
-                [[[0, 0, 0, 0, 7, 8]], [[32, 0, 0, 0, 8, 9]]],
-                [[[0, 0, 0, 0, 9, 10]], [[42, 0, 0, 0, 10, 11]]]
+geom_preset = [   {'b_scale':1, 'b_spin':0, 'b_speed':0, 'b_shader':0, 'b_mult':9, 'b_param1':2, 'b_param2':2,
+                  'f_scale':0, 'f_spin':4, 'f_speed':5, 'f_shader':1, 'f_mult':63, 'f_param1':2, 'f_param2':3},
+                  {'b_scale':1, 'b_spin':0, 'b_speed':6, 'b_shader':1, 'b_mult':6, 'b_param1':2, 'b_param2':2,
+                  'f_scale':0, 'f_spin':4, 'f_speed':5, 'f_shader':1, 'f_mult':6, 'f_param1':2, 'f_param2':4},
+                  {'b_scale':1, 'b_spin':0, 'b_speed':5, 'b_shader':1, 'b_mult':6, 'b_param1':0, 'b_param2':4,
+                  'f_scale':2, 'f_spin':4, 'f_speed':2, 'f_shader':1, 'f_mult':1, 'f_param1':4, 'f_param2':4}, 
+                  {'b_scale':1, 'b_spin':0, 'b_speed':0, 'b_shader':0, 'b_mult':9, 'b_param1':1, 'b_param2':2,
+                  'f_scale':4, 'f_spin':4, 'f_speed':5, 'f_shader':0, 'f_mult':63, 'f_param1':6, 'f_param2':3},
+                  {'b_scale':1, 'b_spin':0, 'b_speed':6, 'b_shader':4, 'b_mult':6, 'b_param1':0, 'b_param2':4,
+                  'f_scale':4, 'f_spin':4, 'f_speed':1, 'f_shader':0, 'f_mult':1, 'f_param1':2, 'f_param2':4}
+        ]
+############### palette 
+color_preset = [{'b_paltt':1, 'b_inv':1, 'b_fx1':0, 'b_fx2':0, 'b_fx3':0, 'b_fx4':0,
+                'f_paltt':0, 'f_inv':2, 'f_fx1':0, 'f_fx2':0, 'f_fx3':0, 'f_fx4':03},
+                {'b_paltt':43, 'b_inv':3, 'b_fx1':0, 'b_fx2':0, 'b_fx3':0, 'b_fx4':0,
+                'f_paltt':24, 'f_inv':4, 'f_fx1':0, 'f_fx2':0, 'f_fx3':0, 'f_fx4':0},
+                {'b_paltt':56, 'b_inv':5, 'b_fx1':0, 'b_fx2':0, 'b_fx3':0, 'b_fx4':0,
+                'f_paltt':27, 'f_inv':6, 'f_fx1':0, 'f_fx2':0, 'f_fx3':0, 'f_fx4':0},
+                {'b_paltt':57, 'b_inv':7, 'b_fx1':0, 'b_fx2':0, 'b_fx3':0, 'b_fx4':0,
+                'f_paltt':36, 'f_inv':8, 'f_fx1':0, 'f_fx2':0, 'f_fx3':0, 'f_fx4':0},
+                {'b_paltt':62, 'b_inv':9, 'b_fx1':0, 'b_fx2':0, 'b_fx3':0, 'b_fx4':0,
+                'f_paltt':42, 'f_inv':10, 'f_fx1':0, 'f_fx2':0, 'f_fx3':0, 'f_fx4':0}
               ]

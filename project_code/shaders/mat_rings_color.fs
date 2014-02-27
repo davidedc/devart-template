@@ -18,7 +18,7 @@ void main(void) {
   float dotsCount =  unif[18][0];
   float smooth = unif[18][1];
   float ring = unif[18][2];
-  ring = sign(ring) * clamp(1.1, 5.0, abs(ring));
+  ring = sign(ring) * clamp(abs(ring), 1.1, 5.0);
 
   vec2 p = fract(uv * dotsCount) - vec2(0.5);
 
