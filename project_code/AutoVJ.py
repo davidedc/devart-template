@@ -5,12 +5,10 @@ import demo
 import pi3d
 import threading
 import time
-import sys
-import re
-import math
 
 from Background import Background
 from Colors import Colors
+from Presets import geom_preset, color_preset
 from AnimationState import AnimationState
 from GeometryTypeSimpleCube import GeometryTypeSimpleCube
 from Midground import Midground
@@ -68,11 +66,12 @@ def start_server():
   app.run(host='0.0.0.0', port=80, debug=True, use_reloader=False)
 
 p = Process(target=start_server)
+p.daemon = True
 p.start()
 
 nextTime = time.time()
-geomoPreset = 0
-colorPreset = 0
+geom_preset_id = 0
+color_preset_id = 0
 
 while DISPLAY.loop_running():
 
@@ -87,24 +86,29 @@ while DISPLAY.loop_running():
          msg[0]==1 box state
          msg[0]==2 msg[1]==0 msg[2]==0  select geometry preset
          msg[0]==2 msg[1]==0 msg[2]==1  select colour preset
-         msg[0]==2 msg[1]==1 msg[2]==0  colour1 rgb
+         msg[0]==2 msg[1]==1 msg[2]==0  colour1 rgb as u'r,g,b'
          msg[0]==2 msg[1]==1 msg[2]==1  colour2 rgb
       """
-      if msg[0] < 2:
-        animation_state.state[msg[0]][msg[1]][msg[2]] = float(msg[3])
-      elif msg[1] == 0 and msg[2] == 0:
-        animation_state.jumpToPreset(msg[3])#TODO split colour and geometry
-        geomoPreset = msg[3]
-      elif msg[1] == 0 and msg[2] == 1:
-        animation_state.jumpToPreset(msg[3])#TODO split colour and geometry
-        colorPreset = msg[3]
-      elif msg[1] == 1 and msg[2] == 0:
-        animation_state.jumpToPreset(0)#TODO split colour and geometry
-        colorPreset = 0
+      if msg[0] < 2: #change to state
+        if msg[1] < 2: #geometry change
+          geom_preset[geom_preset_id][msg[0]][msg[1]][msg[2]] = float(msg[3])
+          animation_state.jumpToGeometry(geom_preset_id)
+        elif msg[1] == 2: #change to colour related
+          color_preset[color_preset_id][msg[0]][0][msg[2]] = float(msg[3])
+          animation_state.jumpToColor(color_preset_id)
+      elif msg[1] == 0 and msg[2] == 0: #geom preset
+        animation_state.jumpToGeometry(msg[3])
+        geom_preset_id = msg[3]
+      elif msg[1] == 0 and msg[2] == 1: #colour preset
+        animation_state.jumpToColor(msg[3])
+        color_preset_id = msg[3]
+      elif msg[1] == 1 and msg[2] == 0: #rgb mod to colour user1
+        animation_state.jumpToColor(0)
+        color_preset_id = 0
         Colors.user1 = [float(i) for i in msg[3].split(',')]
-      elif msg[1] == 1 and msg[2] == 1:
-        animation_state.jumpToPreset(0)#TODO split colour and geometry
-        colorPreset = 0
+      elif msg[1] == 1 and msg[2] == 1: #rgb mod to colour user2
+        animation_state.jumpToColor(0)
+        color_preset_id = 0
         Colors.user2 = [float(i) for i in msg[3].split(',')]
       nextTime = time.time() + 5.0
     #clear it if nothing has consumed previous input to queue
@@ -121,12 +125,20 @@ while DISPLAY.loop_running():
   if theKey == 27: # esc
     mykeys.close()
     DISPLAY.destroy()
+    p.terminate()
     break
+  
   elif theKey == 32: # space
     #pi3d.screenshot("screenshots/" + str(animation_state.frameCount)+".png")
     #try to debug occasional cube disappearance
     s = animation_state.state[1]
     print("scale={:4.2f} spin_type={:4.2f} speed={:4.2f}".format(s[0][1] % 5, s[0][2] % 6, s[0][3] % 7))
     print("shader={:4.2f} dotscale={:4.2f} petal={:4.2f} power={:4.2f} cols={:4.2f}".format(s[1][0] % 5, s[1][1], s[1][4] % 8, s[1][5] % 11, s[2][0]))
+  
   elif theKey >= 48 and theKey <= 57:
-    animation_state.jumpToPreset(theKey - 48)
+    theKey -= 48
+    if theKey < 5:
+      animation_state.jumpToGeometry(theKey)
+    else:
+      animation_state.jumpToColor(theKey)
+

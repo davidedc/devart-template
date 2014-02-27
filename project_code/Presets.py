@@ -12,7 +12,7 @@
           4-5 circular dots 6-10 shard pattern. For ring shader this
           controls the number of rings
 
-[1][2][0] index PaletteTypes.paletteTable 45 entries NB on midgound used
+[1][2][0] index PaletteTypes.paletteTable 45 entries NB only midgound used
 [][2][1] inverts palletteEntry colours if odd value
 [][2][2] colour change every 8 frames just for one frame
           0 -> swap
@@ -21,56 +21,30 @@
           3 -> flash, col1 and col2 to white
 """
 
-############### geometery       ### shader          ### palette
+############### geometery  [[[back geom],[back shader]],[[box geom],[box shader]]]
 # 1=>preset[0] 2=>preset[1] etc
-preset = [
-          [[ [0, 1, 0, 0, 0, 0], [0, 9, 0, 0, 2, 2],
-              [None, None, None, None, None, None]],
-          [ [0, 1, 4, 5, 0, 0], [1, 63, 0, 0, 2, 3],
-              [None, None, None, None, None, None]]],
-          
-          [[ [0, 1, 0, 6, 0, 0], [1, 6, 0, 0, 0, 4],
-              [None, None, None, None, None, None]],
-          [ [0, 2, 4, 1, 0, 0], [2, 1, 0, 0, 2, 4],
-              [None, None, None, None, None, None]]],
-          
-          [[ [0, 1, 0, 5, 0, 0], [1, 6, 0, 0, 0, 4],
-              [None, None, None, None, None, None]],
-          [ [0, 2, 4, 2, 0, 0], [1, 1, 0, 0, 4, 4],
-              [None, None, None, None, None, None]]],
-
-          [[ [0, 1, 0, 0, 0, 0], [0, 9, 0, 0, 1, 2],
-              [None, None, None, None, None, None]],
-          [ [0, 4, 4, 5, 0, 0], [0, 63, 0, 0, 6, 3],
-              [None, None, None, None, None, None]]],
-          
-          [[ [0, 1, 0, 6, 0, 0], [4, 6, 0, 0, 0, 4],
-              [None, None, None, None, None, None]],
-          [ [0, 4, 4, 1, 0, 0], [0, 1, 0, 0, 2, 4],
-              [None, None, None, None, None, None]]],
-          
-          [[ [None, None, None, None, None, None], [None, None, None, None, None, None],
-              [0, 0, 0, 0, 1, 2]],
-          [ [None, None, None, None, None, None], [None, None, None, None, None, None],
-              [11, 0, 0, 0, 2, 3]]],
-          
-          [[ [None, None, None, None, None, None], [None, None, None, None, None, None],
-              [0, 0, 0, 0, 3, 4]],
-          [ [None, None, None, None, None, None], [None, None, None, None, None, None],
-              [24, 0, 0, 0, 4, 5]]],
-          
-          [[ [None, None, None, None, None, None], [None, None, None, None, None, None],
-              [0, 0, 0, 0, 5, 6]],
-          [ [None, None, None, None, None, None], [None, None, None, None, None, None],
-              [27, 0, 0, 0, 6, 7]]],
-          
-          [[ [None, None, None, None, None, None], [None, None, None, None, None, None],
-              [0, 0, 0, 0, 7, 8]],
-          [ [None, None, None, None, None, None], [None, None, None, None, None, None],
-              [32, 0, 0, 0, 8, 9]]],
-          
-          [[ [None, None, None, None, None, None], [None, None, None, None, None, None],
-              [0, 0, 0, 0, 9, 10]],
-          [ [None, None, None, None, None, None], [None, None, None, None, None, None],
-              [42, 0, 0, 0, 10, 11]]]
-        ]
+geom_preset = [
+                [[[0, 1, 0, 0, 0, 0], [0, 9, 0, 0, 2, 2]],
+                 [[0, 1, 4, 5, 0, 0], [1, 63, 0, 0, 2, 3]]
+                ],
+                [[[0, 1, 0, 6, 0, 0], [1, 6, 0, 0, 0, 4]],
+                 [[0, 2, 4, 1, 0, 0], [2, 1, 0, 0, 2, 4]]
+                ],
+                [[[0, 1, 0, 5, 0, 0], [1, 6, 0, 0, 0, 4]],
+                 [[0, 2, 4, 2, 0, 0], [1, 1, 0, 0, 4, 4]]
+                ],
+                [[[0, 1, 0, 0, 0, 0], [0, 9, 0, 0, 1, 2]],
+                 [[0, 4, 4, 5, 0, 0], [0, 63, 0, 0, 6, 3]]
+                ],
+                [[[0, 1, 0, 6, 0, 0], [4, 6, 0, 0, 0, 4]],
+                 [[0, 4, 4, 1, 0, 0], [0, 1, 0, 0, 2, 4]]
+                ]
+              ]
+############### palette [[[background]],[[box]]]
+color_preset = [
+                [[[0, 0, 0, 0, 1, 2]],[[11, 0, 0, 0, 2, 3]]],
+                [[[0, 0, 0, 0, 3, 4]], [[24, 0, 0, 0, 4, 5]]],
+                [[[0, 0, 0, 0, 5, 6]], [[27, 0, 0, 0, 6, 7]]],
+                [[[0, 0, 0, 0, 7, 8]], [[32, 0, 0, 0, 8, 9]]],
+                [[[0, 0, 0, 0, 9, 10]], [[42, 0, 0, 0, 10, 11]]]
+              ]

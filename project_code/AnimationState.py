@@ -5,7 +5,7 @@
 from random import randrange, uniform
 import time
 
-from Presets import preset
+from Presets import geom_preset, color_preset
 
 class AnimationState(object):
   
@@ -68,26 +68,31 @@ class AnimationState(object):
     dim3 = randrange(0, 6)
     self.state[dim1][dim2][dim3] = uniform(0, 147)
   
+  # TODO music related function for animation effects
   def updateTimeAndFrameCount(self):
     curTime = int(round(time.time() * 1000))
     self.millisDelta = int(curTime - self.millis)
     self.millis = curTime
     self.frameCount += 1
 
-  #TODO split presets in to geometry and colour
-  def jumpToPreset(self, num=0):
-    num = (num - 1) % len(preset)
+  def jumpToGeometry(self, num=0):
+    num = num % len(geom_preset)
     for i in range(2):
-      for j in range(3):
+      for j in range(2):
         for k in range(6):
-          if preset[num][i][j][k] != None: #i.e. only overwrite part of state with values not None
-            self.state[i][j][k] = preset[num][i][j][k]
+          self.state[i][j][k] = geom_preset[num][i][j][k]    
+    
+  def jumpToColor(self, num=0):
+    num = num % len(color_preset)
+    for i in range(2):
+      for k in range(6):
+        self.state[i][2][k] = color_preset[num][i][0][k]    
   
   # you can also make a method to undo / redo
   # you can make a method to mark one or two states and periodically
   # go back to those
  
   def __init__(self):
-    self.jumpToPreset(num=0)
-    self.jumpToPreset(num=1)
+    self.jumpToGeometry(num=0)
+    self.jumpToColor(num=1)
 

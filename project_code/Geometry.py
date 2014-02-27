@@ -109,6 +109,7 @@ class Geometry(object):
 
     # goes from 0 to 5, only the first four do something
     # swap, shades, random, flash
+    # TODO music related function rather than frameCount % 8
     paletteAnimationType = (int(
         ani_state.state[state_part][ani_state.palette][ani_state.animationType]
         )) % 6 # i.e. if 4, 5 will have no effect
