@@ -2,45 +2,29 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"> 
     <script type="text/javascript">
-      //all this first bit is to make touch events work like mouse events
-      //so slider() can be triggered by simple onmouseup
-      function touchHandler(event)
-      {
-          var touches = event.changedTouches,
-              first = touches[0],
-              type = "";
-               switch(event.type)
-          {
-              case "touchstart": type = "mousedown"; break;
-              case "touchmove":  type = "mousemove"; break;        
-              case "touchend":   type = "mouseup"; break;
-              default: return;
-          }
-
-          var simulatedEvent = document.createEvent("MouseEvent");
-          simulatedEvent.initMouseEvent(type, true, true, window, 1, 
-                 first.screenX, first.screenY, first.clientX, first.clientY,
-                 false, false, false, false, 0/*left*/, null);
-
-          first.target.dispatchEvent(simulatedEvent);
-          event.preventDefault();
-      }
-
-      function init() 
-      {
-          document.addEventListener("touchstart", touchHandler, true);
-          document.addEventListener("touchmove", touchHandler, true);
-          document.addEventListener("touchend", touchHandler, true);
-          document.addEventListener("touchcancel", touchHandler, true);    
+      function init() {
+        user = {'1':{'h':0.25, 's':0, 'v':0.5}, '2':{'h':0.75, 's':0.5, 'v':0.5}};
+        var rgb = HSVtoRGB(user['1']['h'], user['1']['s'], user['1']['v']);
+        document.getElementById('bkg1').style.backgroundColor = "rgb(" + 
+                                rgb.r + ", " + rgb.g + "," + rgb.b + ")";
+        rgb = HSVtoRGB(user['2']['h'], user['2']['s'], user['2']['v']);
+        document.getElementById('bkg2').style.backgroundColor = "rgb(" +
+                                rgb.r + ", " + rgb.g + "," + rgb.b + ")";
       }
       
-      function slider(index)
+      function slider(index, val)
       {
-          var this_val = document.getElementById("val" + index);
-          var val = parseInt(document.getElementById(index).value);
-          if (val > 100 || val < 0) return false;
-          
-          this_val.innerHTML = val;
+          //check if user colour, in which case have to convert hsv to rgb
+          if (index.substring(0,4) == 'user') {
+            var cnum = index.substring(4,5);
+            var clet = index.substring(5,6);
+            user[cnum][clet] = val / 10;
+            var rgb = HSVtoRGB(user[cnum]['h'], user[cnum]['s'], user[cnum]['v']);
+            document.getElementById('bkg' + cnum).style.backgroundColor = "rgb(" +
+               rgb.r + ", " + rgb.g + "," + rgb.b + ")";
+            index = 'user' + cnum;
+            val = [rgb.r, rgb.g, rgb.b];
+          }
           //XMLHttpRequest done here
           var msg = {};
           msg[index] = val;
@@ -53,7 +37,6 @@
             elmnt = document.getElementById(key)
             if (elmnt) {
               elmnt.value = myObject[key];
-              document.getElementById('val' + key).value = myObject[key];
             }
           }
       }
@@ -61,20 +44,26 @@
       //Convert HSV representation to RGB, may use this if colour mixing
       //is included TODO do we need to feed colours back to contoller?
       //Credits to http://www.raphaeljs.com
-      function hsv2rgb(hue, sat, val) {
-          var R, G, B, X, C;
-          var h = (hue % 360) / 60;
-          
-          C = val * sat;
-          X = C * (1 - Math.abs(h % 2 - 1));
-          R = G = B = val - C;
-
-          h = Math.floor(h);
-          R += [C, X, 0, 0, X, C][h];
-          G += [X, C, C, X, 0, 0][h];
-          B += [0, 0, X, C, C, X][h];
-
-          return [R, G, B];
+      function HSVtoRGB(h, s, v) {
+        var r, g, b, i, f, p, q, t;
+        i = Math.floor(h * 6);
+        f = h * 6 - i;
+        p = v * (1 - s);
+        q = v * (1 - f * s);
+        t = v * (1 - (1 - f) * s);
+        switch (i % 6) {
+          case 0: r = v, g = t, b = p; break;
+          case 1: r = q, g = v, b = p; break;
+          case 2: r = p, g = v, b = t; break;
+          case 3: r = p, g = q, b = v; break;
+          case 4: r = t, g = p, b = v; break;
+          case 5: r = v, g = p, b = q; break;
+        }
+        return {
+          r: Math.floor(r * 255),
+          g: Math.floor(g * 255),
+          b: Math.floor(b * 255)
+        };
       }
     </script>
     <style>
@@ -84,17 +73,36 @@
           height:2%;
           padding:0 5px;
       }
-      .background {
+      .bkga {
           width:100%;
+          background-color:rgb(200,200,200);
+      }
+      .bkgb {
+          width:100%;
+          background-color:rgb(240,240,240);
+      }
+      .bkg1 {
+          width:100%;
+      }
+      .bkg2 {
+          width:100%;
+      }
+      input[type="radio"] {
+        margin-right: 0;
+        margin-left: 0;
       }
     </style>
   </head>
   <body onload="init()">
-    <div class="background">
-      <input type="range" id="f_scale" class="controls" value="0" min="0" max="20" onmouseup="slider('f_scale')"><span id="valf_scale">0</span><br />
-      <input type="range" id="f_spin" class="controls" value="0" min="0" max="5" onmouseup="slider('f_spin')"><span id="valf_spin">0</span><br />
-      <input type="range" id="f_speed" class="controls" value="0" min="0" max="20" onmouseup="slider('f_speed')"><span id="valf_speed">0</span>
-      <!-- etc etc -->
+    {% for d in fields %}
+    <div class="{{ d[0] }}" id="{{ d[0] }}">
+      {% for f in d[1] %}
+        {% for i in range(f[1]) %}
+          <input type="radio" name="{{ f[0] }}" id="{{ f[0] }}" value={{ i }} onclick="slider('{{ f[0] }}', {{ i }})">
+        {% endfor %}
+        {% if f[1] > 2 %}<br />{% else %} : {% endif %}
+      {% endfor %}
     </div>
+    {% endfor %}
   </body>
 </html>

@@ -16,11 +16,12 @@ class AnimationState(object):
           'b_fx2':0, 'b_fx3':0, 'b_fx4':0,
           'f_scale':0, 'f_spin':0, 'f_speed':0, 'f_shader':0, 'f_mult':0,
           'f_petals':0, 'f_param2':0, 'f_paltt':0, 'f_inv':0, 'f_fx1':0,
-          'f_fx2':0, 'f_fx3':0, 'f_fx4':03}
+          'f_fx2':0, 'f_fx3':0, 'f_fx4':03, 'user1':[0.3, 0.3, 0.3], 'user2':[0.6, 0.6, 0.6]}
 
   def randomiseOne(self):
     key = random.choice(list(self.state.keys()))
-    self.state[key] = random.randint(0, 147)
+    if not 'user' in key:
+      self.state[key] = random.randint(0, 147)
   
   # TODO music related function for animation effects
   def updateTimeAndFrameCount(self):

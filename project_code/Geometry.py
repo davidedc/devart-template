@@ -77,12 +77,18 @@ class Geometry(object):
     paletteInvert = (int(
         ani_state.state[state_part + 'inv']
         )) % 2
-    paletteEntry =   PaletteTypes.paletteTable[
-      (int(
-        ani_state.state['f_paltt']
-        )) % len(PaletteTypes.paletteTable)]
-    col1 = [paletteEntry[0][0], paletteEntry[0][1], paletteEntry[0][1]]
-    col2 = [paletteEntry[1][0], paletteEntry[1][1], paletteEntry[1][1]]
+        
+    if ani_state.state['f_paltt'] == 0:
+      col1 = ani_state.state['user1']
+      col2 = ani_state.state['user2']
+    else:
+      paletteEntry =   PaletteTypes.paletteTable[
+        (int(
+          ani_state.state['f_paltt']
+          )) % len(PaletteTypes.paletteTable)]
+      col1 = [i for i in paletteEntry[0]]
+      col2 = [i for i in paletteEntry[1]]
+      
     if paletteInvert:
       col1,col2 = col2,col1
 

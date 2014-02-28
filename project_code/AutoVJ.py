@@ -49,7 +49,16 @@ STATE = {}
 
 @app.route("/")
 def hello():
-  templateData = {} # could current state I suppose
+  templateData = {'fields':[
+        ['bkga', [['f_scale',20], ['f_spin',6], ['f_speed',20], ['f_shader',5], ['f_mult',20], ['f_param1',20], ['f_param2',20]]],
+        ['bkgb', [['f_paltt',20], ['f_inv',2], ['f_fx1',2], ['f_fx2',2], ['f_fx3',2], ['f_fx4',2]]],
+        ['bkga', [['b_scale',20], ['b_spin',6], ['b_speed',20], ['b_shader',5], ['b_mult',20], ['b_param1',20], ['b_param2',20]]],
+        ['bkgb', [['b_inv',2], ['b_fx1',2], ['b_fx2',2], ['b_fx3',2], ['b_fx4',2]]],
+        ['bkga', [['geom_jump',10]]],
+        ['bkgb', [['colr_jump',10]]],
+        ['bkg1', [['user1h',10],['user1s',10],['user1v',10]]],
+        ['bkg2', [['user2h',10],['user2s',10],['user2v',10]]]
+        ]} 
   return render_template('main.html', **templateData)
 
 @app.route("/update/")
@@ -84,24 +93,24 @@ while DISPLAY.loop_running():
       for mkey in msg:
         if mkey == 'geom_jump':
           animation_state.jumpToGeometry(msg[mkey])
-          geom_preset_id = msg[mkey]
+          chosen_geom = msg[mkey]
         elif mkey == 'colr_jump':
           animation_state.jumpToColor(msg[mkey])
-          color_preset_id = msg[mkey]
+          chosen_color = msg[mkey]
         elif mkey == 'user1':
           animation_state.jumpToColor(0)
-          color_preset_id = 0
-          Colors.user1 = [i for i in msg[mkey]]
+          chosen_color = 0
+          animation_state.state['user1'] = [i / 255.0 for i in msg[mkey]]
         elif mkey == 'user2':
           animation_state.jumpToColor(0)
-          color_preset_id = 0
-          Colors.user2 = [i for i in msg[mkey]]
+          chosen_color = 0
+          animation_state.state['user2'] = [i / 255.0 for i in msg[mkey]]
         else:
           if mkey in geom_preset[chosen_geom]:
             geom_preset[chosen_geom][mkey] = msg[mkey]
             animation_state.jumpToGeometry(chosen_geom)
           if mkey in color_preset[chosen_color]:
-            geom_preset[chosen_color][mkey] = msg[mkey]
+            color_preset[chosen_color][mkey] = msg[mkey]
             animation_state.jumpToColor(chosen_color)
       nextTime = time.time() + 5.0
     #clear it if nothing has consumed previous input to queue
@@ -119,18 +128,13 @@ while DISPLAY.loop_running():
     DISPLAY.destroy()
     p.terminate()
     break
-  
-  elif theKey == 32: # space
-    #pi3d.screenshot("screenshots/" + str(animation_state.frameCount)+".png")
-    #try to debug occasional cube disappearance
-    s = animation_state.state[1]
-    print("scale={:4.2f} spin_type={:4.2f} speed={:4.2f}".format(s[0][1] % 5, s[0][2] % 6, s[0][3] % 7))
-    print("shader={:4.2f} dotscale={:4.2f} petal={:4.2f} power={:4.2f} cols={:4.2f}".format(s[1][0] % 5, s[1][1], s[1][4] % 8, s[1][5] % 11, s[2][0]))
-  
+    
   elif theKey >= 48 and theKey <= 57:
     theKey -= 48
     if theKey < 5:
       animation_state.jumpToGeometry(theKey)
+      chosen_geom = theKey
     else:
       animation_state.jumpToColor(theKey)
+      chosen_color = theKey
 
