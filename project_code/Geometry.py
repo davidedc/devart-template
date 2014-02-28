@@ -89,26 +89,26 @@ class Geometry(object):
     # goes from 0 to 5, only the first four do something
     # swap, shades, random, flash
     # TODO music related function rather than frameCount % 8
-    fx1 = ani_state.state[state_part + 'fx1'] % 2
-    fx2 = ani_state.state[state_part + 'fx2'] % 2
-    fx3 = ani_state.state[state_part + 'fx3'] % 2
-    fx4 = ani_state.state[state_part + 'fx4'] % 2
-    if ani_state.frameCount % 8 == 0:
-      if fx1:
-        col1,col2 = col2,col1
-      if fx2:
-        col1 = [i * 1.2 for i in col1]
-        col2 = [i / 2.0 for i in col2]
-      if fx3:
-        col1 = [i * uniform(0.0,0.7) for i in col1]
-        col2 = [i * uniform(0.0,0.7) for i in col2]
-      if fx4:
-        col1 =  [i * 2.0 for i in col1]
-        col2 =  [i * 2.0 for i in col2]
-    if ani_state.frameCount % 8 == 4:
-      if fx2:
-        col1 = [i / 2.0 for i in col1]
-        col2 = [i * 1.2 for i in col2]
+    swap = ani_state.state[state_part + 'fx1'] % 2
+    shde = ani_state.state[state_part + 'fx2'] % 2
+    rndm = ani_state.state[state_part + 'fx3'] % 2
+    flsh = ani_state.state[state_part + 'fx4'] % 2
+    fc = ani_state.frameCount % 8
+    if swap and fc == 0:
+      col1,col2 = col2,col1
+    if shde and fc == 2:
+      if uniform(0, 1) > 0.5:
+        col1 = [0.5 + 0.5 * i for i in col1]
+        col2 = [1.0 - i for i in col2]
+      else:
+        col1 = [1.0 - i for i in col1]
+        col2 = [1.0 - i for i in col2]
+    if rndm and fc == 4:
+      col1 = [uniform(0, 1) for i in col1]
+      col2 = [uniform(0, 1) for i in col2]
+    if flsh and fc == 6:
+      col1 =  [0.8 + 0.2 * i for i in col1]
+      col2 =  [0.8 + 0.2 * i for i in col2]
 
     geometry.set_custom_data(48, col1)
     geometry.set_custom_data(51, col2)

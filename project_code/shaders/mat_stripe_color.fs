@@ -16,7 +16,10 @@ void main(void) {
   vec3 rgbf =  unif[17];
 
   float stripeCount =  unif[18][0];
-  float f = fract((uv.x + uv.y) * stripeCount * 0.5);
+  float wave1 = unif[18][1];
+  float wave2 = unif[18][2];
+  float f = fract((uv.x + uv.y) * stripeCount * 0.5 + 0.1 * wave1 * sin(stripeCount * 4.0 * uv.x * wave2));
+  //float f = fract((uv.x + uv.y) * stripeCount * 0.5);
   f = step(0.5, f);
 
   gl_FragColor = vec4(mix(rgbf, rgbi, f), 1.0);

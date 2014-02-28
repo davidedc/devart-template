@@ -8,8 +8,8 @@
   'geom_jump':0, 'colr_jump':0, 'user1':[0.3, 0.3, 0.3], 'user2':[0.6, 0.6, 0.6]}"""
 ############### geometery 
 # 1=>preset[0] 2=>preset[1] etc
-geom_preset = [   {'b_scale':1, 'b_spin':0, 'b_speed':0, 'b_shader':0, 'b_mult':9, 'b_param1':2, 'b_param2':2,
-                  'f_scale':0, 'f_spin':4, 'f_speed':5, 'f_shader':1, 'f_mult':63, 'f_param1':2, 'f_param2':3},
+geom_preset = [   {'b_scale':1, 'b_spin':0, 'b_speed':0, 'b_shader':2, 'b_mult':9, 'b_param1':2, 'b_param2':2,
+                  'f_scale':0, 'f_spin':4, 'f_speed':5, 'f_shader':2, 'f_mult':63, 'f_param1':0, 'f_param2':3},
                   {'b_scale':1, 'b_spin':0, 'b_speed':6, 'b_shader':1, 'b_mult':6, 'b_param1':2, 'b_param2':2,
                   'f_scale':0, 'f_spin':4, 'f_speed':5, 'f_shader':1, 'f_mult':6, 'f_param1':2, 'f_param2':4},
                   {'b_scale':1, 'b_spin':0, 'b_speed':5, 'b_shader':1, 'b_mult':6, 'b_param1':0, 'b_param2':4,

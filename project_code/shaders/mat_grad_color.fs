@@ -15,7 +15,10 @@ void main(void) {
   vec3 rgbi =  unif[16];
   vec3 rgbf =  unif[17];
 
-  float f = smoothstep(0.0,1.0,uv.y);
+  float wave0 = unif[18][0];
+  float wave1 = unif[18][1];
+  float wave2 = unif[18][2];
+  float f = smoothstep(wave1 * sin(wave0 * wave2 * uv.x), 1.0, uv.y);
 
   gl_FragColor = vec4(mix(rgbf, rgbi, f), 1.0);
   if (gl_FragColor.r < 0.0 || gl_FragColor.g < 0.0 || gl_FragColor.b < 0.0) discard;

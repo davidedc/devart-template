@@ -53,6 +53,7 @@
             elmnt = document.getElementById(key)
             if (elmnt) {
               elmnt.value = myObject[key];
+              document.getElementById('val' + key).value = myObject[key];
             }
           }
       }
@@ -90,9 +91,9 @@
   </head>
   <body onload="init()">
     <div class="background">
-      <input type="range" id="f_scale" class="controls" value="50" min="0" max="100" maxlength="3" onmouseup="slider('f_scale')"><span id="valf_scale">0</span><br />
-      <input type="range" id="f_spin" class="controls" value="50" min="0" max="100" maxlength="3" onmouseup="slider('f_spin')"><span id="valf_spin">0</span><br />
-      <input type="range" id="f_speed" class="controls" value="50" min="0" max="100" maxlength="3" onmouseup="slider('f_speed')"><span id="valf_speed">0</span>
+      <input type="range" id="f_scale" class="controls" value="0" min="0" max="20" onmouseup="slider('f_scale')"><span id="valf_scale">0</span><br />
+      <input type="range" id="f_spin" class="controls" value="0" min="0" max="5" onmouseup="slider('f_spin')"><span id="valf_spin">0</span><br />
+      <input type="range" id="f_speed" class="controls" value="0" min="0" max="20" onmouseup="slider('f_speed')"><span id="valf_speed">0</span>
       <!-- etc etc -->
     </div>
   </body>
