@@ -1,6 +1,8 @@
 <html>
   <head>
+    <!--
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"> 
+    -->
     <script type="text/javascript">
       function init() {
         user = {'1':{'h':0.25, 's':0, 'v':0.5}, '2':{'h':0.75, 's':0.5, 'v':0.5}};
@@ -18,12 +20,17 @@
           if (index.substring(0,4) == 'user') {
             var cnum = index.substring(4,5);
             var clet = index.substring(5,6);
-            user[cnum][clet] = val / 10;
-            var rgb = HSVtoRGB(user[cnum]['h'], user[cnum]['s'], user[cnum]['v']);
-            document.getElementById('bkg' + cnum).style.backgroundColor = "rgb(" +
-               rgb.r + ", " + rgb.g + "," + rgb.b + ")";
+            user[cnum][clet] = val / 19;
+            if (user[cnum]['h'] == 0 && user[cnum]['s'] == 0 && user[cnum]['v'] == 0) {
+              val = [-255, -255, -255];
+            }
+            else {
+              var rgb = HSVtoRGB(user[cnum]['h'], user[cnum]['s'], user[cnum]['v']);
+              document.getElementById('bkg' + cnum).style.backgroundColor = "rgb(" +
+                 rgb.r + ", " + rgb.g + "," + rgb.b + ")";
+              val = [rgb.r, rgb.g, rgb.b];
+            } 
             index = 'user' + cnum;
-            val = [rgb.r, rgb.g, rgb.b];
           }
           //XMLHttpRequest done here
           var msg = {};

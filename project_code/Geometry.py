@@ -79,8 +79,8 @@ class Geometry(object):
         )) % 2
         
     if ani_state.state['f_paltt'] == 0:
-      col1 = ani_state.state['user1']
-      col2 = ani_state.state['user2']
+      col1 = [i for i in ani_state.state['user1']]
+      col2 = [i for i in ani_state.state['user2']]
     else:
       paletteEntry =   PaletteTypes.paletteTable[
         (int(

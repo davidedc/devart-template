@@ -56,8 +56,8 @@ def hello():
         ['bkgb', [['b_inv',2], ['b_fx1',2], ['b_fx2',2], ['b_fx3',2], ['b_fx4',2]]],
         ['bkga', [['geom_jump',10]]],
         ['bkgb', [['colr_jump',10]]],
-        ['bkg1', [['user1h',10],['user1s',10],['user1v',10]]],
-        ['bkg2', [['user2h',10],['user2s',10],['user2v',10]]]
+        ['bkg1', [['user1h',20],['user1s',20],['user1v',20]]],
+        ['bkg2', [['user2h',20],['user2s',20],['user2v',20]]]
         ]} 
   return render_template('main.html', **templateData)
 
