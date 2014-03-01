@@ -107,7 +107,7 @@
         {% for i in range(f[1]) %}
           <input type="radio" name="{{ f[0] }}" id="{{ f[0] }}" value={{ i }} onclick="slider('{{ f[0] }}', {{ i }})">
         {% endfor %}
-        {% if f[1] > 2 %}<br />{% else %} : {% endif %}
+        {{ f[0] }}{% if f[1] > 2 %}<br />{% else %} : {% endif %}
       {% endfor %}
     </div>
     {% endfor %}
