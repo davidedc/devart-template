@@ -14,4 +14,4 @@ in. In descending order of size:
   - integrate mgp321 subprocess into the animation so music also feeds in
     some control.
 
-![First outline ideas](project_images/sketchy_sketch.jpg?raw=true "Outline sketch")
+![First outline ideas](https://raw.github.com/davidedc/devart-template/master/project_images/sketchy_sketch.jpg)

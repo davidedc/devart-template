@@ -13,7 +13,7 @@ Davide:
 
   - flashing/dimming/normal light (radio button)
 
-![Tablet layout](project_images/tablet_inputs.jpg?raw=true "Tablet layout sketch")
+![Tablet layout](https://raw.github.com/davidedc/devart-template/master/project_images/tablet_inputs.jpg)
 
-![Interface web page thoughts](project_images/tablet_thoughts.jpg?raw=true "Interface web page thoughts")
+![Interface web page thoughts](https://raw.github.com/davidedc/devart-template/master/project_images/tablet_thoughts.jpg)
 
