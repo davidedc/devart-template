@@ -3,13 +3,14 @@
 
 import random, time
 
-from Presets import geom_preset, color_preset
+from Presets import geom_preset, color_preset, fields
 
 class AnimationState(object):
   
   millis = int(round(time.time() * 1000))
   frameCount = 0
   millisDelta = 0
+  beatFrames = 8
   
   state = {'b_scale':0, 'b_spin':0, 'b_speed':0, 'b_shader':0, 'b_mult':0,
           'b_petals':0, 'b_param2':0, 'b_paltt':0, 'b_inv':0, 'b_fx1':0,
@@ -21,7 +22,11 @@ class AnimationState(object):
   def randomiseOne(self):
     key = random.choice(list(self.state.keys()))
     if not 'user' in key:
-      self.state[key] = random.randint(0, 147)
+      for f in fields:
+        for g in f[1]:
+          if key == g[0]:
+            self.state[key] = random.randint(0, g[1])
+            return
   
   # TODO music related function for animation effects
   def updateTimeAndFrameCount(self):

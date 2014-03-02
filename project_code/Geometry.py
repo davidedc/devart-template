@@ -24,6 +24,7 @@ class Geometry(object):
   def draw(self, ani_state):
     geometry = self.geometry # little shortcut
     fground = self.fground
+    beat = ani_state.beatFrames
     if fground:
       state_part = 'f_'
     else:
@@ -99,7 +100,7 @@ class Geometry(object):
     shde = ani_state.state[state_part + 'fx2'] % 2
     rndm = ani_state.state[state_part + 'fx3'] % 2
     flsh = ani_state.state[state_part + 'fx4'] % 2
-    fc = ani_state.frameCount % 8
+    fc = ani_state.frameCount % ani_state.beatFrames
     if swap and fc == 0:
       col1,col2 = col2,col1
     if shde and fc == 2:

@@ -3,12 +3,15 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 """ A very simple gradient-colored cube and a simple solid colored box """
 import demo
 import pi3d
-import threading
-import time
+import random, time, glob, json
+
+from subprocess import Popen, PIPE, STDOUT
+from multiprocessing import Process, Queue
+from flask import Flask, render_template, request
 
 from Background import Background
 from Colors import Colors
-from Presets import geom_preset, color_preset
+from Presets import geom_preset, color_preset, fields
 from AnimationState import AnimationState
 from SimpleCube import SimpleCube
 from ShaderTypes import ShaderTypes
@@ -30,18 +33,7 @@ background = Background(perspectiveCamera)
 
 animation_state = AnimationState()
 
-writeState = 0 # waiting / sliding in / blink-in / showing / blinkout / sliding out
-startSlideInMs = 0
-startBlinkInMS = 0
-startShowInMS = 0
-startBlinkOutMS = 0
-startSlideOutMS = 0
-
 #### server process and queue
-from multiprocessing import Process, Queue
-from flask import Flask, render_template, request
-import json
-
 app = Flask(__name__)
 queue_down = Queue()
 queue_up = Queue()
@@ -49,16 +41,7 @@ STATE = {}
 
 @app.route("/")
 def hello():
-  templateData = {'fields':[
-        ['bkga', [['f_scale',20], ['f_spin',6], ['f_speed',20], ['f_shader',5], ['f_mult',20], ['f_param1',20], ['f_param2',20]]],
-        ['bkgb', [['f_paltt',20], ['f_inv',2], ['f_fx1',2], ['f_fx2',2], ['f_fx3',2], ['f_fx4',2]]],
-        ['bkga', [['b_scale',20], ['b_spin',6], ['b_speed',20], ['b_shader',5], ['b_mult',20], ['b_param1',20], ['b_param2',20]]],
-        ['bkgb', [['b_inv',2], ['b_fx1',2], ['b_fx2',2], ['b_fx3',2], ['b_fx4',2]]],
-        ['bkga', [['geom_jump',10]]],
-        ['bkgb', [['colr_jump',10]]],
-        ['bkg1', [['user1h',20],['user1s',20],['user1v',20]]],
-        ['bkg2', [['user2h',20],['user2s',20],['user2v',20]]]
-        ]} 
+  templateData = {'fields': fields} 
   return render_template('main.html', **templateData)
 
 @app.route("/update/")
@@ -77,14 +60,50 @@ p = Process(target=start_server)
 p.daemon = True
 p.start()
 
+########### music ##########
+mFiles = glob.glob("music/*.mp3")
+random.shuffle(mFiles)
+nMusic = len(mFiles)
+iMusic = 0
+
+music = Popen(['mpg321', '-R', '-F', 'testPlayer'], stdout=PIPE, stdin=PIPE, stderr=STDOUT)
+music.stdin.write(b'LOAD ' + mFiles[iMusic] + b'\n')
+#############################
+
 nextTime = time.time()
 chosen_geom = 0
 chosen_color = 0
 
-while DISPLAY.loop_running():
+last_amp = 0
+last_frame = 0
+num_amp = 0
+av_amp = 30
 
+while DISPLAY.loop_running():
+  ####### music checking #######
+  for i in range(11): # should be a better way of stopping hiccups than this
+    l = music.stdout.readline()
+    if b'@P' in l:
+      iMusic = (iMusic + 1) % nMusic
+      music.stdin.write(b'LOAD ' + mFiles[iMusic] + b'\n')
+  if b'FFT' in l: #frequency analysis
+    val_str = l.split()
+    amp = sum([int(i) for i in val_str[-3:]])
+    av_amp = 0.95 * av_amp + 0.05 * amp
+    #print(amp, av_amp, last_amp)
+    if amp > av_amp and last_amp < av_amp:
+      num_amp += 1
+      if num_amp == 8: #8th beat, update timer
+        animation_state.beatFrames = int(round((animation_state.frameCount -
+                                                      last_frame) / 8.0))
+        last_frame = animation_state.frameCount
+        num_amp = 0
+      if time.time() > nextTime:
+        animation_state.randomiseOne()
+    last_amp = amp
+  ##############################
   animation_state.updateTimeAndFrameCount()
-  if (animation_state.frameCount % 10) == 0:
+  if (animation_state.frameCount % 5) == 0:
     #first check if anything has been sent from tablets and eat to last one
     msg = None
     while not queue_up.empty():
@@ -117,16 +136,11 @@ while DISPLAY.loop_running():
     while not queue_down.empty():
       queue_down.get()
     queue_down.put(animation_state.state)
-    if time.time() > nextTime:
-      animation_state.randomiseOne()
   box.draw(animation_state)
   background.draw(animation_state)
 
   theKey = mykeys.read()
   if theKey == 27: # esc
-    mykeys.close()
-    DISPLAY.destroy()
-    p.terminate()
     break
     
   elif theKey >= 48 and theKey <= 57:
@@ -137,4 +151,9 @@ while DISPLAY.loop_running():
     else:
       animation_state.jumpToColor(theKey)
       chosen_color = theKey
+
+mykeys.close()
+DISPLAY.destroy()
+p.terminate()
+music.stdin.write(b'QUIT\n')
 

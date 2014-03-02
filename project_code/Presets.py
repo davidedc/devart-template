@@ -51,3 +51,14 @@ color_preset = [{'b_paltt':0, 'b_inv':1, 'b_fx1':0, 'b_fx2':0, 'b_fx3':0, 'b_fx4
                 {'b_paltt':57, 'b_inv':7, 'b_fx1':0, 'b_fx2':0, 'b_fx3':0, 'b_fx4':0,
                 'f_paltt':42, 'f_inv':10, 'f_fx1':0, 'f_fx2':0, 'f_fx3':0, 'f_fx4':0}
               ]
+
+fields = [
+        ['bkga', [['f_scale',20], ['f_spin',6], ['f_speed',20], ['f_shader',5], ['f_mult',20], ['f_param1',20], ['f_param2',20]]],
+        ['bkgb', [['f_paltt',20], ['f_inv',2], ['f_fx1',2], ['f_fx2',2], ['f_fx3',2], ['f_fx4',2]]],
+        ['bkga', [['b_scale',20], ['b_spin',6], ['b_speed',20], ['b_shader',5], ['b_mult',20], ['b_param1',20], ['b_param2',20]]],
+        ['bkgb', [['b_inv',2], ['b_fx1',2], ['b_fx2',2], ['b_fx3',2], ['b_fx4',2]]],
+        ['bkga', [['geom_jump',10]]],
+        ['bkgb', [['colr_jump',10]]],
+        ['bkg1', [['user1h',20],['user1s',20],['user1v',20]]],
+        ['bkg2', [['user2h',20],['user2s',20],['user2v',20]]]
+      ]
