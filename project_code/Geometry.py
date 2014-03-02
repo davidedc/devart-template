@@ -24,7 +24,8 @@ class Geometry(object):
   def draw(self, ani_state):
     geometry = self.geometry # little shortcut
     fground = self.fground
-    beat = ani_state.beatFrames
+    beatf = ani_state.state['beatf']
+    light_level = ani_state.state['light']
     if fground:
       state_part = 'f_'
     else:
@@ -89,7 +90,11 @@ class Geometry(object):
           )) % len(PaletteTypes.paletteTable)]
       col1 = [i for i in paletteEntry[0]]
       col2 = [i for i in paletteEntry[1]]
-      
+    
+    ######## light levels ###############
+    col1 = [i * light_level for i in col1]
+    col2 = [i * light_level for i in col2]
+    
     if paletteInvert:
       col1,col2 = col2,col1
 
@@ -100,22 +105,22 @@ class Geometry(object):
     shde = ani_state.state[state_part + 'fx2'] % 2
     rndm = ani_state.state[state_part + 'fx3'] % 2
     flsh = ani_state.state[state_part + 'fx4'] % 2
-    fc = ani_state.frameCount % ani_state.beatFrames
+    fc = ani_state.frameCount % beatf
     if swap and fc == 0:
       col1,col2 = col2,col1
     if shde and fc == 2:
       if uniform(0, 1) > 0.5:
         col1 = [0.5 + 0.5 * i for i in col1]
-        col2 = [1.0 - i for i in col2]
+        col2 = [light_level - i for i in col2]
       else:
-        col1 = [1.0 - i for i in col1]
-        col2 = [1.0 - i for i in col2]
+        col1 = [light_level - i for i in col1]
+        col2 = [light_level - i for i in col2]
     if rndm and fc == 4:
-      col1 = [uniform(0, 1) for i in col1]
-      col2 = [uniform(0, 1) for i in col2]
+      col1 = [uniform(0, light_level) for i in col1]
+      col2 = [uniform(0, light_level) for i in col2]
     if flsh and fc == 6:
-      col1 =  [0.8 + 0.2 * i for i in col1]
-      col2 =  [0.8 + 0.2 * i for i in col2]
+      col1 =  [0.8 * light_level + 0.2 * i for i in col1]
+      col2 =  [0.8 * light_level + 0.2 * i for i in col2]
 
     geometry.set_custom_data(48, col1)
     geometry.set_custom_data(51, col2)

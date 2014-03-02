@@ -94,10 +94,11 @@ while DISPLAY.loop_running():
     if amp > av_amp and last_amp < av_amp:
       num_amp += 1
       if num_amp == 8: #8th beat, update timer
-        animation_state.beatFrames = int(round((animation_state.frameCount -
+        animation_state.state['beatf'] = int(round((animation_state.frameCount -
                                                       last_frame) / 8.0))
         last_frame = animation_state.frameCount
         num_amp = 0
+        animation_state.state['light'] = 0.25 + min(0.75, av_amp / 150.0)
       if time.time() > nextTime:
         animation_state.randomiseOne()
     last_amp = amp

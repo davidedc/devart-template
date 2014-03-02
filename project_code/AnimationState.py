@@ -10,14 +10,14 @@ class AnimationState(object):
   millis = int(round(time.time() * 1000))
   frameCount = 0
   millisDelta = 0
-  beatFrames = 8
   
   state = {'b_scale':0, 'b_spin':0, 'b_speed':0, 'b_shader':0, 'b_mult':0,
           'b_petals':0, 'b_param2':0, 'b_paltt':0, 'b_inv':0, 'b_fx1':0,
           'b_fx2':0, 'b_fx3':0, 'b_fx4':0,
           'f_scale':0, 'f_spin':0, 'f_speed':0, 'f_shader':0, 'f_mult':0,
           'f_petals':0, 'f_param2':0, 'f_paltt':0, 'f_inv':0, 'f_fx1':0,
-          'f_fx2':0, 'f_fx3':0, 'f_fx4':03, 'user1':[0.3, 0.3, 0.3], 'user2':[0.6, 0.6, 0.6]}
+          'f_fx2':0, 'f_fx3':0, 'f_fx4':03, 'user1':[0.3, 0.3, 0.3],
+          'user2':[0.6, 0.6, 0.6], 'light':0, 'beatf':8}
 
   def randomiseOne(self):
     key = random.choice(list(self.state.keys()))
