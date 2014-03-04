@@ -125,10 +125,10 @@ class Geometry(object):
     geometry.set_custom_data(48, col1)
     geometry.set_custom_data(51, col2)
 
-    shaderScale = int(ani_state.state[state_part + 'mult']) % 20.0
+    shaderScale = 1.0 + int(ani_state.state[state_part + 'mult']) % 20.0
     # with the dots shader, too few dots don't look super-cool, so adjust
     if shaderType == ShaderTypes.dots:
-      shaderScale = 10.0 + shaderScale
+      shaderScale = 5.0 + shaderScale
       
     i = int(ani_state.state[state_part + 'param1'])
     param1 = ShaderTypes.petalTable[i % len(ShaderTypes.petalTable)]

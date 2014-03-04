@@ -49,7 +49,7 @@ class PaletteTypes(object):
     [Colors.orange, Colors.white],
     [Colors.orange, Colors.black],
     [Colors.orange, Colors.user1],
-    [Colors.orange, Colors.user1],
+    [Colors.orange, Colors.user2],
     [Colors.violet, Colors.transparent],
 
     [Colors.violet, Colors.rubyRed],

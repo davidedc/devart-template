@@ -11,7 +11,7 @@ from flask import Flask, render_template, request
 
 from Background import Background
 from Colors import Colors
-from Presets import geom_preset, color_preset, fields
+from Presets import geom_preset, color_preset, fields, samples
 from AnimationState import AnimationState
 from SimpleCube import SimpleCube
 from ShaderTypes import ShaderTypes
@@ -61,13 +61,8 @@ p.daemon = True
 p.start()
 
 ########### music ##########
-mFiles = glob.glob("music/*.mp3")
-random.shuffle(mFiles)
-nMusic = len(mFiles)
-iMusic = 0
-
 music = Popen(['mpg321', '-R', '-F', 'testPlayer'], stdout=PIPE, stdin=PIPE, stderr=STDOUT)
-music.stdin.write(b'LOAD ' + mFiles[iMusic] + b'\n')
+music.stdin.write(b'LOAD music/' + animation_state.sample_progress() + b'\n')
 #############################
 
 nextTime = time.time()
@@ -78,19 +73,24 @@ last_amp = 0
 last_frame = 0
 num_amp = 0
 av_amp = 30
+activity = 0
 
 while DISPLAY.loop_running():
   ####### music checking #######
   for i in range(11): # should be a better way of stopping hiccups than this
     l = music.stdout.readline()
     if b'@P' in l:
-      iMusic = (iMusic + 1) % nMusic
-      music.stdin.write(b'LOAD ' + mFiles[iMusic] + b'\n')
+      if activity > 6.0:
+        animation_state.activity = 'high'
+      elif activity > 0.1:
+        animation_state.activity = 'medium'
+      else:
+        animation_state.activity = 'low'
+      music.stdin.write(b'LOAD music/' + animation_state.sample_progress() + b'\n')
   if b'FFT' in l: #frequency analysis
     val_str = l.split()
     amp = sum([int(i) for i in val_str[-3:]])
     av_amp = 0.95 * av_amp + 0.05 * amp
-    #print(amp, av_amp, last_amp)
     if amp > av_amp and last_amp < av_amp:
       num_amp += 1
       if num_amp == 8: #8th beat, update timer
@@ -99,8 +99,8 @@ while DISPLAY.loop_running():
         last_frame = animation_state.frameCount
         num_amp = 0
         animation_state.state['light'] = 0.25 + min(0.75, av_amp / 150.0)
-      if time.time() > nextTime:
-        animation_state.randomiseOne()
+        if time.time() > nextTime:
+          animation_state.beat_progress()
     last_amp = amp
   ##############################
   animation_state.updateTimeAndFrameCount()
@@ -133,6 +133,9 @@ while DISPLAY.loop_running():
             color_preset[chosen_color][mkey] = msg[mkey]
             animation_state.jumpToColor(chosen_color)
       nextTime = time.time() + 5.0
+      activity += 1.0
+      
+    activity *= 0.99
     #clear it if nothing has consumed previous input to queue
     while not queue_down.empty():
       queue_down.get()
