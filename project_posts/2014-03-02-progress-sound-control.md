@@ -1,7 +1,7 @@
 Some Solid Progress
 -------------------
 
-emails pasing back and forth. The user interface on tablet is taking shape.
+emails passing back and forth. The user interface on tablet is taking shape.
 
 Meanwhile the animation now integrates input from the flask web server
 and from fourier analysis of the sound being played. It all seems to run
