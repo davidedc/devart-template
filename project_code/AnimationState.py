@@ -12,11 +12,12 @@ class AnimationState(object):
     self.millisDelta = 0
     self.state = {'b_scale':0, 'b_spin':0, 'b_speed':0, 'b_shader':0, 'b_mult':0,
             'b_petals':0, 'b_param2':0, 'b_paltt':0, 'b_inv':0, 'b_fx1':0,
-            'b_fx2':0, 'b_fx3':0, 'b_fx4':0,
+            'b_fx2':0, 'b_fx3':0, 'b_fx4':0, 'b_rx':0, 'b_ry':0, 'b_rz':0,
             'f_scale':0, 'f_spin':0, 'f_speed':0, 'f_shader':0, 'f_mult':0,
             'f_petals':0, 'f_param2':0, 'f_paltt':0, 'f_inv':0, 'f_fx1':0,
-            'f_fx2':0, 'f_fx3':0, 'f_fx4':03, 'user1':[0.3, 0.3, 0.3],
-            'user2':[0.6, 0.6, 0.6], 'light':0, 'beatf':8}
+            'f_fx2':0, 'f_fx3':0, 'f_fx4':03, 'f_rx':0, 'f_ry':0, 'f_rz':0,
+            'user1':[0.3, 0.3, 0.3], 'user2':[0.6, 0.6, 0.6],
+            'light':0, 'beatf':8, 'dt':time.time()}
     self.last_activity = 'low'
     self.activity = 'low'
     self.sample_start = random.randint(0, 75)
@@ -43,6 +44,7 @@ class AnimationState(object):
     for key in self.base_state:
       slkey = key[2:]
       self.state[key] = sl[slkey][(self.base_state[key] + delta) % len(sl[slkey])]
+    self.state['dt'] = time.time() # for coordinating with slaves
 
   def sample_progress(self):
     if self.last_activity != self.activity:
@@ -54,8 +56,6 @@ class AnimationState(object):
     sl = samples[self.activity]
     return sl[(self.sample_start + self.sample_pattern.next_val()) % len(sl)]
     
-  
-  # TODO music related function for animation effects
   def updateTimeAndFrameCount(self):
     curTime = int(round(time.time() * 1000))
     self.millisDelta = int(curTime - self.millis)
@@ -72,10 +72,6 @@ class AnimationState(object):
     for i in color_preset[num]:
       self.state[i] = color_preset[num][i]
   
-  # you can also make a method to undo / redo
-  # you can make a method to mark one or two states and periodically
-  # go back to those
- 
 
 class PatternGenerator(object):
   def __init__(self):
