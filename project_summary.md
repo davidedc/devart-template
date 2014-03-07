@@ -31,6 +31,4 @@ function test() {
 
 ![Playful geometries](project_images/cover.jpg "Starting point")
 
-![Here is a video constructed from initial tests](http://www.youtube.com/watch?v=NLW30kXaIkA "youtube video")
-
 http://www.youtube.com/watch?v=NLW30kXaIkA
