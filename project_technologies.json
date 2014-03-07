@@ -2,7 +2,7 @@
     "technologies": {
         "languages": [
             "python",
-            "javascript",
+            "processing",
             "glsl"
         ],
         "platforms": [
@@ -10,7 +10,6 @@
             "android"
         ],
         "toolkits": [
-            "angularjs",
             "flask"
         ]
     },
