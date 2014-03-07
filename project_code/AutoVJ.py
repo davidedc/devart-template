@@ -2,8 +2,8 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
 """ Interactive Playful Geometries """
 
-#ASTER = True # master plays the music and runs the flask server
-MASTER = False 
+MASTER = True # master plays the music and runs the flask server
+#MASTER = False 
 
 import demo
 import pi3d
@@ -40,8 +40,10 @@ def slave_checker(ani_state, t_flag):
 counter = [None]*5
 counter[0] = 0
 
-#DISPLAY = pi3d.Display.create()
-DISPLAY = pi3d.Display.create(frames_per_second=20)
+if MASTER:
+  DISPLAY = pi3d.Display.create()
+else:
+  DISPLAY = pi3d.Display.create(frames_per_second=20)
 
 ShaderTypes()
 
@@ -96,11 +98,6 @@ else: ## not MASTER so SLAVE!
   t = Thread(target=slave_checker, args=(animation_state, t_flag))
   t.daemon = True
   t.start()
-  bf_mod = 8.0
-  dt_last = 2.0
-  i_dt = 0.0
-  p_factor, i_factor, d_factor = 0.3, 0.6, 0.1 #prop,int,deriv factors
-  next_check = 0
 
 nextTime = time.time()
 chosen_geom = 0
@@ -121,9 +118,9 @@ while DISPLAY.loop_running():
       This loop has to read all the FFTs churned out since last loop
       which will probably depend on the sample rate but generally means
       a readline() is needed for every 0.005s of frame time period, so for
-      15fps->13
-      20fps->10
-      30fps->7
+      15fps -> 13
+      20fps -> 10
+      30fps ->  7
       This step should always limit the fps rather than Display fps which
       should not be used
       """
@@ -152,39 +149,39 @@ while DISPLAY.loop_running():
             animation_state.beat_progress()
       last_amp = amp
     ##############################
-    if (animation_state.frameCount % 5) == 0:
-      ############ get input from tablets #########################
-      #first check if anything has been sent and eat up to last one
-      msg = None
-      while not queue_up.empty():
-        msg = queue_up.get()
-      if msg: #there was someting in the queue so process it
-        for mkey in msg:
-          if mkey == 'geom_jump':
-            animation_state.jumpToGeometry(msg[mkey])
-            chosen_geom = msg[mkey]
-          elif mkey == 'colr_jump':
-            animation_state.jumpToColor(msg[mkey])
-            chosen_color = msg[mkey]
-          elif mkey == 'user1':
-            animation_state.jumpToColor(0)
-            chosen_color = 0
-            animation_state.state['user1'] = [round(i / 255.0, 3) for i in msg[mkey]]
-          elif mkey == 'user2':
-            animation_state.jumpToColor(0)
-            chosen_color = 0
-            animation_state.state['user2'] = [round(i / 255.0, 3) for i in msg[mkey]]
-          else:
-            if mkey in geom_preset[chosen_geom]:
-              geom_preset[chosen_geom][mkey] = msg[mkey]
-              animation_state.jumpToGeometry(chosen_geom)
-            if mkey in color_preset[chosen_color]:
-              color_preset[chosen_color][mkey] = msg[mkey]
-              animation_state.jumpToColor(chosen_color)
-        nextTime = time.time() + 5.0
-        activity += 1.0
-        
-      activity *= 0.99
+    ############ get input from tablets #########################
+    #first check if anything has been sent and eat up to last one
+    msg = None
+    while not queue_up.empty():
+      msg = queue_up.get()
+    if msg: #there was someting in the queue so process it
+      for mkey in msg:
+        if mkey == 'geom_jump':
+          animation_state.jumpToGeometry(msg[mkey])
+          chosen_geom = msg[mkey]
+        elif mkey == 'colr_jump':
+          animation_state.jumpToColor(msg[mkey])
+          chosen_color = msg[mkey]
+        elif mkey == 'user1':
+          animation_state.jumpToColor(0)
+          chosen_color = 0
+          animation_state.state['user1'] = [round(i / 255.0, 3) for i in msg[mkey]]
+        elif mkey == 'user2':
+          animation_state.jumpToColor(0)
+          chosen_color = 0
+          animation_state.state['user2'] = [round(i / 255.0, 3) for i in msg[mkey]]
+        else:
+          if mkey in geom_preset[chosen_geom]:
+            geom_preset[chosen_geom][mkey] = msg[mkey]
+            animation_state.jumpToGeometry(chosen_geom)
+          if mkey in color_preset[chosen_color]:
+            color_preset[chosen_color][mkey] = msg[mkey]
+            animation_state.jumpToColor(chosen_color)
+      nextTime = time.time() + 5.0
+      activity += 1.0
+      
+    activity *= 0.999
+    if (animation_state.frameCount % 2) == 0:
       ################# send state to slaves and tablets ########
       #clear it if nothing has consumed previous input to queue
       while not queue_down.empty():
@@ -194,7 +191,7 @@ while DISPLAY.loop_running():
       queue_down.put(animation_state.state)
 
   else: ## not MASTER so SLAVE!
-    if (animation_state.frameCount % 9) == 0:
+    if (animation_state.frameCount % 3) == 0:
       t_flag[0] = -1
     if t_flag[0] == 1: #fresh info returned by thread
       background.geometry.rotateToX(animation_state.state['b_rot'][0])

@@ -28,8 +28,7 @@ function test() {
 [pi3d raspberry pi opengl es 2](https://github.com/tipam/pi3d "pi3d raspberry pi opengl es 2")
 
 ## Images & Videos
-NOTE: For additional images you can either use a relative link to an image on this repo or an absolute link to an externally hosted image.
-
-![Playful geometries](project_images/cover.jpg?raw=true "Starting point")
 
 ![Here is a video constructed from initial tests](http://www.youtube.com/watch?v=NLW30kXaIkA "youtube video")
+
+http://www.youtube.com/watch?v=NLW30kXaIkA
