@@ -21,12 +21,15 @@ from AnimationState import AnimationState
 from SimpleCube import SimpleCube
 from ShaderTypes import ShaderTypes
 
-def slave_checker(ani_state):
-  response = urllib2.urlopen('http://192.168.1.2/update/?msg={}')
-  html = response.read()
-  msg = json.loads(html)
-  for key in msg:
-    ani_state.state[key] = msg[key]
+def slave_checker(ani_state, t_flag):
+  while True:
+    if t_flag[0] == -1:
+      response = urllib2.urlopen('http://192.168.1.2/update/?msg={}')
+      html = response.read()
+      msg = json.loads(html)
+      for key in msg:
+        ani_state.state[key] = msg[key]
+      t_flag[0] = 1
     
 
 counter = [None]*5
@@ -80,7 +83,13 @@ if MASTER:
   #############################
 else: ## not MASTER so SLAVE!
   import urllib2
-  
+  t_flag = [0]
+  #use this for flagging completion, has to be [] to pass by ref. 3 states:
+  #-1 get state from MASTER, 1 fresh info returned, 0 with for next time
+  t = Thread(target=slave_checker, args=(animation_state, t_flag))
+  t.daemon = True
+  t.start()
+ 
 
 nextTime = time.time()
 chosen_geom = 0
@@ -139,7 +148,7 @@ while DISPLAY.loop_running():
       msg = None
       while not queue_up.empty():
         msg = queue_up.get()
-      if msg:
+      if msg: #there was someting in the queue so process it
         for mkey in msg:
           if mkey == 'geom_jump':
             animation_state.jumpToGeometry(msg[mkey])
@@ -170,20 +179,19 @@ while DISPLAY.loop_running():
       #clear it if nothing has consumed previous input to queue
       while not queue_down.empty():
         queue_down.get()
-      animation_state.state['b_rx'] = background.geometry.unif[3]
-      animation_state.state['b_ry'] = background.geometry.unif[4]
-      animation_state.state['b_rx'] = background.geometry.unif[5]
-      animation_state.state['f_rx'] = box.geometry.unif[3]
-      animation_state.state['f_ry'] = box.geometry.unif[4]
-      animation_state.state['f_rx'] = box.geometry.unif[5]
+      animation_state.state['b_rot'] = background.geometry.unif[3:6]
+      animation_state.state['f_rot'] = box.geometry.unif[3:6]
       queue_down.put(animation_state.state)
 
   else: ## not MASTER so SLAVE!
     bf8 = 8 * animation_state.state['beatf']
     if (animation_state.frameCount % bf8) == next_check:
-      t = Thread(target=slave_checker, args=(animation_state,))
-      t.start()
+      t_flag[0] = -1
+    if t_flag[0] == 1: #fresh info returned by thread
+      background.geometry.unif[3:6] = animation_state.state['b_rot']
+      box.geometry.unif[3:6] = animation_state.state['f_rot']
       next_check = (next_check + int(animation_state.state['dt'] / 0.06) - 1) % bf8
+      t_flag[0] = 0
 
   box.draw(animation_state)
   background.draw(animation_state)
