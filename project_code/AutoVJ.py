@@ -2,8 +2,8 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
 """ Interactive Playful Geometries """
 
-MASTER = True # master plays the music and runs the flask server
-#MASTER = False 
+#ASTER = True # master plays the music and runs the flask server
+MASTER = False 
 
 import demo
 import pi3d
@@ -40,8 +40,8 @@ def slave_checker(ani_state, t_flag):
 counter = [None]*5
 counter[0] = 0
 
-DISPLAY = pi3d.Display.create()
-#DISPLAY = pi3d.Display.create(frames_per_second=20)
+#DISPLAY = pi3d.Display.create()
+DISPLAY = pi3d.Display.create(frames_per_second=20)
 
 ShaderTypes()
 
