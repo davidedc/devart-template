@@ -2,7 +2,8 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
 """ Interactive Playful Geometries """
 
-MASTER = False # master plays the music and runs the flask server
+MASTER = True # master plays the music and runs the flask server
+#MASTER = False 
 
 import demo
 import pi3d
@@ -39,14 +40,15 @@ def slave_checker(ani_state, t_flag):
 counter = [None]*5
 counter[0] = 0
 
-DISPLAY = pi3d.Display.create(frames_per_second=20)
+DISPLAY = pi3d.Display.create()
+#DISPLAY = pi3d.Display.create(frames_per_second=20)
 
 ShaderTypes()
 
 mykeys = pi3d.Keyboard()
 
 perspectiveCamera = pi3d.Camera(is_3d=True)
-perspectiveCamera.rotateY(-65)
+#perspectiveCamera.rotateY(-65)
 
 box = SimpleCube(perspectiveCamera)
 background = Background(perspectiveCamera)
