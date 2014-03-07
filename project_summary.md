@@ -30,6 +30,6 @@ function test() {
 ## Images & Videos
 NOTE: For additional images you can either use a relative link to an image on this repo or an absolute link to an externally hosted image.
 
-![Playful geometries](project_images/cover.jpg?raw=true "Starting point")
+![Playful geometries](project_images/cover.jpg "Starting point")
 
 ![Here is a video constructed from initial tests](http://www.youtube.com/watch?v=NLW30kXaIkA "youtube video")
