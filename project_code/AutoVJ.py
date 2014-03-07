@@ -2,7 +2,7 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
 """ Interactive Playful Geometries """
 
-MASTER = True # master plays the music and runs the flask server
+MASTER = False # master plays the music and runs the flask server
 
 import demo
 import pi3d
@@ -24,12 +24,16 @@ from ShaderTypes import ShaderTypes
 def slave_checker(ani_state, t_flag):
   while True:
     if t_flag[0] == -1:
+      t_flag[0] = 0
       response = urllib2.urlopen('http://192.168.1.2/update/?msg={}')
       html = response.read()
       msg = json.loads(html)
       for key in msg:
+        k_chk = key[1:5]
+        if k_chk != '_rot' and key != 'dt' and ani_state.state[key] != msg[key]:
+          t_flag[0] = 1
         ani_state.state[key] = msg[key]
-      t_flag[0] = 1
+    time.sleep(0.1) #could cause delay if flag has changed to -1 but can't run flat out!
     
 
 counter = [None]*5
@@ -42,6 +46,7 @@ ShaderTypes()
 mykeys = pi3d.Keyboard()
 
 perspectiveCamera = pi3d.Camera(is_3d=True)
+perspectiveCamera.rotateY(-65)
 
 box = SimpleCube(perspectiveCamera)
 background = Background(perspectiveCamera)
@@ -89,7 +94,11 @@ else: ## not MASTER so SLAVE!
   t = Thread(target=slave_checker, args=(animation_state, t_flag))
   t.daemon = True
   t.start()
- 
+  bf_mod = 8.0
+  dt_last = 2.0
+  i_dt = 0.0
+  p_factor, i_factor, d_factor = 0.3, 0.6, 0.1 #prop,int,deriv factors
+  next_check = 0
 
 nextTime = time.time()
 chosen_geom = 0
@@ -100,7 +109,6 @@ last_frame = 0
 num_amp = 0
 av_amp = 30
 activity = 0
-next_check = 0
 
 while DISPLAY.loop_running():
   animation_state.updateTimeAndFrameCount()
@@ -184,13 +192,15 @@ while DISPLAY.loop_running():
       queue_down.put(animation_state.state)
 
   else: ## not MASTER so SLAVE!
-    bf8 = 8 * animation_state.state['beatf']
-    if (animation_state.frameCount % bf8) == next_check:
+    if (animation_state.frameCount % 9) == 0:
       t_flag[0] = -1
     if t_flag[0] == 1: #fresh info returned by thread
-      background.geometry.unif[3:6] = animation_state.state['b_rot']
-      box.geometry.unif[3:6] = animation_state.state['f_rot']
-      next_check = (next_check + int(animation_state.state['dt'] / 0.06) - 1) % bf8
+      background.geometry.rotateToX(animation_state.state['b_rot'][0])
+      background.geometry.rotateToY(animation_state.state['b_rot'][1])
+      background.geometry.rotateToZ(animation_state.state['b_rot'][2])
+      box.geometry.rotateToX(animation_state.state['f_rot'][0])
+      box.geometry.rotateToY(animation_state.state['f_rot'][1])
+      box.geometry.rotateToZ(animation_state.state['f_rot'][2])
       t_flag[0] = 0
 
   box.draw(animation_state)
