@@ -26,12 +26,13 @@ def slave_checker(ani_state, t_flag):
   while True:
     if t_flag[0] == -1:
       t_flag[0] = 0
-      response = urllib2.urlopen('http://192.168.1.2/update/?msg={}')
+      response = urllib2.urlopen('http://192.168.1.7/update/?msg={}')
+      """obviously this has to be set to the address of the server"""
       html = response.read()
       msg = json.loads(html)
       for key in msg:
         k_chk = key[1:5]
-        if k_chk != '_rot' and key != 'dt' and ani_state.state[key] != msg[key]:
+        if k_chk != '_rot' and ani_state.state[key] != msg[key]:
           t_flag[0] = 1
         ani_state.state[key] = msg[key]
     time.sleep(0.1) #could cause delay if flag has changed to -1 but can't run flat out!
@@ -63,6 +64,7 @@ if MASTER:
   queue_down = Queue()
   queue_up = Queue()
   STATE = {}
+  IPLIST = {}
 
   @app.route("/")
   def hello():
@@ -71,13 +73,19 @@ if MASTER:
 
   @app.route("/update/")
   def update():
-    global STATE
+    global STATE, IPLIST
     msg = request.args['msg']
+    this_ip = request.remote_addr
     queue_up.put(json.loads(msg))
     if not queue_down.empty():
       STATE = queue_down.get()
-    STATE['dt'] = time.time() - STATE['dt']
-    return json.dumps(STATE, separators=(',',':'))
+      for ip in IPLIST:
+        IPLIST[ip] = False
+    if not (this_ip  in IPLIST and IPLIST[this_ip] == True):
+      return json.dumps(STATE, separators=(',',':'))
+      IPLIST[this_ip] = True
+    else:
+      return '{}'
 
   def start_server():
     app.run(host='0.0.0.0', port=80, debug=False, use_reloader=False)
@@ -109,7 +117,9 @@ num_amp = 0
 av_amp = 30
 activity = 0
 
+
 while DISPLAY.loop_running():
+  refresh = False #only send new state info to server subprocess if changed
   animation_state.updateTimeAndFrameCount()
   if MASTER:
     ####### music checking #######
@@ -133,6 +143,7 @@ while DISPLAY.loop_running():
         else:
           animation_state.activity = 'low'
         music.stdin.write(b'LOAD music/' + animation_state.sample_progress() + b'\n')
+        refresh = True
     if b'FFT' in l: #frequency analysis
       val_str = l.split()
       amp = sum([int(i) for i in val_str[-3:]])
@@ -147,8 +158,9 @@ while DISPLAY.loop_running():
           animation_state.state['light'] = 0.25 + min(0.75, av_amp / 150.0)
           if time.time() > nextTime:
             animation_state.beat_progress()
+            refresh = True
       last_amp = amp
-    ##############################
+    #######-----------------------
     ############ get input from tablets #########################
     #first check if anything has been sent and eat up to last one
     msg = None
@@ -179,9 +191,10 @@ while DISPLAY.loop_running():
             animation_state.jumpToColor(chosen_color)
       nextTime = time.time() + 5.0
       activity += 1.0
-      
+      refresh = True
+    #######------------------------  
     activity *= 0.999
-    if (animation_state.frameCount % 2) == 0:
+    if refresh:
       ################# send state to slaves and tablets ########
       #clear it if nothing has consumed previous input to queue
       while not queue_down.empty():
@@ -189,9 +202,10 @@ while DISPLAY.loop_running():
       animation_state.state['b_rot'] = background.geometry.unif[3:6]
       animation_state.state['f_rot'] = box.geometry.unif[3:6]
       queue_down.put(animation_state.state)
+      #######----------------------
 
   else: ## not MASTER so SLAVE!
-    if (animation_state.frameCount % 3) == 0:
+    if (animation_state.frameCount % 9) == 0:
       t_flag[0] = -1
     if t_flag[0] == 1: #fresh info returned by thread
       background.geometry.rotateToX(animation_state.state['b_rot'][0])
