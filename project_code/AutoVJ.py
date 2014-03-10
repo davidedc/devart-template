@@ -17,7 +17,7 @@ from threading import Thread
 
 from Background import Background
 from Colors import Colors
-from Presets import geom_preset, color_preset, fields, samples
+from Presets import preset, fields, samples
 from AnimationState import AnimationState
 from SimpleShapes import SimpleCube, SimpleSphere, SimplePoints
 from ShaderTypes import ShaderTypes
@@ -111,8 +111,6 @@ else: ## not MASTER so SLAVE!
   t.start()
 
 nextTime = time.time()
-chosen_geom = 0
-chosen_color = 0
 
 last_amp = 0
 last_frame = 0
@@ -181,27 +179,16 @@ while DISPLAY.loop_running():
       msg = queue_up.get()
     if msg: #there was someting in the queue so process it
       for mkey in msg:
-        if mkey == 'geom_jump':
-          animation_state.jumpToGeometry(msg[mkey])
-          chosen_geom = msg[mkey]
-        elif mkey == 'colr_jump':
-          animation_state.jumpToColor(msg[mkey])
-          chosen_color = msg[mkey]
+        if mkey == 'preset_get':
+          animation_state.jumpToPreset(msg[mkey])
+        elif mkey == 'preset_set':
+          animation_state.setPreset(msg[mkey])
         elif mkey == 'user1':
-          animation_state.jumpToColor(0)
-          chosen_color = 0
           animation_state.state['user1'] = [round(i / 255.0, 3) for i in msg[mkey]]
         elif mkey == 'user2':
-          animation_state.jumpToColor(0)
-          chosen_color = 0
           animation_state.state['user2'] = [round(i / 255.0, 3) for i in msg[mkey]]
         else:
-          if mkey in geom_preset[chosen_geom]:
-            geom_preset[chosen_geom][mkey] = msg[mkey]
-            animation_state.jumpToGeometry(chosen_geom)
-          if mkey in color_preset[chosen_color]:
-            color_preset[chosen_color][mkey] = msg[mkey]
-            animation_state.jumpToColor(chosen_color)
+          animation_state.state[mkey] = msg[mkey]
       nextTime = time.time() + 5.0
       activity += 1.0
       refresh = True

@@ -3,7 +3,7 @@
 
 import random, time
 
-from Presets import geom_preset, color_preset, fields, themes, samples
+from Presets import preset, fields, themes, samples
 
 class AnimationState(object):
   def __init__(self):
@@ -23,8 +23,7 @@ class AnimationState(object):
     self.sample_start = random.randint(0, 75)
     self.base_state = {}
     self.set_base_state()
-    self.jumpToGeometry(num=0)
-    self.jumpToColor(num=0)
+    self.jumpToPreset(num=0)
     self.sample_pattern = PatternGenerator()
     self.beat_pattern = PatternGenerator()
     
@@ -61,15 +60,15 @@ class AnimationState(object):
     self.millis = curTime
     self.frameCount += 1
 
-  def jumpToGeometry(self, num=0):
-    num = num % len(geom_preset)
-    for i in geom_preset[num]:
-      self.state[i] = geom_preset[num][i]
+  def jumpToPreset(self, num=0):
+    num = num % len(preset)
+    for i in preset[num]:
+      self.state[i] = preset[num][i]
     
-  def jumpToColor(self, num=0):
-    num = num % len(color_preset)
-    for i in color_preset[num]:
-      self.state[i] = color_preset[num][i]
+  def setPreset(self, num=0):
+    num = num % len(preset)
+    for i in preset[num]:
+      preset[num][i] = self.state[i]
   
 
 class PatternGenerator(object):
