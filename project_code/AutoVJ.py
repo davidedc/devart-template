@@ -26,7 +26,7 @@ def slave_checker(ani_state, t_flag):
   while True:
     if t_flag[0] == -1:
       t_flag[0] = 0
-      response = urllib2.urlopen('http://192.168.1.7/update/?msg={}')
+      response = urllib2.urlopen('http://192.168.1.2/update/?msg={}')
       """obviously this has to be set to the address of the server"""
       html = response.read()
       msg = json.loads(html)
@@ -117,6 +117,7 @@ last_frame = 0
 num_amp = 0
 av_amp = 30
 activity = 0
+last_ftype = 'box'
 
 
 while DISPLAY.loop_running():
@@ -146,14 +147,16 @@ while DISPLAY.loop_running():
         else:
           animation_state.activity = 'l01'
         music.stdin.write(b'LOAD music/' + animation_state.sample_progress() + b'\n')
+        foreground = box
+        animation_state.state['f_type'] = 'box'
         if  animation_state.activity == 'l04': # do after state reset
           sp = animation_state.state['f_speed']
           if sp > 8 and sp < 13:
             foreground = points
+            animation_state.state['f_type'] = 'points'
           elif sp == 5 or sp == 18:
             foreground = sphere
-        else:
-          foreground = box
+            animation_state.state['f_type'] = 'sphere'
         refresh = True
     if b'FFT' in l: #frequency analysis
       val_str = l.split()
@@ -208,6 +211,15 @@ while DISPLAY.loop_running():
     if (animation_state.frameCount % 9) == 0:
       t_flag[0] = -1
     if t_flag[0] == 1: #fresh info returned by thread
+      this_ftype = animation_state.state['f_type']
+      if this_ftype != last_ftype:
+        if this_ftype == 'points':
+          foreground = points
+        elif this_ftype == 'sphere':
+          foreground = sphere
+        else:
+          foreground = box
+        last_ftype = this_ftype
       background.geometry.rotateToX(animation_state.state['b_rot'][0])
       background.geometry.rotateToY(animation_state.state['b_rot'][1])
       background.geometry.rotateToZ(animation_state.state['b_rot'][2])
