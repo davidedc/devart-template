@@ -19,7 +19,7 @@ from Background import Background
 from Colors import Colors
 from Presets import geom_preset, color_preset, fields, samples
 from AnimationState import AnimationState
-from SimpleCube import SimpleCube
+from SimpleShapes import SimpleCube, SimpleSphere, SimplePoints
 from ShaderTypes import ShaderTypes
 
 def slave_checker(ani_state, t_flag):
@@ -54,6 +54,9 @@ perspectiveCamera = pi3d.Camera(is_3d=True)
 #perspectiveCamera.rotateY(-65)
 
 box = SimpleCube(perspectiveCamera)
+points = SimplePoints(perspectiveCamera)
+sphere = SimpleSphere(perspectiveCamera)
+foreground = box
 background = Background(perspectiveCamera)
 
 animation_state = AnimationState()
@@ -82,8 +85,8 @@ if MASTER:
       for ip in IPLIST:
         IPLIST[ip] = False
     if not (this_ip  in IPLIST and IPLIST[this_ip] == True):
-      return json.dumps(STATE, separators=(',',':'))
       IPLIST[this_ip] = True
+      return json.dumps(STATE, separators=(',',':'))
     else:
       return '{}'
 
@@ -136,13 +139,23 @@ while DISPLAY.loop_running():
       """
       l = music.stdout.readline()
       if b'@P' in l:
-        if activity > 6.0:
-          animation_state.activity = 'high'
+        if activity > 10.0:
+          animation_state.activity = 'l04'
+        elif activity > 2.0:
+          animation_state.activity = 'l03'
         elif activity > 0.1:
-          animation_state.activity = 'medium'
+          animation_state.activity = 'l02'
         else:
-          animation_state.activity = 'low'
+          animation_state.activity = 'l01'
         music.stdin.write(b'LOAD music/' + animation_state.sample_progress() + b'\n')
+        if  animation_state.activity == 'l04': # do after state reset
+          sp = animation_state.state['f_speed']
+          if sp > 8 and sp < 13:
+            foreground = points
+          elif sp == 5 or sp == 18:
+            foreground = sphere
+        else:
+          foreground = box
         refresh = True
     if b'FFT' in l: #frequency analysis
       val_str = l.split()
@@ -193,14 +206,14 @@ while DISPLAY.loop_running():
       activity += 1.0
       refresh = True
     #######------------------------  
-    activity *= 0.999
+    activity *= 0.9998
     if refresh:
       ################# send state to slaves and tablets ########
       #clear it if nothing has consumed previous input to queue
       while not queue_down.empty():
         queue_down.get()
       animation_state.state['b_rot'] = background.geometry.unif[3:6]
-      animation_state.state['f_rot'] = box.geometry.unif[3:6]
+      animation_state.state['f_rot'] = foreground.geometry.unif[3:6]
       queue_down.put(animation_state.state)
       #######----------------------
 
@@ -211,12 +224,12 @@ while DISPLAY.loop_running():
       background.geometry.rotateToX(animation_state.state['b_rot'][0])
       background.geometry.rotateToY(animation_state.state['b_rot'][1])
       background.geometry.rotateToZ(animation_state.state['b_rot'][2])
-      box.geometry.rotateToX(animation_state.state['f_rot'][0])
-      box.geometry.rotateToY(animation_state.state['f_rot'][1])
-      box.geometry.rotateToZ(animation_state.state['f_rot'][2])
+      foreground.geometry.rotateToX(animation_state.state['f_rot'][0])
+      foreground.geometry.rotateToY(animation_state.state['f_rot'][1])
+      foreground.geometry.rotateToZ(animation_state.state['f_rot'][2])
       t_flag[0] = 0
 
-  box.draw(animation_state)
+  foreground.draw(animation_state)
   background.draw(animation_state)
 
   theKey = mykeys.read()

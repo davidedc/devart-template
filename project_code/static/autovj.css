@@ -1,0 +1,25 @@
+//<!-- or whatever -->
+.controls {
+    width:75%;
+    height:2%;
+    padding:0 5px;
+}
+.bkga {
+    width:100%;
+    background-color:rgb(200,200,200);
+}
+.bkgb {
+    width:100%;
+    background-color:rgb(240,240,240);
+}
+.bkg1 {
+    width:100%;
+}
+.bkg2 {
+    width:100%;
+}
+input[type="radio"] {
+  margin-right: 0;
+  margin-left: 0;
+}
+
