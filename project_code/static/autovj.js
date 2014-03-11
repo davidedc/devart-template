@@ -1,6 +1,7 @@
 function init() {
   myObject = {}; // use as field template for presets on client
   presets = {}; // presets done on client
+  DO_CLIENT_PRESETS = false;
   user = {'1':{'h':0.25, 's':0, 'v':0.5}, '2':{'h':0.75, 's':0.5, 'v':0.5}};
   var rgb = HSVtoRGB(user['1']['h'], user['1']['s'], user['1']['v']);
   document.getElementById('bkg1').style.backgroundColor = "rgb(" + 
@@ -28,24 +29,29 @@ function slider(index, val)
     } 
     index = 'user' + cnum;
   }
-  //if presets done on client do this
-  //if (index == 'preset_set') {
-  //  var preset = {};
-  //  for (var key in myObject) {
-  //    preset[key] = myObject[key];
-  //  }
-  //  presets[val] = preset;
-  //}
   var msg = {};
-  //if (index == 'preset_get' && val in presets) {
-  //  for (var key in presets[val]) {
-  //    msg[key] = presets[val][key];
-  //  }
-  //}
-  //else {
+  //if presets done on client do the following (change this
+  if (DO_CLIENT_PRESETS && index == 'preset_set') {
+    doAjax(index, msg);
+    var preset = {};
+    for (var key in myObject) {
+      preset[key] = myObject[key];
+    }
+    presets[val] = preset;
+  }
+  if (index == 'preset_get' && val in presets) {
+    for (var key in presets[val]) {
+      msg[key] = presets[val][key];
+    }
+  }
+  else {
     msg[index] = val;
-  //}
-  //XMLHttpRequest done here
+  }
+  doAjax(index, msg);
+}
+
+function doAjax(index, msg) {
+  //XMLHttpRequest done here so it can be called before saving preset on client.
   var jsonMsg = JSON.stringify(msg);
   xmlhttp = new XMLHttpRequest();
   xmlhttp.open("GET","/update/?msg=" + jsonMsg, false);
