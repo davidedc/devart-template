@@ -1,4 +1,6 @@
 function init() {
+  myObject = {}; // use as field template for presets on client
+  presets = {}; // presets done on client
   user = {'1':{'h':0.25, 's':0, 'v':0.5}, '2':{'h':0.75, 's':0.5, 'v':0.5}};
   var rgb = HSVtoRGB(user['1']['h'], user['1']['s'], user['1']['v']);
   document.getElementById('bkg1').style.backgroundColor = "rgb(" + 
@@ -10,40 +12,53 @@ function init() {
 
 function slider(index, val)
 {
-    //check if user colour, in which case have to convert hsv to rgb
-    if (index.substring(0,4) == 'user') {
-      var cnum = index.substring(4,5);
-      var clet = index.substring(5,6);
-      user[cnum][clet] = val / 19;
-      if (user[cnum]['h'] == 0 && user[cnum]['s'] == 0 && user[cnum]['v'] == 0) {
-        val = [-255, -255, -255];
-      }
-      else {
-        var rgb = HSVtoRGB(user[cnum]['h'], user[cnum]['s'], user[cnum]['v']);
-        document.getElementById('bkg' + cnum).style.backgroundColor = "rgb(" +
-           rgb.r + ", " + rgb.g + "," + rgb.b + ")";
-        val = [rgb.r, rgb.g, rgb.b];
-      } 
-      index = 'user' + cnum;
+  //check if user colour, in which case have to convert hsv to rgb
+  if (index.substring(0,4) == 'user') {
+    var cnum = index.substring(4,5);
+    var clet = index.substring(5,6);
+    user[cnum][clet] = val / 19;
+    if (user[cnum]['h'] == 0 && user[cnum]['s'] == 0 && user[cnum]['v'] == 0) {
+      val = [-255, -255, -255];
     }
-    //XMLHttpRequest done here
-    var msg = {};
+    else {
+      var rgb = HSVtoRGB(user[cnum]['h'], user[cnum]['s'], user[cnum]['v']);
+      document.getElementById('bkg' + cnum).style.backgroundColor = "rgb(" +
+         rgb.r + ", " + rgb.g + "," + rgb.b + ")";
+      val = [rgb.r, rgb.g, rgb.b];
+    } 
+    index = 'user' + cnum;
+  }
+  //if presets done on client do this
+  //if (index == 'preset_set') {
+  //  var preset = {};
+  //  for (var key in myObject) {
+  //    preset[key] = myObject[key];
+  //  }
+  //  presets[val] = preset;
+  //}
+  var msg = {};
+  //if (index == 'preset_get' && val in presets) {
+  //  for (var key in presets[val]) {
+  //    msg[key] = presets[val][key];
+  //  }
+  //}
+  //else {
     msg[index] = val;
-    var jsonMsg = JSON.stringify(msg);
-    xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET","/update/?msg=" + jsonMsg, false);
-    xmlhttp.send();
-    //use returned state info to update page
-    var myObject = JSON.parse(xmlhttp.responseText);
-    for (var key in myObject) {
-      elmnt = document.getElementsByName(key);
-      //if (elmnt) {
-        i = parseInt(myObject[key]);
-        if (i < elmnt.length && i > 0 && key != index) {
-          elmnt[i].checked = true;
-        }
-      //}
+  //}
+  //XMLHttpRequest done here
+  var jsonMsg = JSON.stringify(msg);
+  xmlhttp = new XMLHttpRequest();
+  xmlhttp.open("GET","/update/?msg=" + jsonMsg, false);
+  xmlhttp.send();
+  //use returned state info to update page
+  myObject = JSON.parse(xmlhttp.responseText);
+  for (var key in myObject) {
+    var elmnt = document.getElementsByName(key);
+    i = parseInt(myObject[key]);
+    if (i < elmnt.length && i >= 0 && key != index) {
+      elmnt[i].checked = true;
     }
+  }
 }
 
 //Convert HSV representation to RGB, may use this if colour mixing

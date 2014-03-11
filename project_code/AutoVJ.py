@@ -4,6 +4,8 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 MASTER = True # master plays the music and runs the flask server
 #MASTER = False 
+#MARGIN = 0
+MARGIN = 200 # for debugging make the screen small enough to see round!
 
 import demo
 import pi3d
@@ -42,9 +44,9 @@ counter = [None]*5
 counter[0] = 0
 
 if MASTER:
-  DISPLAY = pi3d.Display.create()
+  DISPLAY = pi3d.Display.create(x=MARGIN, y=MARGIN)
 else:
-  DISPLAY = pi3d.Display.create(frames_per_second=20)
+  DISPLAY = pi3d.Display.create(x=MARGIN, y=MARGIN, frames_per_second=20)
 
 ShaderTypes()
 
@@ -169,7 +171,7 @@ while DISPLAY.loop_running():
                                                         last_frame) / 8.0))
           last_frame = animation_state.frameCount
           num_amp = 0
-          animation_state.state['light'] = 0.25 + min(0.75, av_amp / 150.0)
+          animation_state.state['light'] = round(0.25 + min(0.75, av_amp / 150.0), 3)
           if time.time() > nextTime:
             animation_state.beat_progress()
             refresh = True
@@ -196,14 +198,14 @@ while DISPLAY.loop_running():
       activity += 1.0
       refresh = True
     #######------------------------  
-    activity *= 0.9998
+    activity *= 0.9998 # slow fade if no input
     if refresh:
       ################# send state to slaves and tablets ########
       #clear it if nothing has consumed previous input to queue
       while not queue_down.empty():
         queue_down.get()
-      animation_state.state['b_rot'] = background.geometry.unif[3:6]
-      animation_state.state['f_rot'] = foreground.geometry.unif[3:6]
+      animation_state.state['b_rot'] = [round(i, 1) for i in background.geometry.unif[3:6]]
+      animation_state.state['f_rot'] = [round(i, 1) for i in foreground.geometry.unif[3:6]]
       queue_down.put(animation_state.state)
       #######----------------------
 
@@ -234,15 +236,8 @@ while DISPLAY.loop_running():
   theKey = mykeys.read()
   if theKey == 27: # esc
     break
-    
   elif theKey >= 48 and theKey <= 57:
-    theKey -= 48
-    if theKey < 5:
-      animation_state.jumpToGeometry(theKey)
-      chosen_geom = theKey
-    else:
-      animation_state.jumpToColor(theKey)
-      chosen_color = theKey
+    animation_state.jumpToPreset(theKey - 48)
 
 mykeys.close()
 DISPLAY.destroy()
