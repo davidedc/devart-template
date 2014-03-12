@@ -14,8 +14,6 @@ something beyond the scope of a single expensive one.
 ## Link to Prototype
 Go to our github project page, link on the left.
 
-[Example Link](http://www.google.com "Example Link")
-
 ## Links to External Libraries
 [pi3d raspberry pi opengl es 2](https://github.com/tipam/pi3d "pi3d raspberry pi opengl es 2")
 
@@ -23,4 +21,4 @@ Go to our github project page, link on the left.
 
 ![Playful geometries](project_images/cover.jpg "Starting point")
 
-[You can get to a video of the latest prototype here](http://http://www.eldwick.org.uk/devart1.html)
+[You can get to a video of the latest prototype here](http://www.eldwick.org.uk/devart1.html)
