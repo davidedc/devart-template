@@ -12,18 +12,10 @@ Hopefully using a large number of networked cheap computers will produce
 something beyond the scope of a single expensive one.
 
 ## Link to Prototype
-NOTE: ... Make sure you have a stable version of your project running before
-linking it... watch this space
+Go to our github project page, link on the left.
 
 [Example Link](http://www.google.com "Example Link")
 
-## Example Code
-NOTE: Wrap your code blocks or any code citation by using ``` like the example below.
-```
-function test() {
-  console.log("Printing a test");
-}
-```
 ## Links to External Libraries
 [pi3d raspberry pi opengl es 2](https://github.com/tipam/pi3d "pi3d raspberry pi opengl es 2")
 
@@ -31,4 +23,4 @@ function test() {
 
 ![Playful geometries](project_images/cover.jpg "Starting point")
 
-http://www.youtube.com/watch?v=NLW30kXaIkA
+[You can get to a video of the latest prototype here](http://http://www.eldwick.org.uk/devart1.html)
