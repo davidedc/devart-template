@@ -34,11 +34,14 @@ Go to our github project page, link on the left.
 
 ## Links to External Libraries
 [pi3d raspberry pi opengl es 2](https://github.com/tipam/pi3d "pi3d raspberry pi opengl es 2")
+
 [pi3d documentation](http://pi3d.github.io/html/ReadMe.html)
+
 As well as pi3d we have used
-[Pillow python imaging library(https://pypi.python.org/pypi/Pillow/2.3.0)]
-[flask python web server(http://flask.pocoo.org)]
-[mpg321 mp3 sound file player(http://mpg321.sourceforge.net)]
+
+[Pillow: python imaging library](https://pypi.python.org/pypi/Pillow/2.3.0)
+[flask: python web server](http://flask.pocoo.org)
+[mpg321: mp3 sound file player](http://mpg321.sourceforge.net)
 
 ## Images & Videos
 
