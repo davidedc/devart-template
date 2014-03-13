@@ -4,7 +4,11 @@ SimpleThread thread1;
 String urlToFetch = "http://192.168.0.4:8000/";
 
 void setup() { 
-  size(200, 200); 
+  // resolution of the Tabtronics mini.
+  // will make it so there is some elasticity with the
+  // resolution for example if we want to use the Nexus 7 (800 x 1280)
+  // or the Nexus 10 (1600 x 2560)
+  size(768, 1024); 
 
   thread1 = new SimpleThread(5000,"I am alive", this);
 
