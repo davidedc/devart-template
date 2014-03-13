@@ -17,18 +17,23 @@ class GridMetrics {
 
   float cellSizeInPixels, gridOffsetXInPixels, gridOffsetYInPixels; 
   float actualHorizPadding, actualVerticalPadding;
+  float buttonSize; // when 1, the button touches the cell borders
 
   float pixelsPerCell = 0;
+  float buttonWidthInPixels;
+  float buttonMarginInPixels;
 
   GridMetrics (
       float screenWidth, float screenHeight,
       float gridWidthInCells, float gridHeightInCells,
-      float minimumHorizPaddingFromScreenEdgeInCells, float minimumVerticalPaddingFromScreenEdgeInCells
+      float minimumHorizPaddingFromScreenEdgeInCells, float minimumVerticalPaddingFromScreenEdgeInCells,
+      float buttonSize
       ) {  
     this.screenWidth = screenWidth; 
     this.screenHeight = screenHeight; 
     this.gridWidthInCells = gridWidthInCells; 
     this.gridHeightInCells = gridHeightInCells;
+    this.buttonSize = buttonSize;
     
     // traditional screen ratio.
     // If > 1 then it's a landscape screen, 1 if a square
@@ -70,6 +75,11 @@ class GridMetrics {
       actualHorizPadding = screenWidth - gridWidthInCells * pixelsPerCell;
       actualVerticalPadding = verticalPadding + minimumVerticalPaddingFromScreenEdgeInCells*2 * pixelsPerCell;
     }
+    
+    gridOffsetXInPixels = actualHorizPadding/2;
+    gridOffsetYInPixels = actualVerticalPadding/2;
+    buttonWidthInPixels = pixelsPerCell * buttonSize;
+    buttonMarginInPixels = (pixelsPerCell - (pixelsPerCell * buttonSize))/2;
 
     println("pixelsPerCell: " + pixelsPerCell);
     println("actualHorizPadding: " + actualHorizPadding);
@@ -77,36 +87,59 @@ class GridMetrics {
 
   } 
 
+  // returns the screen coordinates of the center
+  // of the xth,yth cell of the grid
+  float[] centerOfCellInPixels(float x, float y) {
+    float[] calculatedPoint = {
+          gridOffsetXInPixels + x*pixelsPerCell + pixelsPerCell/2,
+          gridOffsetYInPixels + y*pixelsPerCell + pixelsPerCell/2
+    };
+    return calculatedPoint;
+  }
+
   // draw the grid
   void drawGrid() {
 
     // draw the area of the grid
     rect(
-      actualHorizPadding/2,
-      actualVerticalPadding/2,
+      gridOffsetXInPixels,
+      gridOffsetYInPixels,
       pixelsPerCell * gridWidthInCells,
       pixelsPerCell * gridHeightInCells
       );
 
-      // draw the columns
+    // draw the columns
     for (int i = 0; i < gridWidthInCells; i++) {
       line(
-        actualHorizPadding/2 + i*pixelsPerCell,
-        actualVerticalPadding/2,
-        actualHorizPadding/2 + i*pixelsPerCell,
-        actualVerticalPadding/2 + gridHeightInCells * pixelsPerCell
+        gridOffsetXInPixels + i*pixelsPerCell,
+        gridOffsetYInPixels,
+        gridOffsetXInPixels + i*pixelsPerCell,
+        gridOffsetYInPixels + gridHeightInCells * pixelsPerCell
       );
     }
 
     // draw the rows
     for (int i = 0; i < gridHeightInCells; i++) {
       line(
-        actualHorizPadding/2,
-        actualVerticalPadding/2 + i*pixelsPerCell,
-        actualHorizPadding/2 + gridWidthInCells * pixelsPerCell,
-        actualVerticalPadding/2 + i*pixelsPerCell
+        gridOffsetXInPixels,
+        gridOffsetYInPixels + i*pixelsPerCell,
+        gridOffsetXInPixels + gridWidthInCells * pixelsPerCell,
+        gridOffsetYInPixels + i*pixelsPerCell
       );
+    }
+
+    // draw some buttons
+    for (int i = 0; i < gridWidthInCells; i++) {
+      for (int j = 0; j < gridHeightInCells; j++) {
+        float[] buttonCenterInPixels = centerOfCellInPixels(i,j);
+        ellipse(
+          buttonCenterInPixels[0],
+          buttonCenterInPixels[1],
+          buttonWidthInPixels,
+          buttonWidthInPixels
+        );
       }
+    }
 
   } 
 } 
