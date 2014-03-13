@@ -2,15 +2,29 @@
 
 SimpleThread thread1;
 String urlToFetch = "http://192.168.0.4:8000/";
+GridMetrics gm;
 
 void setup() { 
   // resolution of the Tabtronics mini.
   // will make it so there is some elasticity with the
   // resolution for example if we want to use the Nexus 7 (800 x 1280)
   // or the Nexus 10 (1600 x 2560)
-  size(768, 1024); 
+  
+  int theScreenWidth = 300;
+  int theScreenHeight = 600;
+  
+  size(theScreenWidth, theScreenHeight); 
 
   thread1 = new SimpleThread(5000,"I am alive", this);
+  
+  gm = new GridMetrics(
+    theScreenWidth,theScreenHeight,
+    10,20, // number of horizontal, vertical cells in the grid
+    // padding of the grid within the screen
+    // (so to stay a little off the edge of the screen if needed)
+    0.5, // minimum horiz padding (in cell units)
+    3 // minimum vertical padding (in cell units)
+  );
 
 }
 
@@ -18,6 +32,8 @@ String oldContent = "";
 
 void draw() {
 
+  gm.drawGrid();
+  
   // just draw the content of the string
   // once only, every time the content changes
   if (oldContent != thread1.page) {
