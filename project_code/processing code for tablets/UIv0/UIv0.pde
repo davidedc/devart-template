@@ -9,11 +9,14 @@ void setup() {
   // will make it so there is some elasticity with the
   // resolution for example if we want to use the Nexus 7 (800 x 1280)
   // or the Nexus 10 (1600 x 2560)
-  
+    
+  // in Android mode, the
+  // screen size needs to be known at compile time for
+  // some reason, so Processing forces you
+  // to put the actual numeric values in the call
   int theScreenWidth = 300;
   int theScreenHeight = 600;
-  
-  size(theScreenWidth, theScreenHeight); 
+  size(300, 600); 
 
   thread1 = new SimpleThread(5000,"I am alive", this);
   
@@ -26,6 +29,13 @@ void setup() {
     3, // minimum vertical padding (in cell units)
     0.6 // buttonSize - when 1 the button touches the cell borders
   );
+
+  PFont font;
+  // The font is located in the sketch's 
+  // "data" directory to load successfully
+  font = loadFont("SubatomicScreenCondensed-48.vlw");
+  textFont(font, 32);
+  text("Color combos", 10, 50);
 
 }
 
