@@ -14,15 +14,13 @@ void setup() {
   // screen size needs to be known at compile time for
   // some reason, so Processing forces you
   // to put the actual numeric values in the call
-  int theScreenWidth = 300;
-  int theScreenHeight = 600;
-  size(300, 600); 
+  size(768, 1024); 
 
   thread1 = new SimpleThread(5000,"I am alive", this);
   
   gm = new GridMetrics(
-    theScreenWidth,theScreenHeight,
-    10,20, // number of horizontal, vertical cells in the grid
+    width,height,
+    15,20.75, // number of horizontal, vertical cells in the grid
     // padding of the grid within the screen
     // (so to stay a little off the edge of the screen if needed)
     0.5, // minimum horiz padding (in cell units)
