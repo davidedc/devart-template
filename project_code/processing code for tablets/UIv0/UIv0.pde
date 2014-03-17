@@ -2,6 +2,7 @@
 
 SimpleThread thread1;
 String urlToFetch = "http://192.168.0.4:8000/";
+UIGrid uiGrid;
 GridMetrics gm;
 
 void setup() { 
@@ -27,6 +28,8 @@ void setup() {
     0.5, // minimum vertical padding (in cell units)
     0.6 // buttonSize - when 1 the button touches the cell borders
   );
+  
+  uiGrid = new UIGrid(gm);
 
   PFont font;
   // The font is located in the sketch's 
