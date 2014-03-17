@@ -30,6 +30,17 @@ void setup() {
   );
   
   uiGrid = new UIGrid(gm);
+  
+  println("creating Panel");
+  UIPanel a = new UIPanel(
+    1, //float xPositionInCells,
+    2, //float yPositionInCells,
+    3, //float widthInCells,
+    4, //float heightInCells,
+    color(255,0,0), // color backgroundColor,
+    uiGrid // UIPanel containingPanel
+  );
+  uiGrid.add(a);
 
   PFont font;
   // The font is located in the sketch's 
@@ -44,7 +55,7 @@ String oldContent = "";
 
 void draw() {
 
-  gm.drawGrid();
+  uiGrid.draw();
   
   // just draw the content of the string
   // once only, every time the content changes

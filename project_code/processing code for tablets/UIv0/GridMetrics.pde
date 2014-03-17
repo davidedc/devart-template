@@ -97,6 +97,27 @@ class GridMetrics {
     return calculatedPoint;
   }
 
+  // returns the screen coordinates of the top-left
+  // corner of the xth,yth cell of the grid
+  float[] topLeftOfCellInPixels(float x, float y) {
+    float[] calculatedPoint = {
+          gridOffsetXInPixels + x*pixelsPerCell,
+          gridOffsetYInPixels + y*pixelsPerCell
+    };
+    return calculatedPoint;
+  }
+
+  // returns the screen coordinates of the top-left
+  // corner of the xth,yth cell of the grid
+  float[] extensionInPixels(float x, float y) {
+    float[] calculatedPoint = {
+          x*pixelsPerCell,
+          y*pixelsPerCell
+    };
+    return calculatedPoint;
+  }
+
+
   // draw the grid
   void drawGrid() {
 
