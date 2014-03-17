@@ -42,6 +42,18 @@ void setup() {
   );
   uiGrid.add(a);
 
+  SimpleButton b = new SimpleButton(
+    1, //float xPositionInCells,
+    1, //float yPositionInCells,
+    1, //float widthInCells,
+    1, //float heightInCells,
+    color(0,0,255), // color backgroundColor,
+    a // UIPanel containingPanel
+  );
+  a.add(b);
+
+
+
   PFont font;
   // The font is located in the sketch's 
   // "data" directory to load successfully
