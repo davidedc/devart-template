@@ -36,6 +36,8 @@ class UIPanel extends UIElement {
       extensionInPixels[1]
     );
     popStyle();
+    super.draw();
+
     }
   } 
 
