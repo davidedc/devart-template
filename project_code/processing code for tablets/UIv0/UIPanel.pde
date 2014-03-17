@@ -10,15 +10,13 @@ class UIPanel extends UIElement {
   float yPositionInCells, 
   float widthInCells, 
   float heightInCells, 
-  color backgroundColor, 
-  UIElement containingElement
+  color backgroundColor
     ) {  
     super(
     xPositionInCells, 
     yPositionInCells, 
     widthInCells, 
-    heightInCells, 
-    containingElement
+    heightInCells
       );
     this.backgroundColor = backgroundColor;
     println("created panel");

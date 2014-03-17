@@ -32,25 +32,23 @@ void setup() {
   uiGrid = new UIGrid(gm);
   
   println("creating Panel");
-  UIPanel a = new UIPanel(
+  UIPanel uiPanel1 = new UIPanel(
     1, //float xPositionInCells,
     2, //float yPositionInCells,
     3, //float widthInCells,
     4, //float heightInCells,
-    color(255,0,0), // color backgroundColor,
-    uiGrid // UIPanel containingPanel
+    color(255,0,0) // color backgroundColor
   );
-  uiGrid.add(a);
+  uiGrid.add(uiPanel1);
 
-  SimpleButton b = new SimpleButton(
+  SimpleButton simpleButton1 = new SimpleButton(
     1, //float xPositionInCells,
     1, //float yPositionInCells,
     1, //float widthInCells,
     1, //float heightInCells,
-    color(0,0,255), // color backgroundColor,
-    a // UIPanel containingPanel
+    color(0,0,255) // color backgroundColor
   );
-  a.add(b);
+  uiPanel1.add(simpleButton1);
 
 
 

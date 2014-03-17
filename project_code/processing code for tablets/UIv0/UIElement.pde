@@ -11,24 +11,25 @@ class UIElement {
   float xPositionInCells, 
   float yPositionInCells, 
   float widthInCells, 
-  float heightInCells, 
-  UIElement containingElement
+  float heightInCells
     ) {  
     println("creating Element");
     this.xPositionInCells = xPositionInCells;
     this.yPositionInCells = yPositionInCells;
     this.widthInCells = widthInCells;
     this.heightInCells = heightInCells;
-    this.containingElement = containingElement;
-    if (containingElement != null) {
-      containingGrid = containingElement.containingGrid;
-      println("containingGrid:" + containingGrid);
-      topLeftCornerInPixels = containingGrid.gridMetrics.topLeftOfCellInPixels(xPositionInCells, yPositionInCells);
-      extensionInPixels = containingGrid.gridMetrics.extensionInPixels(widthInCells, heightInCells);
-    }
   }
 
   void add(UIElement uiElement) {
+    uiElement.containingElement = containingElement;
+      uiElement.containingGrid = containingGrid;
+      println("containingGrid:" + containingGrid);
+      uiElement.topLeftCornerInPixels = containingGrid.gridMetrics.topLeftOfCellInPixels(
+        uiElement.xPositionInCells + xPositionInCells,
+        uiElement.yPositionInCells + yPositionInCells
+        );
+      uiElement.extensionInPixels = containingGrid.gridMetrics.extensionInPixels(uiElement.widthInCells, uiElement.heightInCells);
+
     uiElements.add(uiElement);
   }
 

@@ -9,7 +9,7 @@ class UIGrid extends UIElement {
   UIGrid (
   GridMetrics gridMetrics
     ) {  
-    super(0,0,0,0,null);
+    super(0,0,0,0);
     this.gridMetrics = gridMetrics;
     containingElement = this;
     containingGrid = this;
