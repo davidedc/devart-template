@@ -1,10 +1,9 @@
 // A panel has a header and contains a number
 // of widgets. A Panel belongs to a UIGrid.
 
-class UIPanel {
+class UIPanel extends UIElement {
 
   UIGrid containingGrid;
-  float xPositionInCells, yPositionInCells, widthInCells, heightInCells;
   color backgroundColor;
 
   UIPanel (
@@ -14,10 +13,12 @@ class UIPanel {
     float heightInCells,
     color backgroundColor
     ) {  
-    this.xPositionInCells = xPositionInCells;
-    this.yPositionInCells = yPositionInCells;
-    this.widthInCells = widthInCells;
-    this.heightInCells = heightInCells;
+    super(
+     xPositionInCells,
+     yPositionInCells,
+     widthInCells,
+     heightInCells
+    );
     this.backgroundColor = backgroundColor;
 
     }
