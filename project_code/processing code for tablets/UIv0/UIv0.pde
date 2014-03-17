@@ -15,7 +15,7 @@ void setup() {
   // screen size needs to be known at compile time for
   // some reason, so Processing forces you
   // to put the actual numeric values in the call
-  size(768, 1024); 
+  size(768/2, 1024/2); 
 
   thread1 = new SimpleThread(5000,"I am alive", this);
   
