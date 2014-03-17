@@ -19,7 +19,8 @@ void setup() {
 
   thread1 = new SimpleThread(5000,"I am alive", this);
   
-  gm = new GridMetrics(
+  
+  uiGrid = new UIGrid(
     width,height,
     15,21, // number of horizontal, vertical cells in the grid
     // padding of the grid within the screen
@@ -28,8 +29,6 @@ void setup() {
     0.5, // minimum vertical padding (in cell units)
     0.6 // buttonSize - when 1 the button touches the cell borders
   );
-  
-  uiGrid = new UIGrid(gm);
   
   println("creating Panel");
   UIPanel uiPanel1 = new UIPanel(

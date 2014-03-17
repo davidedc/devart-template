@@ -7,10 +7,21 @@ class UIGrid extends UIElement {
   GridMetrics gridMetrics;
 
   UIGrid (
-  GridMetrics gridMetrics
-    ) {  
+      float screenWidth, float screenHeight,
+      float gridWidthInCells, float gridHeightInCells,
+      float minimumHorizPaddingFromScreenEdgeInCells, float minimumVerticalPaddingFromScreenEdgeInCells,
+      float buttonSize
+      ) {  
+
     super(0,0,0,0);
-    this.gridMetrics = gridMetrics;
+
+    gridMetrics = new GridMetrics (
+       screenWidth,  screenHeight,
+       gridWidthInCells,  gridHeightInCells,
+       minimumHorizPaddingFromScreenEdgeInCells,  minimumVerticalPaddingFromScreenEdgeInCells,
+       buttonSize
+    );
+
     containingElement = this;
     containingGrid = this;
     println("created grid: " + containingElement.toString());
