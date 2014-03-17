@@ -20,11 +20,11 @@ void setup() {
   
   gm = new GridMetrics(
     width,height,
-    15,20.75, // number of horizontal, vertical cells in the grid
+    15,21, // number of horizontal, vertical cells in the grid
     // padding of the grid within the screen
     // (so to stay a little off the edge of the screen if needed)
     0.5, // minimum horiz padding (in cell units)
-    3, // minimum vertical padding (in cell units)
+    0.5, // minimum vertical padding (in cell units)
     0.6 // buttonSize - when 1 the button touches the cell borders
   );
 
