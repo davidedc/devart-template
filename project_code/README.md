@@ -22,7 +22,4 @@ shader, the scale of the object, the rotation speed, the palette. Some
 extra effects kick-in randomly such as flashing, inverting the colors,
 and changing the orientation of the gradients.
 
-Status of code: the code was using for prototyping something else, so you'll
-see a lot of weird code in weird places doing nothing.
-
 http://www.youtube.com/watch?v=NLW30kXaIkA
