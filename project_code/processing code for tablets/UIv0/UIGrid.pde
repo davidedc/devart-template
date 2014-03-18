@@ -48,9 +48,13 @@ class UIGrid extends UIElement {
 
   void repaintDirty() {
     int uiElementsToBeRepaintedSize = uiElementsToBeRepainted.size();
+    
+    // unfortunately can't use a normal clear iterator
+    // because this list is going to change as we traverse it :-)
     for (int i = uiElementsToBeRepaintedSize-1; i >= 0; i--) {
       uiElementsToBeRepainted.get(i).repaintDirty();
     }
+
     // we can take off the repaint list only
     // what we just repainted.
     // we can't clear the entire list because in the
