@@ -71,7 +71,7 @@ void draw() {
   // once only, every time the content changes
   if (oldContent != thread1.page) {
     // just paint a little bit of string so it's faster
-    text(thread1.page.substring(0,50), 10, 10);
+    //text(thread1.page.substring(0,50), 10, 10);
     oldContent = thread1.page;
   }
 
@@ -91,4 +91,8 @@ void draw() {
 
 }
 
+void mouseClicked() {
+  int[] coordInCells = uiGrid.gridMetrics.subcellFromPixel(mouseX,mouseY);
+  println("hit at cell: " + coordInCells[0] + ", " + coordInCells[1] + " uiGrid.cellSubdivisions " + uiGrid.cellSubdivisions);
+}
 

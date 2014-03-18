@@ -117,6 +117,14 @@ class GridMetrics {
     return calculatedPoint;
   }
 
+  int[] subcellFromPixel(float x, float y) {
+    int[] calculatedPoint = {
+          floor((x - actualHorizPadding/2)/(pixelsPerCell/uiGrid.cellSubdivisions)),
+          floor((y - actualVerticalPadding/2)/(pixelsPerCell/uiGrid.cellSubdivisions))
+    };
+    return calculatedPoint;
+  }
+
 
   // draw the grid
   void drawGrid() {

@@ -6,6 +6,7 @@ class UIGrid extends UIElement {
 
   GridMetrics gridMetrics;
   TouchFinder touchFinder;
+  int cellSubdivisions;
 
   UIGrid (
       float screenWidth, float screenHeight,
@@ -16,6 +17,8 @@ class UIGrid extends UIElement {
       ) {  
 
     super(0,0,0,0);
+    
+    this.cellSubdivisions = cellSubdivisions;
 
     gridMetrics = new GridMetrics (
        screenWidth,  screenHeight,
