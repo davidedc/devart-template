@@ -6,7 +6,7 @@ UIGrid uiGrid;
 GridMetrics gm;
 
 void setup() { 
-  // resolution of the Tabtronics mini.
+  // resolution of the Tabtronics mini is 768 x 1024.
   // will make it so there is some elasticity with the
   // resolution for example if we want to use the Nexus 7 (800 x 1280)
   // or the Nexus 10 (1600 x 2560)
