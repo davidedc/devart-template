@@ -62,6 +62,31 @@ void setup() {
     uiPanel1
   );
 
+  RadioButtonsGroup radioButtonsGroup = new RadioButtonsGroup();
+
+  RadioButton radioButton1 = new RadioButton(
+    "radioButton1",
+    4, //float xPositionInCells,
+    2, //float yPositionInCells,
+    1, //float widthInCells,
+    1, //float heightInCells,
+    color(0,255,0), // color backgroundColor
+    radioButtonsGroup,
+    uiPanel1
+  );
+
+  RadioButton radioButton2 = new RadioButton(
+    "radioButton1",
+    5, //float xPositionInCells,
+    2, //float yPositionInCells,
+    1, //float widthInCells,
+    1, //float heightInCells,
+    color(0,255,0), // color backgroundColor
+    radioButtonsGroup,
+    uiPanel1
+  );
+  
+
 
 
   PFont font;
