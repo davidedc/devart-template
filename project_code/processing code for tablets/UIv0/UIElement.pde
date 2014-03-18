@@ -50,10 +50,10 @@ class UIElement {
 
   }
 
-  void draw() {
+  void repaintCompletely() {
     println("drawing UI Element");
     for (int i = uiElements.size()-1; i >= 0; i--) {
-      uiElements.get(i).draw();
+      uiElements.get(i).repaintCompletely();
     }
   }
 

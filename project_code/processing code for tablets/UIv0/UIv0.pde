@@ -71,7 +71,7 @@ void draw() {
     // only draw the whole UI once.
     // in the following frames we'll only
     // repaint the UI elements that requested to
-    uiGrid.draw();
+    uiGrid.repaintCompletely();
   }
   else {
     uiGrid.repaintDirty();

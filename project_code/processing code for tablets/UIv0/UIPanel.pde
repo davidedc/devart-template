@@ -26,7 +26,7 @@ class UIPanel extends UIElement {
 
 
 
-  void draw() {
+  void repaintCompletely() {
     println("drawing UI Panel");
 
     pushStyle();
@@ -38,7 +38,7 @@ class UIPanel extends UIElement {
       extensionInPixels[1]
     );
     popStyle();
-    super.draw();
+    super.repaintCompletely();
 
     }
   } 

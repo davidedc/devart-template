@@ -40,10 +40,10 @@ class UIGrid extends UIElement {
   //}
 
 
-  void draw() {
+  void repaintCompletely() {
     println("drawing the grid");
     gridMetrics.drawGrid();
-    super.draw();
+    super.repaintCompletely();
   }
 
   void repaintDirty() {

@@ -24,7 +24,7 @@ class SimpleButton extends UIElement {
 
 
 
-  void draw() {
+  void repaintCompletely() {
     println("drawing simple button");
 
     pushStyle();
@@ -43,12 +43,12 @@ class SimpleButton extends UIElement {
       extensionInPixels[1]
     );
     popStyle();
-    super.draw();
+    super.repaintCompletely();
 
    }
 
   void repaintDirty() {
-    draw();
+    repaintCompletely();
   }
 
    
