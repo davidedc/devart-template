@@ -86,6 +86,15 @@ void setup() {
     uiPanel1
   );
   
+  Slider slider1 = new Slider(
+    "radioButton1",
+    5, //float xPositionInCells,
+    5, //float yPositionInCells,
+    5, //float widthInCells,
+    1, //float heightInCells,
+    color(255,255,0), // color backgroundColor
+    uiPanel1
+  );
 
 
 
@@ -136,11 +145,21 @@ void draw() {
 
 }
 
-void mouseClicked() {
+void mousePressed() {
   UIElement touchedElement = uiGrid.touchedElementFinder.findElementAtPixel(mouseX,mouseY);
   if (touchedElement != null) {
     println("hit ui element: " + touchedElement.stringID);
     touchedElement.touched();
+  }
+}
+
+void mouseDragged() {
+  UIElement touchedElement = uiGrid.touchedElementFinder.findElementAtPixel(mouseX,mouseY);
+  if (touchedElement != null) {
+    println("hit ui element: " + touchedElement.stringID);
+    if (touchedElement instanceof RadioButton || touchedElement instanceof Slider) {
+      touchedElement.touched();
+    }
   }
 }
 
