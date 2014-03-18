@@ -6,6 +6,7 @@ class UIPanel extends UIElement {
   color backgroundColor;
 
   UIPanel (
+  String stringID,
   float xPositionInCells, 
   float yPositionInCells, 
   float widthInCells, 
@@ -13,6 +14,7 @@ class UIPanel extends UIElement {
   color backgroundColor
     ) {  
     super(
+    stringID,
     xPositionInCells, 
     yPositionInCells, 
     widthInCells, 

@@ -33,6 +33,7 @@ void setup() {
   
   println("creating Panel");
   UIPanel uiPanel1 = new UIPanel(
+    "uiPanel1",
     1, //float xPositionInCells,
     2, //float yPositionInCells,
     3, //float widthInCells,
@@ -42,6 +43,7 @@ void setup() {
   uiGrid.add(uiPanel1);
 
   SimpleButton simpleButton1 = new SimpleButton(
+    "simpleButton1",
     1, //float xPositionInCells,
     1, //float yPositionInCells,
     1, //float widthInCells,
@@ -94,5 +96,10 @@ void draw() {
 void mouseClicked() {
   int[] coordInCells = uiGrid.gridMetrics.subcellFromPixel(mouseX,mouseY);
   println("hit at cell: " + coordInCells[0] + ", " + coordInCells[1] + " uiGrid.cellSubdivisions " + uiGrid.cellSubdivisions);
+  
+  UIElement touchedElement = uiGrid.touchFinder.uiElementsMap[coordInCells[0]][coordInCells[1]];
+  if (touchedElement != null) {
+    println("hit ui element: " + touchedElement.stringID);
+  }
 }
 

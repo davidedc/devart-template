@@ -3,6 +3,7 @@ class SimpleButton extends UIElement {
   color backgroundColor;
 
   SimpleButton (
+  String stringID,
   float xPositionInCells, 
   float yPositionInCells, 
   float widthInCells, 
@@ -10,6 +11,7 @@ class SimpleButton extends UIElement {
   color backgroundColor
     ) {  
     super(
+    stringID,
     xPositionInCells, 
     yPositionInCells, 
     widthInCells, 

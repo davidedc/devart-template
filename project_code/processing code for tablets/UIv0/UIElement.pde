@@ -6,14 +6,17 @@ class UIElement {
   ArrayList<UIElement> uiElements = new ArrayList<UIElement>();
   float[] topLeftCornerInPixels;
   float[] extensionInPixels;
+  String stringID;
 
   UIElement (
+  String stringID,
   float xPositionInCells, 
   float yPositionInCells, 
   float widthInCells, 
   float heightInCells
     ) {  
-    println("creating Element");
+    println("creating Element: " + stringID);
+    this.stringID = stringID;
     this.xPositionInCells = xPositionInCells;
     this.yPositionInCells = yPositionInCells;
     this.widthInCells = widthInCells;
