@@ -97,6 +97,7 @@ void mouseClicked() {
   UIElement touchedElement = uiGrid.touchedElementFinder.findElementAtPixel(mouseX,mouseY);
   if (touchedElement != null) {
     println("hit ui element: " + touchedElement.stringID);
+    touchedElement.touched();
   }
 }
 

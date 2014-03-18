@@ -35,6 +35,21 @@ class SimpleButton extends UIElement {
     popStyle();
     super.draw();
 
-    }
+   }
+   
+   void touched(){
+    pushStyle();
+    fill(255);
+    rect(
+      topLeftCornerInPixels[0], 
+      topLeftCornerInPixels[1], 
+      extensionInPixels[0], 
+      extensionInPixels[1]
+    );
+    popStyle();
+    super.draw();
+     
+   }
+    
   } 
 

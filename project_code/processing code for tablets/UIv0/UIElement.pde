@@ -54,7 +54,11 @@ class UIElement {
     for (int i = uiElements.size()-1; i >= 0; i--) {
       uiElements.get(i).draw();
     }
+  }
+
+  void touched() {
 
   }
+
 } 
 
