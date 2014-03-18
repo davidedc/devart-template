@@ -5,12 +5,14 @@
 class UIGrid extends UIElement {
 
   GridMetrics gridMetrics;
+  TouchFinder touchFinder;
 
   UIGrid (
       float screenWidth, float screenHeight,
       float gridWidthInCells, float gridHeightInCells,
       float minimumHorizPaddingFromScreenEdgeInCells, float minimumVerticalPaddingFromScreenEdgeInCells,
-      float buttonSize
+      float buttonSize,
+      int cellSubdivisions
       ) {  
 
     super(0,0,0,0);
@@ -21,6 +23,8 @@ class UIGrid extends UIElement {
        minimumHorizPaddingFromScreenEdgeInCells,  minimumVerticalPaddingFromScreenEdgeInCells,
        buttonSize
     );
+    
+    touchFinder = new TouchFinder(gridMetrics, cellSubdivisions);
 
     containingElement = this;
     containingGrid = this;
@@ -28,6 +32,8 @@ class UIGrid extends UIElement {
 
   }
 
+  //void addToMap(UIElement uiElement) {
+  //}
 
 
   void draw() {

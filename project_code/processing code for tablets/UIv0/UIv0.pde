@@ -27,7 +27,8 @@ void setup() {
     // (so to stay a little off the edge of the screen if needed)
     0.5, // minimum horiz padding (in cell units)
     0.5, // minimum vertical padding (in cell units)
-    0.6 // buttonSize - when 1 the button touches the cell borders
+    0.6, // buttonSize - when 1 the button touches the cell borders
+    4 // grid elements aligh to 1/nth of a grid
   );
   
   println("creating Panel");

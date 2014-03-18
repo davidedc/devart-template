@@ -29,8 +29,22 @@ class UIElement {
         uiElement.yPositionInCells + yPositionInCells
         );
       uiElement.extensionInPixels = containingGrid.gridMetrics.extensionInPixels(uiElement.widthInCells, uiElement.heightInCells);
-
+     
+    addToMap(uiElement);
+      
     uiElements.add(uiElement);
+  }
+
+  void addToMap(UIElement uiElement) {
+      println("adding element to map");
+      uiElement.containingGrid.touchFinder.addUIElementToMap(
+        uiElement,
+        uiElement.xPositionInCells + xPositionInCells,
+        uiElement.yPositionInCells + yPositionInCells,
+        uiElement.widthInCells,
+        uiElement.heightInCells
+      );
+
   }
 
   void draw() {
