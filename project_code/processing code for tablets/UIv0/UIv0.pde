@@ -52,6 +52,16 @@ void setup() {
   );
   uiPanel1.add(simpleButton1);
 
+  ToggleButton toggleButton1 = new ToggleButton(
+    "toggleButton1",
+    2, //float xPositionInCells,
+    2, //float yPositionInCells,
+    2, //float widthInCells,
+    2, //float heightInCells,
+    color(0,0,255) // color backgroundColor
+  );
+  uiPanel1.add(toggleButton1);
+
 
 
   PFont font;
