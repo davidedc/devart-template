@@ -13,7 +13,8 @@ class UIElement {
   float xPositionInCells, 
   float yPositionInCells, 
   float widthInCells, 
-  float heightInCells
+  float heightInCells,
+  UIElement containerUIElement
     ) {  
     println("creating Element: " + stringID);
     this.stringID = stringID;
@@ -21,12 +22,17 @@ class UIElement {
     this.yPositionInCells = yPositionInCells;
     this.widthInCells = widthInCells;
     this.heightInCells = heightInCells;
+    // a UIGrid is not attached to anything so it
+    // has a null here, catering for that case.
+    if (containerUIElement != null){
+      containerUIElement.add(this);
+    }
   }
 
   void add(UIElement uiElement) {
     uiElement.containingElement = containingElement;
       uiElement.containingGrid = containingGrid;
-      println("containingGrid:" + containingGrid);
+      println(this.stringID + " adding "+ uiElement.stringID + " containingGrid:" + containingGrid);
       uiElement.topLeftCornerInPixels = containingGrid.gridMetrics.topLeftOfCellInPixels(
         uiElement.xPositionInCells + xPositionInCells,
         uiElement.yPositionInCells + yPositionInCells

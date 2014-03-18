@@ -38,9 +38,9 @@ void setup() {
     2, //float yPositionInCells,
     4, //float widthInCells,
     5, //float heightInCells,
-    color(255,0,0) // color backgroundColor
+    color(255,0,0), // color backgroundColor
+    uiGrid
   );
-  uiGrid.add(uiPanel1);
 
   SimpleButton simpleButton1 = new SimpleButton(
     "simpleButton1",
@@ -48,9 +48,9 @@ void setup() {
     1, //float yPositionInCells,
     1, //float widthInCells,
     1, //float heightInCells,
-    color(0,0,255) // color backgroundColor
+    color(0,0,255), // color backgroundColor
+    uiPanel1
   );
-  uiPanel1.add(simpleButton1);
 
   ToggleButton toggleButton1 = new ToggleButton(
     "toggleButton1",
@@ -58,9 +58,9 @@ void setup() {
     2, //float yPositionInCells,
     2, //float widthInCells,
     2, //float heightInCells,
-    color(0,0,255) // color backgroundColor
+    color(0,0,255), // color backgroundColor
+    uiPanel1
   );
-  uiPanel1.add(toggleButton1);
 
 
 

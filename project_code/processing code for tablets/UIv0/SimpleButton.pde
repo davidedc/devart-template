@@ -9,14 +9,16 @@ class SimpleButton extends UIElement {
   float yPositionInCells, 
   float widthInCells, 
   float heightInCells, 
-  color backgroundColor
+  color backgroundColor,
+  UIElement containerUIElement
     ) {  
     super(
     stringID,
     xPositionInCells, 
     yPositionInCells, 
     widthInCells, 
-    heightInCells
+    heightInCells,
+    containerUIElement
       );
     this.backgroundColor = backgroundColor;
     println("created SimpleButton");

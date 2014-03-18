@@ -8,7 +8,8 @@ class ToggleButton extends SimpleButton {
   float yPositionInCells, 
   float widthInCells, 
   float heightInCells, 
-  color backgroundColor
+  color backgroundColor,
+  UIElement containerUIElement
     ) {  
     super(
     stringID,
@@ -16,7 +17,8 @@ class ToggleButton extends SimpleButton {
     yPositionInCells, 
     widthInCells, 
     heightInCells,
-    backgroundColor
+    backgroundColor,
+    containerUIElement
       );
     println("created ToggleButton");
   }
