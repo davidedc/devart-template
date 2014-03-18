@@ -94,10 +94,7 @@ void draw() {
 }
 
 void mouseClicked() {
-  int[] coordInCells = uiGrid.gridMetrics.subcellFromPixel(mouseX,mouseY);
-  println("hit at subcell: " + coordInCells[0] + ", " + coordInCells[1] + " uiGrid.cellSubdivisions " + uiGrid.cellSubdivisions);
-  
-  UIElement touchedElement = uiGrid.touchedElementFinder.uiElementsMap[coordInCells[0]][coordInCells[1]];
+  UIElement touchedElement = uiGrid.touchedElementFinder.findElementAtPixel(mouseX,mouseY);
   if (touchedElement != null) {
     println("hit ui element: " + touchedElement.stringID);
   }
