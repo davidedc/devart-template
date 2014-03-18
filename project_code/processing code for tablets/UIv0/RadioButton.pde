@@ -1,6 +1,8 @@
 class RadioButton extends ToggleButton {
 
   RadioButtonsGroup radioButtonsGroup;
+  IntBox integerToBeChanged;
+  int valueToChangeTheIntegerTo;
 
   RadioButton (
   String stringID,
@@ -10,7 +12,9 @@ class RadioButton extends ToggleButton {
   float heightInCells, 
   color backgroundColor,
   RadioButtonsGroup radioButtonsGroup,
-  UIElement containerUIElement
+  UIElement containerUIElement,
+  IntBox integerToBeChanged,
+  int valueToChangeTheIntegerTo
     ) {  
     super(
     stringID,
@@ -22,6 +26,8 @@ class RadioButton extends ToggleButton {
     containerUIElement
       );
     this.radioButtonsGroup = radioButtonsGroup;
+    this.integerToBeChanged = integerToBeChanged;
+    this.valueToChangeTheIntegerTo = valueToChangeTheIntegerTo;
     radioButtonsGroup.addRadioButton(this);
     println("created RadioButton");
   }
@@ -30,6 +36,8 @@ class RadioButton extends ToggleButton {
    void touched(){
      if (!isOn) {
        super.touched();
+       integerToBeChanged.value = valueToChangeTheIntegerTo;
+       println("animation state foreground scale is now: " + animationState.foreground_scale.value);
        //isOn = true;
        radioButtonsGroup.toggleOffAllButtonsExceptThisOne(this);
      }

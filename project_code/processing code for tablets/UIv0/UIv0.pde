@@ -4,6 +4,7 @@ SimpleThread thread1;
 String urlToFetch = "http://192.168.0.4:8000/";
 UIGrid uiGrid;
 GridMetrics gm;
+AnimationState animationState;
 
 void setup() { 
   // resolution of the Tabtronics mini is 768 x 1024.
@@ -19,6 +20,9 @@ void setup() {
 
   thread1 = new SimpleThread(5000,"I am alive", this);
   
+  
+  animationState = new AnimationState();
+  animationState.initialise();
   
   uiGrid = new UIGrid(
     width,height,
@@ -72,7 +76,9 @@ void setup() {
     1, //float heightInCells,
     color(0,255,0), // color backgroundColor
     radioButtonsGroup,
-    uiPanel1
+    uiPanel1,
+    animationState.foreground_scale,
+    1
   );
 
   RadioButton radioButton2 = new RadioButton(
@@ -83,7 +89,9 @@ void setup() {
     1, //float heightInCells,
     color(0,255,0), // color backgroundColor
     radioButtonsGroup,
-    uiPanel1
+    uiPanel1,
+    animationState.foreground_scale,
+    2
   );
   
   Slider slider1 = new Slider(
