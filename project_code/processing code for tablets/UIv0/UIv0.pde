@@ -157,6 +157,8 @@ void mouseDragged() {
   UIElement touchedElement = uiGrid.touchedElementFinder.findElementAtPixel(mouseX,mouseY);
   if (touchedElement != null) {
     println("hit ui element: " + touchedElement.stringID);
+    // only radio buttons and sliders make some meaningful
+    // sense of the act of draggind mouse/finger.
     if (touchedElement instanceof RadioButton || touchedElement instanceof Slider) {
       touchedElement.touched();
     }
