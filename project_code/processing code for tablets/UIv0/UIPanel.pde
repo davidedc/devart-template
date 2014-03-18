@@ -27,6 +27,8 @@ class UIPanel extends UIElement {
 
 
   void draw() {
+    println("drawing UI Panel");
+
     pushStyle();
     fill(backgroundColor);
     rect(

@@ -67,7 +67,15 @@ String oldContent = "";
 
 void draw() {
 
-  uiGrid.draw();
+  if (frameCount == 1) {
+    // only draw the whole UI once.
+    // in the following frames we'll only
+    // repaint the UI elements that requested to
+    uiGrid.draw();
+  }
+  else {
+    uiGrid.repaintDirty();
+  }
   
   // just draw the content of the string
   // once only, every time the content changes

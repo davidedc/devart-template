@@ -7,6 +7,7 @@ class UIGrid extends UIElement {
   GridMetrics gridMetrics;
   TouchedElementFinder touchedElementFinder;
   int cellSubdivisions;
+  ArrayList<UIElement> uiElementsToBeRepainted = new ArrayList<UIElement>();
 
   UIGrid (
       float screenWidth, float screenHeight,
@@ -40,8 +41,32 @@ class UIGrid extends UIElement {
 
 
   void draw() {
+    println("drawing the grid");
     gridMetrics.drawGrid();
     super.draw();
   }
+
+  void repaintDirty() {
+    int uiElementsToBeRepaintedSize = uiElementsToBeRepainted.size();
+    for (int i = uiElementsToBeRepaintedSize-1; i >= 0; i--) {
+      uiElementsToBeRepainted.get(i).repaintDirty();
+    }
+    // we can take off the repaint list only
+    // what we just repainted.
+    // we can't clear the entire list because in the
+    // process of repaining an element might have
+    // queued itself again for repainting in the
+    // next frame...
+    // An example of this is when touching a button:
+    // the buttons needs to be repainted the next frame to
+    // show the highlight. During the paiting of the
+    // highlight, the buttons schedules itself for another
+    // repain in the next frame to paint the normal
+    // color again.
+    for (int i = uiElementsToBeRepaintedSize-1; i >= 0; i--) {
+      uiElementsToBeRepainted.remove(0);
+    }
+  }
+
 } 
 

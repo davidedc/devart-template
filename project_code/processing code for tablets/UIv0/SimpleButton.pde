@@ -25,10 +25,13 @@ class SimpleButton extends UIElement {
 
 
   void draw() {
+    println("drawing simple button");
+
     pushStyle();
     if (isFlashing){
       fill(255);
       isFlashing = false;
+      requiresRepaint();
     }
     else {
       fill(backgroundColor);
@@ -43,9 +46,15 @@ class SimpleButton extends UIElement {
     super.draw();
 
    }
+
+  void repaintDirty() {
+    draw();
+  }
+
    
    void touched(){
-     isFlashing = true;     
+     isFlashing = true;
+     requiresRepaint();   
    }
     
   } 
