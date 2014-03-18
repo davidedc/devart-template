@@ -5,7 +5,7 @@
 class UIGrid extends UIElement {
 
   GridMetrics gridMetrics;
-  TouchFinder touchFinder;
+  TouchedElementFinder touchedElementFinder;
   int cellSubdivisions;
 
   UIGrid (
@@ -27,7 +27,7 @@ class UIGrid extends UIElement {
        buttonSize
     );
     
-    touchFinder = new TouchFinder(gridMetrics, cellSubdivisions);
+    touchedElementFinder = new TouchedElementFinder(gridMetrics, cellSubdivisions);
 
     containingElement = this;
     containingGrid = this;

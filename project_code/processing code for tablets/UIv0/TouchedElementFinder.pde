@@ -1,10 +1,10 @@
-class TouchFinder {
+class TouchedElementFinder {
   
   UIElement[][] uiElementsMap;
   GridMetrics gridMetrics;
   int cellSubdivisions;
 
-  TouchFinder ( GridMetrics gridMetrics, int cellSubdivisions){
+  TouchedElementFinder ( GridMetrics gridMetrics, int cellSubdivisions){
     this.gridMetrics = gridMetrics;
     this.cellSubdivisions = cellSubdivisions;
     uiElementsMap = new UIElement[floor(gridMetrics.gridWidthInCells * cellSubdivisions)][floor(gridMetrics.gridHeightInCells * cellSubdivisions)];

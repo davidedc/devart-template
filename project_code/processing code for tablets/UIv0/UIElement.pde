@@ -40,7 +40,7 @@ class UIElement {
 
   void addToMap(UIElement uiElement) {
       println("adding element to map");
-      uiElement.containingGrid.touchFinder.addUIElementToMap(
+      uiElement.containingGrid.touchedElementFinder.addUIElementToMap(
         uiElement,
         uiElement.xPositionInCells + xPositionInCells,
         uiElement.yPositionInCells + yPositionInCells,
