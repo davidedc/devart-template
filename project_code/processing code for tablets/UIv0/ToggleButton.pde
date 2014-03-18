@@ -51,6 +51,19 @@ class ToggleButton extends SimpleButton {
      super.touched();
      isOn = !isOn;
    }
+
+   void toggle(){
+     touched();
+   }
+
+   void toggleOn(){
+     if (!isOn) touched();
+   }
+
+   void toggleOff(){
+     if (isOn) touched();
+   }
+
     
   } 
 
