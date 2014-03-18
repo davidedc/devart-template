@@ -18,7 +18,7 @@ void setup() {
   // to put the actual numeric values in the call
   size(768/2, 1024/2); 
 
-  thread1 = new SimpleThread(5000,"I am alive", this);
+  thread1 = new SimpleThread(1000,"I am alive", this);
   
   
   animationState = new AnimationState();

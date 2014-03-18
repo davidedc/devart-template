@@ -20,6 +20,8 @@ public class SimpleThread extends Thread {
     private HttpURLConnection urlConnection;
     private UIv0 parent;
     
+    UIv0.AnimationState previousAnimationState;
+    
     // Constructor, create the thread
     // It is not running by default
     public SimpleThread (int w, String s, UIv0 parent){
@@ -45,21 +47,38 @@ public class SimpleThread extends Thread {
     // We must implement run, this gets triggered by start()
     public void run ()
     {
-        while (running && count < 10){
+        while (running /* && count < 10 */){
             System.out.println(id + ": " + count);
             count++;
 
+             /*
              try {
-            URL url = new URL(parent.urlToFetch);
-            urlConnection = (HttpURLConnection) url.openConnection();
+               URL url = new URL(parent.urlToFetch);
+               urlConnection = (HttpURLConnection) url.openConnection();
                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
                page = readStream(in);
              } catch (Exception e) {
                page = e.toString();
                urlConnection.disconnect();
              }
+             */
 
-
+if (previousAnimationState == null) {
+  previousAnimationState = parent.animationState.clone();
+  System.out.println(">>>> no recollection of previous state, creating one"); 
+}
+else {
+  UIv0.AnimationState delta = parent.animationState.deltaOfState(previousAnimationState);
+  String JSONOfDelta = delta.toJSON();
+  previousAnimationState = parent.animationState.clone();
+  if (JSONOfDelta != "") {
+    System.out.println(">>>> JSON of delta: " + JSONOfDelta); 
+  }
+  else {
+    System.out.println(">>>> no changes to animation state"); 
+  }
+  
+}
 
             // Ok, let's wait for however long we should wait
             try {
