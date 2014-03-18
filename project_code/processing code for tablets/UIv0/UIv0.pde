@@ -36,8 +36,8 @@ void setup() {
     "uiPanel1",
     1, //float xPositionInCells,
     2, //float yPositionInCells,
-    3, //float widthInCells,
-    4, //float heightInCells,
+    4, //float widthInCells,
+    5, //float heightInCells,
     color(255,0,0) // color backgroundColor
   );
   uiGrid.add(uiPanel1);
