@@ -7,7 +7,7 @@
 ## Description
 The primary aim is to have fun. Fun making something and fun playing with
 the result. In terms of pushing boundaries we are setting out to make a
-device from a $25 Raspberry Pi computer that can compete with a VJ's mac.
+device from a $25 Raspberry Pi computer that can compete with far more expensive VJ-grade laptops.
 Hopefully using a large number of networked cheap computers will produce
 something beyond the scope of a single expensive one...
 
