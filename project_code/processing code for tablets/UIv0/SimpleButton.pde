@@ -1,6 +1,7 @@
 class SimpleButton extends UIElement {
 
   color backgroundColor;
+  boolean isFlashing = false;
 
   SimpleButton (
   String stringID,
@@ -25,7 +26,13 @@ class SimpleButton extends UIElement {
 
   void draw() {
     pushStyle();
-    fill(backgroundColor);
+    if (isFlashing){
+      fill(255);
+      isFlashing = false;
+    }
+    else {
+      fill(backgroundColor);
+    }
     rect(
       topLeftCornerInPixels[0], 
       topLeftCornerInPixels[1], 
@@ -38,17 +45,7 @@ class SimpleButton extends UIElement {
    }
    
    void touched(){
-    pushStyle();
-    fill(255);
-    rect(
-      topLeftCornerInPixels[0], 
-      topLeftCornerInPixels[1], 
-      extensionInPixels[0], 
-      extensionInPixels[1]
-    );
-    popStyle();
-    super.draw();
-     
+     isFlashing = true;     
    }
     
   } 
