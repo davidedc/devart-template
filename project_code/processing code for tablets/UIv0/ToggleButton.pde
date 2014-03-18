@@ -48,8 +48,7 @@ class ToggleButton extends SimpleButton {
 
    
    void touched(){
-     isFlashing = true;
-     requiresRepaint();
+     super.touched();
      isOn = !isOn;
    }
     
