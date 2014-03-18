@@ -60,6 +60,12 @@ class Slider extends UIElement {
    void touched(){
      cursorPosition = (mouseX - topLeftCornerInPixels[0])/extensionInPixels[0];
      println(stringID + " moved to: " + cursorPosition);
+     // in this case flashing the widget as
+     // the user drags mouse/finger on the
+     // slider
+     // looks weird. We probably want to flash
+     // when updated from outside touch but not
+     // here.
      //isFlashing = true;
      requiresRepaint();   
    }
