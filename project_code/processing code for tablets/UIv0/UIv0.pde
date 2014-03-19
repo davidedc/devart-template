@@ -45,8 +45,8 @@ void setup() {
     uiGrid
   );
 
-  UIPanel uiEffectsPanel = new UIPanel(
-    "effects panel",
+  UIPanel uiGeometryPanel = new UIPanel(
+    "geometry panel",
     0, //float xPositionInCells,
     3, //float yPositionInCells,
     15, //float widthInCells,
