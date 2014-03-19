@@ -26,7 +26,7 @@ void setup() {
   
   uiGrid = new UIGrid(
     width,height,
-    15,21, // number of horizontal, vertical cells in the grid
+    15,20.75, // number of horizontal, vertical cells in the grid
     // padding of the grid within the screen
     // (so to stay a little off the edge of the screen if needed)
     0.5, // minimum horiz padding (in cell units)
@@ -62,6 +62,16 @@ void setup() {
     15, //float widthInCells,
     8.75, //float heightInCells,
     color(255,0,255), // color backgroundColor
+    uiGrid
+  );
+
+  UIPanel uiEffectsPanel = new UIPanel(
+    "effects panel",
+    0, //float xPositionInCells,
+    16.75, //float yPositionInCells,
+    15, //float widthInCells,
+    4, //float heightInCells,
+    color(0,255,255), // color backgroundColor
     uiGrid
   );
 
