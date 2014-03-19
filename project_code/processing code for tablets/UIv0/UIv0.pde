@@ -2,9 +2,9 @@
 
 SimpleThread thread1;
 String urlToFetch = "http://192.168.0.12/update/?msg=";
-UIGrid uiGrid;
 AnimationState animationState;
 
+UIGrid uiGrid;
 void setup() { 
   // resolution of the Tabtronics mini is 768 x 1024.
   // will make it so there is some elasticity with the
