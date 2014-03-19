@@ -59,6 +59,14 @@ public class SimpleThread extends Thread {
   // the consolidated state from the server.
   public void run () {
     while (running /* && count < 10 */) {
+
+      // Ok, let's wait for however long we should wait
+      try {
+        sleep((long)(wait));
+      } 
+      catch (Exception e) {
+      }
+
       System.out.println(id + ": " + count);
       count++;
 
@@ -116,12 +124,6 @@ public class SimpleThread extends Thread {
       
 
 
-      // Ok, let's wait for however long we should wait
-      try {
-        sleep((long)(wait));
-      } 
-      catch (Exception e) {
-      }
     }
     System.out.println(id + " thread is done!");  // The thread is done when we get to the end of run()
   }
