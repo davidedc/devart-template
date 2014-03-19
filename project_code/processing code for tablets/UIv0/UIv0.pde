@@ -57,9 +57,9 @@ void setup() {
 
   RadioButtonsGroup bagkgroundShaderRadioButtonsGroup = new RadioButtonsGroup();
 
-  RadioButton backgroundShaderRadioButton1 = new RadioButton(
-    "backgroundShaderRadioButton1",
-    1*((uiGrid.gridMetrics.gridWidthInCells/2)/(5+1))-0.5, //float xPositionInCells,
+  RadioButton foregroundShaderRadioButton1 = new RadioButton(
+    "foregroundShaderRadioButton1",
+    1*((uiGrid.gridMetrics.gridWidthInCells/2)/(5+1))-0.5 + uiGrid.gridMetrics.gridWidthInCells/2, //float xPositionInCells,
     1, //float yPositionInCells,
     1, //float widthInCells,
     1, //float heightInCells,
@@ -70,9 +70,9 @@ void setup() {
     0
   );
 
-  RadioButton backgroundShaderRadioButton2 = new RadioButton(
-    "backgroundShaderRadioButton2",
-    2*((uiGrid.gridMetrics.gridWidthInCells/2)/(5+1))-0.5, //float xPositionInCells,
+  RadioButton foregroundShaderRadioButton2 = new RadioButton(
+    "foregroundShaderRadioButton2",
+    2*((uiGrid.gridMetrics.gridWidthInCells/2)/(5+1))-0.5 + uiGrid.gridMetrics.gridWidthInCells/2, //float xPositionInCells,
     1, //float yPositionInCells,
     1, //float widthInCells,
     1, //float heightInCells,
@@ -83,9 +83,9 @@ void setup() {
     1
   );
 
-  RadioButton backgroundShaderRadioButton3 = new RadioButton(
-    "backgroundShaderRadioButton3",
-    3*((uiGrid.gridMetrics.gridWidthInCells/2)/(5+1))-0.5, //float xPositionInCells,
+  RadioButton foregroundShaderRadioButton3 = new RadioButton(
+    "foregroundShaderRadioButton3",
+    3*((uiGrid.gridMetrics.gridWidthInCells/2)/(5+1))-0.5 + uiGrid.gridMetrics.gridWidthInCells/2, //float xPositionInCells,
     1, //float yPositionInCells,
     1, //float widthInCells,
     1, //float heightInCells,
@@ -96,9 +96,9 @@ void setup() {
     2
   );
 
-  RadioButton backgroundShaderRadioButton4 = new RadioButton(
-    "backgroundShaderRadioButton4",
-    4*((uiGrid.gridMetrics.gridWidthInCells/2)/(5+1))-0.5, //float xPositionInCells,
+  RadioButton foregroundShaderRadioButton4 = new RadioButton(
+    "foregroundShaderRadioButton4",
+    4*((uiGrid.gridMetrics.gridWidthInCells/2)/(5+1))-0.5 + uiGrid.gridMetrics.gridWidthInCells/2, //float xPositionInCells,
     1, //float yPositionInCells,
     1, //float widthInCells,
     1, //float heightInCells,
@@ -109,9 +109,9 @@ void setup() {
     3
   );
 
-  RadioButton backgroundShaderRadioButton5 = new RadioButton(
-    "backgroundShaderRadioButton5",
-    5*((uiGrid.gridMetrics.gridWidthInCells/2)/(5+1))-0.5, //float xPositionInCells,
+  RadioButton foregroundShaderRadioButton5 = new RadioButton(
+    "foregroundShaderRadioButton5",
+    5*((uiGrid.gridMetrics.gridWidthInCells/2)/(5+1))-0.5 + uiGrid.gridMetrics.gridWidthInCells/2, //float xPositionInCells,
     1, //float yPositionInCells,
     1, //float widthInCells,
     1, //float heightInCells,
