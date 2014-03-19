@@ -33,8 +33,7 @@ public class SimpleThread extends Thread {
   }
 
   // Overriding "start()"
-  public void start ()
-  {
+  public void start () {
     // Set running equal to true
     running = true;
     // Print messages
@@ -45,8 +44,7 @@ public class SimpleThread extends Thread {
 
 
   // We must implement run, this gets triggered by start()
-  public void run ()
-  {
+  public void run () {
     while (running /* && count < 10 */) {
       System.out.println(id + ": " + count);
       count++;
@@ -101,8 +99,7 @@ public class SimpleThread extends Thread {
 
 
   // Our method that quits the thread
-  public void quit()
-  {
+  public void quit() {
     System.out.println("Quitting."); 
     running = false;  // Setting running to false ends the loop in run()
     // We used to need to call super.stop()
