@@ -55,6 +55,16 @@ void setup() {
     uiGrid
   );
 
+  UIPanel uiColorCombosPanel = new UIPanel(
+    "color combos",
+    0, //float xPositionInCells,
+    8, //float yPositionInCells,
+    15, //float widthInCells,
+    8.75, //float heightInCells,
+    color(255,0,255), // color backgroundColor
+    uiGrid
+  );
+
   SimpleButton simpleButton1 = new SimpleButton(
     "simpleButton1",
     1, //float xPositionInCells,
