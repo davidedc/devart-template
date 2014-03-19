@@ -82,6 +82,9 @@ else {
                urlConnection.disconnect();
              }
              
+             UIv0.AnimationState animationStateFromServer = parent.new AnimationState(page);
+             System.out.println(">>>> server reply (formatted): " + animationStateFromServer.toString()); 
+             
 
             // Ok, let's wait for however long we should wait
             try {

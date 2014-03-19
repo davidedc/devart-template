@@ -6,6 +6,22 @@ class AnimationState {
   AnimationState ( ) {
   }
 
+  AnimationState (String fullStateInJSON) {
+
+    String[] m;
+    
+    m = match(fullStateInJSON, "\"f_scale\"\\s*:\\s*(\\d+)");
+    if (m != null){
+      foreground_scale = new IntBox(Integer.parseInt(m[1]));
+    }
+
+    m = match(fullStateInJSON, "\"f_shader\"\\s*:\\s*(\\d+)");
+    if (m != null){
+      foreground_shader = new IntBox(Integer.parseInt(m[1]));
+    }
+
+  }
+
   AnimationState (
     IntBox foreground_scale,
     IntBox foreground_shader
@@ -55,6 +71,21 @@ class AnimationState {
     }
     
     return deltaState;
+  }
+
+  String toString() {
+    
+    String string = "";
+
+    if (foreground_scale != null) {
+      string += "foreground_scale: " + foreground_scale.value + "\n";
+    }
+    if (foreground_shader != null) {
+      string += "foreground_shader: " + foreground_shader.value + "\n";
+    }
+
+    
+    return string;
   }
   
 } 
