@@ -21,6 +21,7 @@ public class SimpleThread extends Thread {
   private UIv0 parent;
 
   UIv0.AnimationState previousAnimationState;
+  //UIv0.AnimationState previousAnimationStateFromServer;
 
   // Constructor, create the thread
   // It is not running by default
@@ -30,6 +31,7 @@ public class SimpleThread extends Thread {
     id = s;
     count = 0;
     this.parent = parent;
+    //previousAnimationStateFromServer = parent.new AnimationState();
   }
 
   // Overriding "start()"
@@ -43,7 +45,18 @@ public class SimpleThread extends Thread {
   }
 
 
-  // We must implement run, this gets triggered by start()
+  // Here is what happens:
+  // every x milliseconds we check what the user changes
+  // have been. He might have touched two buttons and a slider.
+  // We compare the changes against a previously saved snapshot
+  // of the state at the previous loop.
+  // We send the changes to the Server. The Server sends us back
+  // a full AnimationState which incorporates all changes from all
+  // users so far.
+  // We calculate the delta of what the Server state is with what the
+  // local state is, and we put that in the main thread so that
+  // the next frame the main thread will update the UI to reflect
+  // the consolidated state from the server.
   public void run () {
     while (running /* && count < 10 */) {
       System.out.println(id + ": " + count);
@@ -71,10 +84,13 @@ public class SimpleThread extends Thread {
 
       try {
         URL url = new URL(parent.urlToFetch + JSONOfDelta);
+        System.out.println(">>>> server request");
+        int startTime = parent.millis();
         urlConnection = (HttpURLConnection) url.openConnection();
         InputStream in = new BufferedInputStream(urlConnection.getInputStream());
         JSONResponseFromServer = readStream(in);
-        System.out.println(">>>> server reply: " + JSONResponseFromServer);
+        int endTime = parent.millis();
+        System.out.println(">>>> server reply in " +  (endTime-startTime) + " milliseconds : " + JSONResponseFromServer);
       } 
       catch (Exception e) {
         JSONResponseFromServer = e.toString();
@@ -83,8 +99,21 @@ public class SimpleThread extends Thread {
       // and keepalive behind the scenes.
       urlConnection.disconnect();
 
-      UIv0.AnimationState animationStateFromServer = parent.new AnimationState(JSONResponseFromServer);
-      System.out.println(">>>> server reply (formatted): " + animationStateFromServer.toString()); 
+      UIv0.AnimationState animationStateFromServer;
+      
+      if (JSONResponseFromServer.equals("{}")) {
+        //animationStateFromServer = previousAnimationStateFromServer;
+        parent.deltaStateFromServerToUpdateUI = null;
+      }
+      else {
+        animationStateFromServer = parent.new AnimationState(JSONResponseFromServer);
+        System.out.println(">>>> server reply (formatted): " + animationStateFromServer.toString());      
+        parent.deltaStateFromServerToUpdateUI = animationStateFromServer.deltaOfState(parent.animationState);
+        // we baseline future local changes against the
+        // server authoritative state info.
+        previousAnimationState = animationStateFromServer;
+      }
+      
 
 
       // Ok, let's wait for however long we should wait

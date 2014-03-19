@@ -6,6 +6,12 @@ AnimationState animationState;
 
 UIGrid uiGrid;
 RadioButtonsGroup foregroundShaderRadioButtonsGroup = new RadioButtonsGroup();
+
+// stores which changes we need to
+// apply to the UI to align the UI representation
+// with the state we received from the Server
+AnimationState deltaStateFromServerToUpdateUI;
+
 void setup() { 
   // resolution of the Tabtronics mini is 768 x 1024.
   // will make it so there is some elasticity with the
@@ -232,6 +238,17 @@ void draw() {
   // start the thread only once.
   if(mousePressed && !thread1.running) {
      thread1.start();
+  }
+  
+  // check whether there are any updates to the UI
+  // based on state coming from server.
+  if (deltaStateFromServerToUpdateUI != null) {
+    if (deltaStateFromServerToUpdateUI.foreground_scale != null){
+    }
+    if (deltaStateFromServerToUpdateUI.foreground_shader != null){
+      foregroundShaderRadioButtonsGroup.toggleOnNthRadioButton(deltaStateFromServerToUpdateUI.foreground_shader.value);
+    }
+
   }
 
   // just draw a smooth animation
