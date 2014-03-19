@@ -80,8 +80,10 @@ else {
                System.out.println(">>>> server reply: " + page); 
              } catch (Exception e) {
                page = e.toString();
-               urlConnection.disconnect();
              }
+             // don't worry, it does TCP connection pooling
+             // and keepalive behind the scenes.
+             urlConnection.disconnect();
              
              UIv0.AnimationState animationStateFromServer = parent.new AnimationState(page);
              System.out.println(">>>> server reply (formatted): " + animationStateFromServer.toString()); 
