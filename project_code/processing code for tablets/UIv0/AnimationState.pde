@@ -73,6 +73,18 @@ class AnimationState {
     return deltaState;
   }
 
+  void maskOutDeltaOfState(AnimationState deltaState, AnimationState overridingState) {
+    
+    if (deltaState.foreground_scale != null) {
+      foreground_scale.value = overridingState.foreground_scale.value;
+    }
+
+    if (deltaState.foreground_shader != null) {
+      foreground_shader.value = overridingState.foreground_shader.value;
+    }
+    
+  }
+
   String toString() {
     
     String string = "";

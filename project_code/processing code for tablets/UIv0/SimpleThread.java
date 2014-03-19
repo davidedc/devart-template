@@ -21,7 +21,7 @@ public class SimpleThread extends Thread {
   private UIv0 parent;
 
   UIv0.AnimationState previousAnimationState;
-  //UIv0.AnimationState previousAnimationStateFromServer;
+  UIv0.AnimationState previousAnimationStateFromServer = null;
 
   // Constructor, create the thread
   // It is not running by default
@@ -31,7 +31,6 @@ public class SimpleThread extends Thread {
     id = s;
     count = 0;
     this.parent = parent;
-    //previousAnimationStateFromServer = parent.new AnimationState();
   }
 
   // Overriding "start()"
@@ -70,28 +69,29 @@ public class SimpleThread extends Thread {
       System.out.println(id + ": " + count);
       count++;
 
-      String JSONOfDelta = "{}";
-
+      String JSONOfDeltaLocalState = "{}";
+      UIv0.AnimationState deltaLocalState = null;
+      
       if (previousAnimationState == null) {
         previousAnimationState = parent.animationState.clone();
         System.out.println(">>>> no recollection of previous state, creating one");
       }
+
+      deltaLocalState = parent.animationState.deltaOfState(previousAnimationState);
+      previousAnimationState = parent.animationState.clone();
+
+      JSONOfDeltaLocalState = deltaLocalState.toJSON();
+      if (JSONOfDeltaLocalState.equals("{}")) {
+        System.out.println(">>>> no changes to local animation state");
+      }
       else {
-        UIv0.AnimationState delta = parent.animationState.deltaOfState(previousAnimationState);
-        JSONOfDelta = delta.toJSON();
-        previousAnimationState = parent.animationState.clone();
-        if (!JSONOfDelta.equals("{}")) {
-          System.out.println(">>>> JSON of delta: >" + JSONOfDelta + "<");
-        }
-        else {
-          System.out.println(">>>> no changes to animation state");
-        }
+        System.out.println(">>>> JSON of deltaLocalState: >" + JSONOfDeltaLocalState + "<");
       }
 
-
-
+      // Now send the local state delta to the server
+      
       try {
-        URL url = new URL(parent.urlToFetch + JSONOfDelta);
+        URL url = new URL(parent.urlToFetch + JSONOfDeltaLocalState);
         System.out.println(">>>> server request");
         int startTime = parent.millis();
         urlConnection = (HttpURLConnection) url.openConnection();
@@ -109,18 +109,47 @@ public class SimpleThread extends Thread {
 
       UIv0.AnimationState animationStateFromServer;
       
+      System.out.println("*** 1");
       if (JSONResponseFromServer.equals("{}")) {
-        //animationStateFromServer = previousAnimationStateFromServer;
-        parent.deltaStateFromServerToUpdateUI = null;
+        if (previousAnimationStateFromServer == null) continue;
+        animationStateFromServer = previousAnimationStateFromServer;
       }
       else {
         animationStateFromServer = parent.new AnimationState(JSONResponseFromServer);
-        System.out.println(">>>> server reply (formatted): " + animationStateFromServer.toString());      
-        parent.deltaStateFromServerToUpdateUI = animationStateFromServer.deltaOfState(parent.animationState);
-        // we baseline future local changes against the
-        // server authoritative state info.
-        previousAnimationState = animationStateFromServer;
       }
+      
+      // this might seem strange but we want the UI
+      // to be a little loose from server command
+      // while the user changes it, as it is quite
+      // jarring to have a slider being updated while
+      // the user is dragging it.
+      // so until a widget is being changed, the
+      // server has no influence on them. But when
+      // they are left alone for a second, then
+      // they are updated.
+
+      // clone the response anyways cause in case
+      // the server will send a {} we need to
+      // keep the correct server response not the one
+      // masked with the local changes
+      System.out.println("*** 2 " + animationStateFromServer.toString());
+      previousAnimationStateFromServer = animationStateFromServer.clone();
+
+      // effectively ignore the server state in regards
+      // to what the user has changed in the past second,
+      // for those just override what the server says with
+      // what the local state is
+      System.out.println("*** 3");
+      animationStateFromServer.maskOutDeltaOfState(deltaLocalState, parent.animationState);
+
+      
+      // push the server state (minus what the user has changes in the
+      // past second) to the main thread to update the UI.
+      // So note that the UI will not change.
+      System.out.println("*** 4");
+      parent.deltaStateFromServerToUpdateUI = animationStateFromServer.deltaOfState(parent.animationState);
+      // we baseline future local changes against the
+      // server authoritative state info.
       
 
 
