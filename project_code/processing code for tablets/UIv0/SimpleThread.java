@@ -16,7 +16,7 @@ public class SimpleThread extends Thread {
   private String id;                 // Thread name
   private int count;                 // counter
 
-  public String page = "empty - empty - empty - empty - empty - empty - empty - empty - empty - empty";
+  public String JSONResponseFromServer = "empty - empty - empty - empty - empty - empty - empty - empty - empty - empty";
   private HttpURLConnection urlConnection;
   private UIv0 parent;
 
@@ -75,17 +75,17 @@ public class SimpleThread extends Thread {
         URL url = new URL(parent.urlToFetch + JSONOfDelta);
         urlConnection = (HttpURLConnection) url.openConnection();
         InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-        page = readStream(in);
-        System.out.println(">>>> server reply: " + page);
+        JSONResponseFromServer = readStream(in);
+        System.out.println(">>>> server reply: " + JSONResponseFromServer);
       } 
       catch (Exception e) {
-        page = e.toString();
+        JSONResponseFromServer = e.toString();
       }
       // don't worry, it does TCP connection pooling
       // and keepalive behind the scenes.
       urlConnection.disconnect();
 
-      UIv0.AnimationState animationStateFromServer = parent.new AnimationState(page);
+      UIv0.AnimationState animationStateFromServer = parent.new AnimationState(JSONResponseFromServer);
       System.out.println(">>>> server reply (formatted): " + animationStateFromServer.toString()); 
 
 
