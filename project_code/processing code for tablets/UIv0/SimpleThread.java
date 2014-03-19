@@ -71,8 +71,8 @@ else {
   UIv0.AnimationState delta = parent.animationState.deltaOfState(previousAnimationState);
   String JSONOfDelta = delta.toJSON();
   previousAnimationState = parent.animationState.clone();
-  if (JSONOfDelta != "") {
-    System.out.println(">>>> JSON of delta: " + JSONOfDelta); 
+  if (!JSONOfDelta.equals("{}")) {
+    System.out.println(">>>> JSON of delta: >" + JSONOfDelta + "<"); 
   }
   else {
     System.out.println(">>>> no changes to animation state"); 

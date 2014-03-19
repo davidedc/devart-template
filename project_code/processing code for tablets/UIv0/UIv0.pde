@@ -66,8 +66,8 @@ void setup() {
     color(0,255,0), // color backgroundColor
     bagkgroundShaderRadioButtonsGroup,
     uiGeometryPanel,
-    animationState.foreground_scale,
-    1
+    animationState.foreground_shader,
+    0
   );
 
   RadioButton backgroundShaderRadioButton2 = new RadioButton(
@@ -79,7 +79,7 @@ void setup() {
     color(0,255,0), // color backgroundColor
     bagkgroundShaderRadioButtonsGroup,
     uiGeometryPanel,
-    animationState.foreground_scale,
+    animationState.foreground_shader,
     1
   );
 
@@ -92,8 +92,8 @@ void setup() {
     color(0,255,0), // color backgroundColor
     bagkgroundShaderRadioButtonsGroup,
     uiGeometryPanel,
-    animationState.foreground_scale,
-    1
+    animationState.foreground_shader,
+    2
   );
 
   RadioButton backgroundShaderRadioButton4 = new RadioButton(
@@ -105,8 +105,8 @@ void setup() {
     color(0,255,0), // color backgroundColor
     bagkgroundShaderRadioButtonsGroup,
     uiGeometryPanel,
-    animationState.foreground_scale,
-    1
+    animationState.foreground_shader,
+    3
   );
 
   RadioButton backgroundShaderRadioButton5 = new RadioButton(
@@ -118,8 +118,8 @@ void setup() {
     color(0,255,0), // color backgroundColor
     bagkgroundShaderRadioButtonsGroup,
     uiGeometryPanel,
-    animationState.foreground_scale,
-    1
+    animationState.foreground_shader,
+    4
   );
 
 
