@@ -5,6 +5,7 @@ String urlToFetch = "http://192.168.0.12/update/?msg=";
 AnimationState animationState;
 
 UIGrid uiGrid;
+RadioButtonsGroup foregroundShaderRadioButtonsGroup = new RadioButtonsGroup();
 void setup() { 
   // resolution of the Tabtronics mini is 768 x 1024.
   // will make it so there is some elasticity with the
@@ -54,7 +55,7 @@ void setup() {
     uiGrid
   );
 
-  RadioButtonsGroup bagkgroundShaderRadioButtonsGroup = new RadioButtonsGroup();
+  foregroundShaderRadioButtonsGroup = new RadioButtonsGroup();
 
   RadioButton foregroundShaderRadioButton1 = new RadioButton(
     "foregroundShaderRadioButton1",
@@ -63,7 +64,7 @@ void setup() {
     1, //float widthInCells,
     1, //float heightInCells,
     color(0,255,0), // color backgroundColor
-    bagkgroundShaderRadioButtonsGroup,
+    foregroundShaderRadioButtonsGroup,
     uiGeometryPanel,
     animationState.foreground_shader,
     0
@@ -76,7 +77,7 @@ void setup() {
     1, //float widthInCells,
     1, //float heightInCells,
     color(0,255,0), // color backgroundColor
-    bagkgroundShaderRadioButtonsGroup,
+    foregroundShaderRadioButtonsGroup,
     uiGeometryPanel,
     animationState.foreground_shader,
     1
@@ -89,7 +90,7 @@ void setup() {
     1, //float widthInCells,
     1, //float heightInCells,
     color(0,255,0), // color backgroundColor
-    bagkgroundShaderRadioButtonsGroup,
+    foregroundShaderRadioButtonsGroup,
     uiGeometryPanel,
     animationState.foreground_shader,
     2
@@ -102,7 +103,7 @@ void setup() {
     1, //float widthInCells,
     1, //float heightInCells,
     color(0,255,0), // color backgroundColor
-    bagkgroundShaderRadioButtonsGroup,
+    foregroundShaderRadioButtonsGroup,
     uiGeometryPanel,
     animationState.foreground_shader,
     3
@@ -115,7 +116,7 @@ void setup() {
     1, //float widthInCells,
     1, //float heightInCells,
     color(0,255,0), // color backgroundColor
-    bagkgroundShaderRadioButtonsGroup,
+    foregroundShaderRadioButtonsGroup,
     uiGeometryPanel,
     animationState.foreground_shader,
     4
