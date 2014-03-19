@@ -35,7 +35,6 @@ void setup() {
     4 // grid elements aligh to 1/nth of a grid
   );
   
-  println("creating Panel");
   UIPanel uiSetRecallPresetsPanel = new UIPanel(
     "set/recall presets panel",
     0, //float xPositionInCells,
@@ -43,6 +42,16 @@ void setup() {
     15, //float widthInCells,
     3, //float heightInCells,
     color(255,0,0), // color backgroundColor
+    uiGrid
+  );
+
+  UIPanel uiEffectsPanel = new UIPanel(
+    "effects panel",
+    0, //float xPositionInCells,
+    3, //float yPositionInCells,
+    15, //float widthInCells,
+    5, //float heightInCells,
+    color(255,255,0), // color backgroundColor
     uiGrid
   );
 
