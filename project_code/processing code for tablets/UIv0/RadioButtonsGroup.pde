@@ -32,6 +32,10 @@ class RadioButtonsGroup {
     }
   }
 
+  void toggleOnNthRadioButton(int whichButton) {
+    radioButtonsList.get(whichButton).toggleOn();
+  }
+
     
   } 
 
