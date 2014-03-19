@@ -248,7 +248,7 @@ void draw() {
     if (deltaStateFromServerToUpdateUI.foreground_shader != null){
       foregroundShaderRadioButtonsGroup.toggleOnNthRadioButton(deltaStateFromServerToUpdateUI.foreground_shader.value);
     }
-
+    deltaStateFromServerToUpdateUI = null;
   }
 
   // just draw a smooth animation
