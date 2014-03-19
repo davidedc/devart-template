@@ -51,6 +51,7 @@ public class SimpleThread extends Thread {
             System.out.println(id + ": " + count);
             count++;
 
+String JSONOfDelta = "{}";
 
 if (previousAnimationState == null) {
   previousAnimationState = parent.animationState.clone();
@@ -58,7 +59,7 @@ if (previousAnimationState == null) {
 }
 else {
   UIv0.AnimationState delta = parent.animationState.deltaOfState(previousAnimationState);
-  String JSONOfDelta = delta.toJSON();
+  JSONOfDelta = delta.toJSON();
   previousAnimationState = parent.animationState.clone();
   if (!JSONOfDelta.equals("{}")) {
     System.out.println(">>>> JSON of delta: >" + JSONOfDelta + "<"); 
@@ -72,7 +73,7 @@ else {
 
              
              try {
-               URL url = new URL(parent.urlToFetch);
+               URL url = new URL(parent.urlToFetch + JSONOfDelta);
                urlConnection = (HttpURLConnection) url.openConnection();
                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
                page = readStream(in);
