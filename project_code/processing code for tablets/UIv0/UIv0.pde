@@ -1,7 +1,7 @@
 
 
 SimpleThread thread1;
-String urlToFetch = "http://192.168.0.4:8000/";
+String urlToFetch = "http://192.168.0.12/update/?msg={}";
 UIGrid uiGrid;
 GridMetrics gm;
 AnimationState animationState;

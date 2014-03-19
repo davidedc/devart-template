@@ -51,17 +51,6 @@ public class SimpleThread extends Thread {
             System.out.println(id + ": " + count);
             count++;
 
-             /*
-             try {
-               URL url = new URL(parent.urlToFetch);
-               urlConnection = (HttpURLConnection) url.openConnection();
-               InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-               page = readStream(in);
-             } catch (Exception e) {
-               page = e.toString();
-               urlConnection.disconnect();
-             }
-             */
 
 if (previousAnimationState == null) {
   previousAnimationState = parent.animationState.clone();
@@ -79,6 +68,20 @@ else {
   }
   
 }
+
+
+             
+             try {
+               URL url = new URL(parent.urlToFetch);
+               urlConnection = (HttpURLConnection) url.openConnection();
+               InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+               page = readStream(in);
+               System.out.println(">>>> server reply: " + page); 
+             } catch (Exception e) {
+               page = e.toString();
+               urlConnection.disconnect();
+             }
+             
 
             // Ok, let's wait for however long we should wait
             try {
