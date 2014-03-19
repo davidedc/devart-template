@@ -55,6 +55,77 @@ void setup() {
     uiGrid
   );
 
+  RadioButtonsGroup bagkgroundShaderRadioButtonsGroup = new RadioButtonsGroup();
+
+  RadioButton backgroundShaderRadioButton1 = new RadioButton(
+    "backgroundShaderRadioButton1",
+    1*((uiGrid.gridMetrics.gridWidthInCells/2)/(5+1))-0.5, //float xPositionInCells,
+    1, //float yPositionInCells,
+    1, //float widthInCells,
+    1, //float heightInCells,
+    color(0,255,0), // color backgroundColor
+    bagkgroundShaderRadioButtonsGroup,
+    uiGeometryPanel,
+    animationState.foreground_scale,
+    1
+  );
+
+  RadioButton backgroundShaderRadioButton2 = new RadioButton(
+    "backgroundShaderRadioButton2",
+    2*((uiGrid.gridMetrics.gridWidthInCells/2)/(5+1))-0.5, //float xPositionInCells,
+    1, //float yPositionInCells,
+    1, //float widthInCells,
+    1, //float heightInCells,
+    color(0,255,0), // color backgroundColor
+    bagkgroundShaderRadioButtonsGroup,
+    uiGeometryPanel,
+    animationState.foreground_scale,
+    1
+  );
+
+  RadioButton backgroundShaderRadioButton3 = new RadioButton(
+    "backgroundShaderRadioButton3",
+    3*((uiGrid.gridMetrics.gridWidthInCells/2)/(5+1))-0.5, //float xPositionInCells,
+    1, //float yPositionInCells,
+    1, //float widthInCells,
+    1, //float heightInCells,
+    color(0,255,0), // color backgroundColor
+    bagkgroundShaderRadioButtonsGroup,
+    uiGeometryPanel,
+    animationState.foreground_scale,
+    1
+  );
+
+  RadioButton backgroundShaderRadioButton4 = new RadioButton(
+    "backgroundShaderRadioButton4",
+    4*((uiGrid.gridMetrics.gridWidthInCells/2)/(5+1))-0.5, //float xPositionInCells,
+    1, //float yPositionInCells,
+    1, //float widthInCells,
+    1, //float heightInCells,
+    color(0,255,0), // color backgroundColor
+    bagkgroundShaderRadioButtonsGroup,
+    uiGeometryPanel,
+    animationState.foreground_scale,
+    1
+  );
+
+  RadioButton backgroundShaderRadioButton5 = new RadioButton(
+    "backgroundShaderRadioButton5",
+    5*((uiGrid.gridMetrics.gridWidthInCells/2)/(5+1))-0.5, //float xPositionInCells,
+    1, //float yPositionInCells,
+    1, //float widthInCells,
+    1, //float heightInCells,
+    color(0,255,0), // color backgroundColor
+    bagkgroundShaderRadioButtonsGroup,
+    uiGeometryPanel,
+    animationState.foreground_scale,
+    1
+  );
+
+
+
+
+
   UIPanel uiColorCombosPanel = new UIPanel(
     "color combos",
     0, //float xPositionInCells,
