@@ -255,10 +255,10 @@ void draw() {
   // so we can check that the socket gets
   // the content while the UI repaints
   // smoothly.
-  int x = frameCount%200;
+  int x = frameCount%width;
   stroke(frameCount%255);
   strokeWeight(2);
-  line(150,x,200,x);
+  line(x,0,x,10);
 
 }
 
