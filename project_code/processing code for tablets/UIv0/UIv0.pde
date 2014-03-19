@@ -36,12 +36,12 @@ void setup() {
   );
   
   println("creating Panel");
-  UIPanel uiPanel1 = new UIPanel(
-    "uiPanel1",
-    1, //float xPositionInCells,
-    2, //float yPositionInCells,
-    4, //float widthInCells,
-    5, //float heightInCells,
+  UIPanel uiSetRecallPresetsPanel = new UIPanel(
+    "set/recall presets panel",
+    0, //float xPositionInCells,
+    0, //float yPositionInCells,
+    15, //float widthInCells,
+    3, //float heightInCells,
     color(255,0,0), // color backgroundColor
     uiGrid
   );
@@ -53,7 +53,7 @@ void setup() {
     1, //float widthInCells,
     1, //float heightInCells,
     color(0,0,255), // color backgroundColor
-    uiPanel1
+    uiSetRecallPresetsPanel
   );
 
   ToggleButton toggleButton1 = new ToggleButton(
@@ -63,7 +63,7 @@ void setup() {
     2, //float widthInCells,
     2, //float heightInCells,
     color(0,0,255), // color backgroundColor
-    uiPanel1
+    uiSetRecallPresetsPanel
   );
 
   RadioButtonsGroup radioButtonsGroup = new RadioButtonsGroup();
@@ -76,7 +76,7 @@ void setup() {
     1, //float heightInCells,
     color(0,255,0), // color backgroundColor
     radioButtonsGroup,
-    uiPanel1,
+    uiSetRecallPresetsPanel,
     animationState.foreground_scale,
     1
   );
@@ -89,7 +89,7 @@ void setup() {
     1, //float heightInCells,
     color(0,255,0), // color backgroundColor
     radioButtonsGroup,
-    uiPanel1,
+    uiSetRecallPresetsPanel,
     animationState.foreground_scale,
     2
   );
@@ -101,7 +101,7 @@ void setup() {
     5, //float widthInCells,
     1, //float heightInCells,
     color(255,255,0), // color backgroundColor
-    uiPanel1
+    uiSetRecallPresetsPanel
   );
 
 
