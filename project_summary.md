@@ -7,14 +7,15 @@
 ## Description
 The primary aim is to have fun. Fun making something and fun playing with
 the result. In terms of pushing boundaries we are setting out to make a
-device from a $25 Raspberry Pi computer that can compete with far more expensive VJ-grade laptops.
-Hopefully using a large number of networked cheap computers will produce
-something beyond the scope of a single expensive one...
+device from a $25 Raspberry Pi computer that can compete with far more
+expensive VJ-grade laptops. Hopefully using a large number of networked
+cheap computers will produce something beyond the scope of a single
+expensive one...
 
 > In the middle of the room is a white table and on to it is projected an
 > animated 3D scene. It is a view of the inside of a moving cube with a
 > smaller cube also rotating and changing in complicated ways. The
-> color and patterns are produced by algrorithms but the animation is 
+> color and patterns are produced by algorithms but the animation is 
 > synchronised with the music. On other walls are various screens of different
 > sizes and orientations showing views of the inside of the larger cube as if
 > they are all windows into an animated space outside the room. The experience
@@ -22,7 +23,7 @@ something beyond the scope of a single expensive one...
 >
 > The visitor sits down on a sofa and picks up a tablet. She idly moves
 > sliders and presses buttons. Around her colors and patterns change,
-> some parts speed up, some slow down. And the livliness of the music,
+> some parts speed up, some slow down. And the liveliness of the music,
 > colors and patterns, as they evolve algorithmically, also respond to
 > her input.
 >
