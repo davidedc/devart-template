@@ -79,7 +79,6 @@ public class ServerConnectorThread extends Thread {
       }
 
       deltaLocalState = parent.animationState.deltaOfState(previousAnimationState);
-      previousAnimationState = parent.animationState.clone();
 
       JSONOfDeltaLocalState = deltaLocalState.toJSON();
       if (JSONOfDeltaLocalState.equals("{}")) {
@@ -108,6 +107,13 @@ public class ServerConnectorThread extends Thread {
       // don't worry, it does TCP connection pooling
       // and keepalive behind the scenes.
       urlConnection.disconnect();
+
+      // 200ms are a long time so
+      // re-take a snapshot of the UI to figure out
+      // what to change and what not to change
+      deltaLocalState = parent.animationState.deltaOfState(previousAnimationState);
+      previousAnimationState = parent.animationState.clone();
+
 
       UIv0.AnimationState animationStateFromServer;
       
