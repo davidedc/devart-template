@@ -102,7 +102,8 @@ public class ServerConnectorThread extends Thread {
         System.out.println(">>>> server reply in " +  (endTime-startTime) + " milliseconds : " + JSONResponseFromServer);
       } 
       catch (Exception e) {
-        JSONResponseFromServer = e.toString();
+        System.out.println(">>>> exception while connecting to serve: " +  e);
+        continue; // go back to top of the loop.
       }
       // don't worry, it does TCP connection pooling
       // and keepalive behind the scenes.
