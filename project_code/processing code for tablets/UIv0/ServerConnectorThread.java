@@ -1,15 +1,16 @@
+/* Based on Simple Thread        */
+/* example from:                 */
 /* Daniel Shiffman               */
 /* Programming from A to Z       */
 /* Spring 2006                   */
 /* http://www.shiffman.net       */
 /* daniel.shiffman@nyu.edu       */
 
-// A Simple Thread example
 
 import java.net.*;
 import java.io.*;
 
-public class SimpleThread extends Thread {
+public class ServerConnectorThread extends Thread {
 
   public boolean running;           // Is the thread running?  Yes or no?
   private int wait;                  // How many milliseconds should we wait in between executions?
@@ -25,7 +26,7 @@ public class SimpleThread extends Thread {
 
   // Constructor, create the thread
   // It is not running by default
-  public SimpleThread (int w, String s, UIv0 parent) {
+  public ServerConnectorThread (int w, String s, UIv0 parent) {
     wait = w;
     running = false;
     id = s;

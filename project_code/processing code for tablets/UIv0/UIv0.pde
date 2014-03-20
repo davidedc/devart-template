@@ -1,6 +1,6 @@
 
 
-SimpleThread thread1;
+ServerConnectorThread serverConnectorThread;
 String urlToFetch = "http://192.168.0.12/update/?msg=";
 AnimationState animationState;
 
@@ -24,7 +24,7 @@ void setup() {
   // to put the actual numeric values in the call
   size(768/2, 1024/2); 
 
-  thread1 = new SimpleThread(1000,"I am alive", this);
+  serverConnectorThread = new ServerConnectorThread(1000,"I am alive", this);
   
   
   animationState = new AnimationState();
@@ -56,8 +56,8 @@ void draw() {
   
 
   // start the thread only once.
-  if(mousePressed && !thread1.running) {
-     thread1.start();
+  if(mousePressed && !serverConnectorThread.running) {
+     serverConnectorThread.start();
   }
   
   // check whether there are any updates to the UI
