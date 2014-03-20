@@ -11,6 +11,10 @@ void updateStablePartOfUIWithStateFromServer() {
       foregroundShaderRadioButtonsGroup.toggleOnNthRadioButton(deltaStateFromServerToUpdateUI.foreground_shader.value);
     }
     deltaStateFromServerToUpdateUI = null;
+    // these changes don't need to be sent back to server,
+    // so make the previous state equal to the current state so that
+    // the delta will be zero and nothing will be sent to server.
+    serverConnectorThread.previousAnimationState = animationState.clone();
   }
 }
 
