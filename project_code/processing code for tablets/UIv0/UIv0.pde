@@ -63,74 +63,21 @@ void setup() {
 
   foregroundShaderRadioButtonsGroup = new RadioButtonsGroup();
 
-  RadioButton foregroundShaderRadioButton1 = new RadioButton(
-    "foregroundShaderRadioButton1",
-    1*((uiGrid.gridMetrics.gridWidthInCells/2)/(5+1))-0.5 + uiGrid.gridMetrics.gridWidthInCells/2, //float xPositionInCells,
-    1, //float yPositionInCells,
-    1, //float widthInCells,
-    1, //float heightInCells,
-    color(0,255,0), // color backgroundColor
-    foregroundShaderRadioButtonsGroup,
-    uiGeometryPanel,
-    animationState.foreground_shader,
-    0
-  );
-
-  RadioButton foregroundShaderRadioButton2 = new RadioButton(
-    "foregroundShaderRadioButton2",
-    2*((uiGrid.gridMetrics.gridWidthInCells/2)/(5+1))-0.5 + uiGrid.gridMetrics.gridWidthInCells/2, //float xPositionInCells,
-    1, //float yPositionInCells,
-    1, //float widthInCells,
-    1, //float heightInCells,
-    color(0,255,0), // color backgroundColor
-    foregroundShaderRadioButtonsGroup,
-    uiGeometryPanel,
-    animationState.foreground_shader,
-    1
-  );
-
-  RadioButton foregroundShaderRadioButton3 = new RadioButton(
-    "foregroundShaderRadioButton3",
-    3*((uiGrid.gridMetrics.gridWidthInCells/2)/(5+1))-0.5 + uiGrid.gridMetrics.gridWidthInCells/2, //float xPositionInCells,
-    1, //float yPositionInCells,
-    1, //float widthInCells,
-    1, //float heightInCells,
-    color(0,255,0), // color backgroundColor
-    foregroundShaderRadioButtonsGroup,
-    uiGeometryPanel,
-    animationState.foreground_shader,
-    2
-  );
-
-  RadioButton foregroundShaderRadioButton4 = new RadioButton(
-    "foregroundShaderRadioButton4",
-    4*((uiGrid.gridMetrics.gridWidthInCells/2)/(5+1))-0.5 + uiGrid.gridMetrics.gridWidthInCells/2, //float xPositionInCells,
-    1, //float yPositionInCells,
-    1, //float widthInCells,
-    1, //float heightInCells,
-    color(0,255,0), // color backgroundColor
-    foregroundShaderRadioButtonsGroup,
-    uiGeometryPanel,
-    animationState.foreground_shader,
-    3
-  );
-
-  RadioButton foregroundShaderRadioButton5 = new RadioButton(
-    "foregroundShaderRadioButton5",
-    5*((uiGrid.gridMetrics.gridWidthInCells/2)/(5+1))-0.5 + uiGrid.gridMetrics.gridWidthInCells/2, //float xPositionInCells,
-    1, //float yPositionInCells,
-    1, //float widthInCells,
-    1, //float heightInCells,
-    color(0,255,0), // color backgroundColor
-    foregroundShaderRadioButtonsGroup,
-    uiGeometryPanel,
-    animationState.foreground_shader,
-    4
-  );
-
-
-
-
+  // add radio buttons for foreground shader
+  for (int i = 0; i < 5; i++) {
+    new RadioButton(
+      "foregroundShaderRadioButton" + (i+1),
+      (i+1)*((uiGrid.gridMetrics.gridWidthInCells/2)/(5+1))-0.5 + uiGrid.gridMetrics.gridWidthInCells/2, //float xPositionInCells,
+      1, //float yPositionInCells,
+      1, //float widthInCells,
+      1, //float heightInCells,
+      color(0,255,0), // color backgroundColor
+      foregroundShaderRadioButtonsGroup,
+      uiGeometryPanel,
+      animationState.foreground_shader,
+      i
+    );
+  }
 
   UIPanel uiColorCombosPanel = new UIPanel(
     "color combos",
