@@ -1,5 +1,7 @@
 Slider foreground_scaleSlider;
 Slider foreground_spinSlider;
+Slider foreground_speedSlider;
+Slider foreground_multSlider;
 
 void buildUI() {
 
@@ -56,6 +58,32 @@ void buildUI() {
   color(255, 255, 0), // color backgroundColor
   uiGeometryPanel,
   animationState.foreground_spin,
+  0,
+  19
+    );
+
+  foreground_speedSlider = new Slider(
+  "radioButton1", 
+  8, //float xPositionInCells,
+  3, //float yPositionInCells,
+  3, //float widthInCells,
+  1, //float heightInCells,
+  color(255, 255, 0), // color backgroundColor
+  uiGeometryPanel,
+  animationState.foreground_speed,
+  0,
+  19
+    );
+
+  foreground_multSlider = new Slider(
+  "radioButton1", 
+  11.5, //float xPositionInCells,
+  3, //float yPositionInCells,
+  3, //float widthInCells,
+  1, //float heightInCells,
+  color(255, 255, 0), // color backgroundColor
+  uiGeometryPanel,
+  animationState.foreground_mult,
   0,
   19
     );

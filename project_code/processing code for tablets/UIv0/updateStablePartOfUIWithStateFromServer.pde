@@ -14,6 +14,12 @@ void updateStablePartOfUIWithStateFromServer() {
     if (deltaStateFromServerToUpdateUI.foreground_spin != null) {
       foreground_spinSlider.setToIntegerValue(deltaStateFromServerToUpdateUI.foreground_spin.value);
     }
+    if (deltaStateFromServerToUpdateUI.foreground_speed != null) {
+      foreground_speedSlider.setToIntegerValue(deltaStateFromServerToUpdateUI.foreground_speed.value);
+    }
+    if (deltaStateFromServerToUpdateUI.foreground_mult != null) {
+      foreground_multSlider.setToIntegerValue(deltaStateFromServerToUpdateUI.foreground_mult.value);
+    }
 
     serverConnectorThread.previousAnimationState = animationState.clone();
 
