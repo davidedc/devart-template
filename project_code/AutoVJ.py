@@ -66,30 +66,47 @@ animation_state = AnimationState()
 if MASTER:
   #### server process and queue
   app = Flask(__name__)
-  queue_down = Queue()
-  queue_up = Queue()
-  STATE = {}
-  IPLIST = {}
+  queue_down = Queue() # from main animation loop TO flask server
+  queue_up = Queue()   # flask server TO animation
+  STATE = {} # copy of animation state in the flask subprocess
+  IPLIST = {} # to keep track of which requests need full update
 
   @app.route("/")
   def hello():
+    """ default return a basic js page for interacting with the
+    animation
+    """
     templateData = {'fields': fields} 
     return render_template('main.html', **templateData)
 
   @app.route("/update/")
   def update():
+    """ responds with json animation_state. It keeps a tag of which IP
+    addresses have been responded to with the latest version of STATE
+    and replies to requests with {}.
+    If request has some alterations to state in json msg then STATE
+    is altered in this subprocess as well as the alterations being piped
+    to the main animation. IPLIST is set to ensure this and subsequent
+    requests get the full STATE response.
+    """
     global STATE, IPLIST
     msg = request.args['msg']
     this_ip = request.remote_addr
-    queue_up.put(json.loads(msg))
-    if not queue_down.empty():
+    state_mods = json.loads(msg) # keep copy for later checking
+    if not queue_down.empty(): # altered animation_state available
       STATE = queue_down.get()
       for ip in IPLIST:
         IPLIST[ip] = False
-    if not (this_ip  in IPLIST and IPLIST[this_ip] == True):
+    if len(state_mods) > 0: # update state to include this instruction
+      queue_up.put(state_mods) # only do this if there's something to send
+      for key in state_mods:
+        STATE[key] = state_mods[key]
+      for ip in IPLIST:
+        IPLIST[ip] = False
+    if not (this_ip  in IPLIST and IPLIST[this_ip] == True): # needs refresh
       IPLIST[this_ip] = True
       return json.dumps(STATE, separators=(',',':'))
-    else:
+    else: # nothing new
       return '{}'
 
   def start_server():
@@ -114,12 +131,13 @@ else: ## not MASTER so SLAVE!
 
 nextTime = time.time()
 
-last_amp = 0
-last_frame = 0
-num_amp = 0
-av_amp = 30
-activity = 0
-last_ftype = 'box'
+last_amp = 0       # music amplitude from FFT to see rel changes
+last_frame = 0     # for working out frames per beat
+num_amp = 0        # counting beats for working out frames per beat
+av_amp = 30        # exponentially smoothed music amplitude
+activity = 0       # increased by user input, decays each loop
+last_ftype = 'box' # used by slave to check need to change fg shape
+freeze_time = 10.0 # seconds after a user mod before auto restarts
 
 
 while DISPLAY.loop_running():
@@ -194,7 +212,7 @@ while DISPLAY.loop_running():
           animation_state.state['user2'] = [round(i / 255.0, 3) for i in msg[mkey]]
         else:
           animation_state.state[mkey] = msg[mkey]
-      nextTime = time.time() + 5.0
+      nextTime = time.time() + freeze_time
       activity += 1.0
       refresh = True
     #######------------------------  
