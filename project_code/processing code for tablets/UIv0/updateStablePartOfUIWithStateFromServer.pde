@@ -6,6 +6,7 @@
 void updateStablePartOfUIWithStateFromServer() {
   if (deltaStateFromServerToUpdateUI != null) {
     if (deltaStateFromServerToUpdateUI.foreground_scale != null) {
+      foregroundScaleSlider.setToIntegerValue(deltaStateFromServerToUpdateUI.foreground_scale.value);
     }
     if (deltaStateFromServerToUpdateUI.foreground_shader != null) {
       foregroundShaderRadioButtonsGroup.toggleOnNthRadioButton(deltaStateFromServerToUpdateUI.foreground_shader.value);

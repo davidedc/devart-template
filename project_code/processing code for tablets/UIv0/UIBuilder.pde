@@ -1,3 +1,5 @@
+Slider foregroundScaleSlider;
+
 void buildUI() {
 
   uiGrid = new UIGrid(
@@ -31,14 +33,17 @@ void buildUI() {
   uiGrid
     );
 
-  Slider foregroundScaleSlider = new Slider(
+  foregroundScaleSlider = new Slider(
   "radioButton1", 
   8, //float xPositionInCells,
   2, //float yPositionInCells,
   3, //float widthInCells,
   1, //float heightInCells,
   color(255, 255, 0), // color backgroundColor
-  uiGeometryPanel
+  uiGeometryPanel,
+  animationState.foreground_scale,
+  0,
+  19
     );
 
   foregroundShaderRadioButtonsGroup = new RadioButtonsGroup();

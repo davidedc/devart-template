@@ -3,6 +3,13 @@ class Slider extends UIElement {
   color backgroundColor;
   boolean isFlashing = false;
   float cursorPosition = 0.5;
+  // "margin" specifies how much of the edges of the slider actually clamp to the
+  // same "extreme" values. Othewise it's very difficult to move the bar right
+  // at the edges to get those values.
+  float margin = 0.1;
+  IntBox integerToBeChanged;
+  float minValue;
+  float maxValue;
 
   Slider (
   String stringID,
@@ -11,7 +18,10 @@ class Slider extends UIElement {
   float widthInCells, 
   float heightInCells, 
   color backgroundColor,
-  UIElement containerUIElement
+  UIElement containerUIElement,
+  IntBox integerToBeChanged,
+  float minValue,
+  float maxValue
     ) {  
     super(
     stringID,
@@ -21,6 +31,9 @@ class Slider extends UIElement {
     heightInCells,
     containerUIElement
       );
+    this.integerToBeChanged = integerToBeChanged;
+    this.minValue = minValue;
+    this.maxValue = maxValue;
     println("created Slider");
   }
 
@@ -56,10 +69,24 @@ class Slider extends UIElement {
     repaintCompletely();
   }
 
+   float mappedValue(){
+     // "margin" specifies how much of the edges of the slider actually clamp to the
+     // same "extreme" values. Othewise it's very difficult to move the bar right
+     // at the edges to get those values.
+     float clampedCursorPosition = Math.max(margin, Math.min(1-margin, cursorPosition));
+     return floor(map(clampedCursorPosition,margin,1-margin,minValue,maxValue));
+   }
+
+   void setToIntegerValue(int theValue){
+     if (theValue == floor(mappedValue())) return;
+     cursorPosition = map(theValue,minValue,maxValue,0,1);
+     requiresRepaint();
+   }
    
    void touched(){
      cursorPosition = (mouseX - topLeftCornerInPixels[0])/extensionInPixels[0];
-     println(stringID + " moved to: " + cursorPosition);
+     integerToBeChanged.value = floor(mappedValue());
+     println(stringID + " moved to: " + cursorPosition + "integer value: " + integerToBeChanged.value);
      // in this case flashing the widget as
      // the user drags mouse/finger on the
      // slider
@@ -67,7 +94,7 @@ class Slider extends UIElement {
      // when updated from outside touch but not
      // here.
      //isFlashing = true;
-     requiresRepaint();   
+     requiresRepaint();
    }
     
   } 
