@@ -31,6 +31,16 @@ void buildUI() {
   uiGrid
     );
 
+  Slider foregroundScaleSlider = new Slider(
+  "radioButton1", 
+  8, //float xPositionInCells,
+  2, //float yPositionInCells,
+  3, //float widthInCells,
+  1, //float heightInCells,
+  color(255, 255, 0), // color backgroundColor
+  uiGeometryPanel
+    );
+
   foregroundShaderRadioButtonsGroup = new RadioButtonsGroup();
 
   // add radio buttons for foreground shader
@@ -117,14 +127,5 @@ void buildUI() {
   2
     );
 
-  Slider slider1 = new Slider(
-  "radioButton1", 
-  5, //float xPositionInCells,
-  5, //float yPositionInCells,
-  5, //float widthInCells,
-  1, //float heightInCells,
-  color(255, 255, 0), // color backgroundColor
-  uiSetRecallPresetsPanel
-    );
 }
 
