@@ -21,7 +21,12 @@ class TouchedElementFinder {
   
   UIElement findElementAtPixel(int x, int y){
     int[] coordInCells = gridMetrics.subcellFromPixel(x,y);
-    if (coordInCells[0]<0 || coordInCells[1] < 0) return null;
+    if (coordInCells[0] < 0 || coordInCells[1] < 0 ||
+       coordInCells[0] >= uiElementsMap.length ||
+       coordInCells[1] >= uiElementsMap[0].length){
+      return null;
+    }
+    
 
     println("hit at subcell: " + coordInCells[0] + ", " + coordInCells[1] + " uiGrid.cellSubdivisions " + cellSubdivisions);
     
