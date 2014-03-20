@@ -1,4 +1,5 @@
-Slider foregroundScaleSlider;
+Slider foreground_scaleSlider;
+Slider foreground_spinSlider;
 
 void buildUI() {
 
@@ -33,7 +34,7 @@ void buildUI() {
   uiGrid
     );
 
-  foregroundScaleSlider = new Slider(
+  foreground_scaleSlider = new Slider(
   "radioButton1", 
   8, //float xPositionInCells,
   2, //float yPositionInCells,
@@ -42,6 +43,19 @@ void buildUI() {
   color(255, 255, 0), // color backgroundColor
   uiGeometryPanel,
   animationState.foreground_scale,
+  0,
+  19
+    );
+
+  foreground_spinSlider = new Slider(
+  "radioButton1", 
+  11.5, //float xPositionInCells,
+  2, //float yPositionInCells,
+  3, //float widthInCells,
+  1, //float heightInCells,
+  color(255, 255, 0), // color backgroundColor
+  uiGeometryPanel,
+  animationState.foreground_spin,
   0,
   19
     );

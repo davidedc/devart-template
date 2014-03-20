@@ -6,16 +6,18 @@
 void updateStablePartOfUIWithStateFromServer() {
   if (deltaStateFromServerToUpdateUI != null) {
     if (deltaStateFromServerToUpdateUI.foreground_scale != null) {
-      foregroundScaleSlider.setToIntegerValue(deltaStateFromServerToUpdateUI.foreground_scale.value);
+      foreground_scaleSlider.setToIntegerValue(deltaStateFromServerToUpdateUI.foreground_scale.value);
     }
     if (deltaStateFromServerToUpdateUI.foreground_shader != null) {
       foregroundShaderRadioButtonsGroup.toggleOnNthRadioButton(deltaStateFromServerToUpdateUI.foreground_shader.value);
     }
-    deltaStateFromServerToUpdateUI = null;
-    // these changes don't need to be sent back to server,
-    // so make the previous state equal to the current state so that
-    // the delta will be zero and nothing will be sent to server.
+    if (deltaStateFromServerToUpdateUI.foreground_spin != null) {
+      foreground_spinSlider.setToIntegerValue(deltaStateFromServerToUpdateUI.foreground_spin.value);
+    }
+
     serverConnectorThread.previousAnimationState = animationState.clone();
+
+    deltaStateFromServerToUpdateUI = null;
   }
 }
 
