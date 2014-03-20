@@ -16,9 +16,9 @@ void main(void) {
   vec3 rgbf =  unif[17];
 
   float wave0 = unif[18][0];
-  float wave1 = unif[18][1];
-  float wave2 = unif[18][2];
-  float f = smoothstep(wave1 * sin(wave0 * wave2 * uv.x), 1.0, uv.y);
+  float wave1 = 5.0 * unif[18][1];
+  float wave2 = 7.0 * pow(unif[18][2], 0.2);
+  float f = smoothstep(sin(wave0 * wave1 * uv.y) * sin(wave0 * wave2 * uv.x), 1.0, uv.y);
 
   gl_FragColor = vec4(mix(rgbf, rgbi, f), 1.0);
   if (gl_FragColor.r < 0.0 || gl_FragColor.g < 0.0 || gl_FragColor.b < 0.0) discard;

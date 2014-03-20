@@ -28,7 +28,7 @@ def slave_checker(ani_state, t_flag):
   while True:
     if t_flag[0] == -1:
       t_flag[0] = 0
-      response = urllib2.urlopen('http://192.168.1.2/update/?msg={}')
+      response = urllib2.urlopen('http://192.168.1.8/update/?msg={}')
       """obviously this has to be set to the address of the server"""
       html = response.read()
       msg = json.loads(html)
@@ -230,7 +230,7 @@ while DISPLAY.loop_running():
   else: ## not MASTER so SLAVE!
     if (animation_state.frameCount % 9) == 0:
       t_flag[0] = -1
-    if t_flag[0] == 1: #fresh info returned by thread
+    if t_flag[0] == 1: #fresh info in animation_state by thread 
       this_ftype = animation_state.state['f_type']
       if this_ftype != last_ftype:
         if this_ftype == 'points':

@@ -17,8 +17,8 @@ void main(void) {
 
   float stripeCount =  unif[18][0];
   float wave1 = unif[18][1];
-  float wave2 = unif[18][2];
-  float f = fract((uv.x + uv.y) * stripeCount * 0.5 + 0.1 * wave1 * sin(stripeCount * 4.0 * uv.x * wave2));
+  float wave2 = 4.0 * pow(unif[18][2], 0.333333);
+  float f = fract((uv.x + uv.y) * stripeCount * 0.5 + 0.3 * wave1 * sin(stripeCount * 4.0 * uv.x * wave2));
   //float f = fract((uv.x + uv.y) * stripeCount * 0.5);
   f = step(0.5, f);
 
