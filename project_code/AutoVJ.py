@@ -93,6 +93,9 @@ if MASTER:
     msg = request.args['msg']
     this_ip = request.remote_addr
     state_mods = json.loads(msg) # keep copy for later checking
+    if 'id' in state_mods:
+      this_ip = this_ip + state_mods['id']
+      del state_mods['id']
     if not queue_down.empty(): # altered animation_state available
       STATE = queue_down.get()
       for ip in IPLIST:
