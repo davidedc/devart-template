@@ -80,6 +80,7 @@ class Slider extends UIElement {
    void setToIntegerValue(int theValue){
      if (theValue == floor(mappedValue())) return;
      cursorPosition = map(theValue,minValue,maxValue,0,1);
+     integerToBeChanged.value = theValue;
      requiresRepaint();
    }
    

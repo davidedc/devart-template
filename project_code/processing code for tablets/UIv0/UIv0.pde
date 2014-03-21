@@ -3,6 +3,7 @@
 ServerConnectorThread serverConnectorThread;
 String urlToFetch = "http://192.168.0.12/update/?msg=";
 AnimationState animationState;
+int randomSessionID = floor(random(100));
 
 UIGrid uiGrid;
 RadioButtonsGroup foregroundShaderRadioButtonsGroup = new RadioButtonsGroup();

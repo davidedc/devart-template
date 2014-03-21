@@ -21,8 +21,14 @@ public class ServerConnectorThread extends Thread {
   private HttpURLConnection urlConnection;
   private UIv0 parent;
 
-  UIv0.AnimationState previousAnimationState;
-  UIv0.AnimationState previousAnimationStateFromServer = null;
+  UIv0.AnimationState
+    deltaStateForServer,
+    checkpointState,
+    stateBeforeSending,
+    previousExplicitServerState,
+    serverState,
+    deltaMostUpToDateChanges,
+    goodUpdatesFromServer;
 
   // Constructor, create the thread
   // It is not running by default
@@ -71,27 +77,27 @@ public class ServerConnectorThread extends Thread {
       count++;
 
       String JSONOfDeltaLocalState = "{}";
-      UIv0.AnimationState deltaLocalState = null;
       
-      if (previousAnimationState == null) {
-        previousAnimationState = parent.animationState.clone();
-        System.out.println(">>>> no recollection of previous state, creating one");
+      if (checkpointState == null) {
+        checkpointState = parent.animationState.clone();
+        System.out.println("#### no recollection of previous state, creating one");
       }
 
-      deltaLocalState = parent.animationState.deltaOfState(previousAnimationState);
-      UIv0.AnimationState animationStateBeforeConnection = parent.animationState.clone();
+      System.out.println("#### checkpoint: " + checkpointState.toJSON());
+      System.out.println("#### current state: " + parent.animationState.toJSON());
 
-      JSONOfDeltaLocalState = deltaLocalState.toJSON();
-      if (JSONOfDeltaLocalState.equals("{}")) {
-        System.out.println(">>>> no changes to local animation state");
-      }
-      else {
-        System.out.println(">>>> JSON of deltaLocalState: >" + JSONOfDeltaLocalState + "<");
-      }
+      deltaStateForServer = parent.animationState.delta(checkpointState);
+      stateBeforeSending = parent.animationState.clone();
+      System.out.println("#### state before connection: " + stateBeforeSending.toJSON());
+
+      JSONOfDeltaLocalState = deltaStateForServer.toJSON();
+      System.out.println("#### JSONOfDeltaLocalState: " + JSONOfDeltaLocalState);
 
       // Now send the local state delta to the server
       
       try {
+        //String JSONOfDeltaLocalStatePlusID =  JSONOfDeltaLocalState.substring(0, JSONOfDeltaLocalState.length()-1);
+        //JSONOfDeltaLocalStatePlusID += ",'id':" + parent.randomSessionID + "}";
         URL url = new URL(parent.urlToFetch + JSONOfDeltaLocalState);
         System.out.println(">>>> server request");
         int startTime = parent.millis();
@@ -102,68 +108,38 @@ public class ServerConnectorThread extends Thread {
         System.out.println(">>>> server reply in " +  (endTime-startTime) + " milliseconds : " + JSONResponseFromServer);
       } 
       catch (Exception e) {
-        System.out.println(">>>> exception while connecting to serve: " +  e);
+        System.out.println(">>>> exception while connecting to server: " +  e);
         continue; // go back to top of the loop.
       }
       // don't worry, it does TCP connection pooling
       // and keepalive behind the scenes.
       urlConnection.disconnect();
 
+      if (JSONResponseFromServer.equals("{}")) {
+        if (previousExplicitServerState == null) continue;
+        serverState = previousExplicitServerState.clone();
+        System.out.println("#### reply from server empty, using: " + serverState.toJSON());
+      }
+      else {
+        serverState = parent.new AnimationState(JSONResponseFromServer);
+        previousExplicitServerState = serverState.clone();
+        System.out.println("#### reply from server: " + serverState.toJSON());
+      }
+
+
+
       // 200ms are a long time so
       // re-take a snapshot of the UI to figure out
       // what to change and what not to change
-      deltaLocalState = parent.animationState.deltaOfState(previousAnimationState);
-      previousAnimationState = animationStateBeforeConnection;
-
-
-      UIv0.AnimationState animationStateFromServer;
+      deltaMostUpToDateChanges = parent.animationState.delta(checkpointState);
+      System.out.println("#### while connecting the user has changed this: " + deltaMostUpToDateChanges.toJSON());
       
-      System.out.println("*** 1");
-      if (JSONResponseFromServer.equals("{}")) {
-        if (previousAnimationStateFromServer == null) continue;
-        animationStateFromServer = previousAnimationStateFromServer;
-      }
-      else {
-        animationStateFromServer = parent.new AnimationState(JSONResponseFromServer);
-      }
-      
-      // this might seem strange but we want the UI
-      // to be a little loose from server command
-      // while the user changes it, as it is quite
-      // jarring to have a slider being updated while
-      // the user is dragging it.
-      // so until a widget is being changed, the
-      // server has no influence on them. But when
-      // they are left alone for a second, then
-      // they are updated.
-
-      // clone the response anyways cause in case
-      // the server will send a {} we need to
-      // keep the correct server response not the one
-      // masked with the local changes
-      System.out.println("*** 2 " + animationStateFromServer.toString());
-      previousAnimationStateFromServer = animationStateFromServer.clone();
-
-      // effectively ignore the server state in regards
-      // to what the user has changed in the past second,
-      // for those just override what the server says with
-      // what the local state is
-      System.out.println("*** 3");
-      animationStateFromServer.maskOutDeltaOfState(deltaLocalState, parent.animationState);
-      
-      // we don't want the changes that we received from server to be
-      // identified as deltas that we need to re-send so let's
-      // merge them in so we don't pick them up at the next loop.
-      //previousAnimationState.mergeDeltaOfState(animationStateFromServer);
-
-      
-      // push the server state (minus what the user has changes in the
-      // past second) to the main thread to update the UI.
-      // So note that the UI will not change.
-      System.out.println("*** 4");
-      parent.deltaStateFromServerToUpdateUI = animationStateFromServer.deltaOfState(parent.animationState);
-      // we baseline future local changes against the
-      // server authoritative state info.
+      goodUpdatesFromServer = serverState.minus(deltaMostUpToDateChanges);
+      goodUpdatesFromServer = goodUpdatesFromServer.delta(parent.animationState); // don't update what's same as current state
+      System.out.println("#### updates from server we are going to apply: " + goodUpdatesFromServer.toJSON());
+      parent.deltaStateFromServerToUpdateUI = goodUpdatesFromServer;
+      checkpointState = stateBeforeSending.plus(goodUpdatesFromServer);
+      System.out.println("#### new checkpoint: " + checkpointState.toJSON());
       
 
 

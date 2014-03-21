@@ -53,6 +53,10 @@ class AnimationState {
     this.foreground_speed = new IntBox(foreground_speed);
     this.foreground_mult = new IntBox(foreground_mult);
   }
+
+  AnimationState (AnimationState toBeCloned) {
+    this(toBeCloned.foreground_scale, toBeCloned.foreground_shader, toBeCloned.foreground_spin, toBeCloned.foreground_speed, toBeCloned.foreground_mult);
+  }
   
   void initialise() {
     foreground_scale = new IntBox(1);
@@ -89,31 +93,39 @@ class AnimationState {
     JSONToReturn = JSONToReturn + "}";
     return JSONToReturn;
   }
+
   
   AnimationState clone() {
     return new AnimationState(foreground_scale, foreground_shader, foreground_spin, foreground_speed, foreground_mult);
   }
 
-  AnimationState deltaOfState(AnimationState previousAnimationState) {
+  // contruct a state
+  // that only contains the different fields
+  AnimationState delta(AnimationState previousAnimationState) {
     
     AnimationState deltaState = new AnimationState();
 
+    if (foreground_scale != null)
     if (foreground_scale.value != previousAnimationState.foreground_scale.value) {
       deltaState.foreground_scale = new IntBox(foreground_scale);
     }
 
+    if (foreground_shader != null)
     if (foreground_shader.value != previousAnimationState.foreground_shader.value) {
       deltaState.foreground_shader = new IntBox(foreground_shader);
     }
 
+    if (foreground_spin != null)
     if (foreground_spin.value != previousAnimationState.foreground_spin.value) {
       deltaState.foreground_spin = new IntBox(foreground_spin);
     }
 
+    if (foreground_speed != null)
     if (foreground_speed.value != previousAnimationState.foreground_speed.value) {
       deltaState.foreground_speed = new IntBox(foreground_speed);
     }
 
+    if (foreground_mult != null)
     if (foreground_mult.value != previousAnimationState.foreground_mult.value) {
       deltaState.foreground_mult = new IntBox(foreground_mult);
     }
@@ -121,53 +133,58 @@ class AnimationState {
     return deltaState;
   }
 
-  void maskOutDeltaOfState(AnimationState deltaState, AnimationState overridingState) {
+  // Take a copy of the current state and
+  // take away all the components
+  // that are contained in "excludeThis" that
+  // are different from the current state
+  AnimationState minus(AnimationState excludeThis) {
     
-    if (deltaState.foreground_scale != null) {
-      foreground_scale.value = overridingState.foreground_scale.value;
-    }
+    AnimationState result = new AnimationState(this);
 
-    if (deltaState.foreground_shader != null) {
-      foreground_shader.value = overridingState.foreground_shader.value;
+    if (excludeThis.foreground_scale != null && result.foreground_scale != excludeThis.foreground_scale) {
+      result.foreground_scale = null;
+    }
+    if (excludeThis.foreground_shader != null && result.foreground_shader != excludeThis.foreground_shader) {
+      result.foreground_shader = null;
+    }
+    if (excludeThis.foreground_spin != null && result.foreground_spin != excludeThis.foreground_spin) {
+      result.foreground_spin = null;
+    }
+    if (excludeThis.foreground_speed != null && result.foreground_speed != excludeThis.foreground_speed) {
+      result.foreground_speed = null;
+    }
+    if (excludeThis.foreground_mult != null && result.foreground_mult != excludeThis.foreground_mult) {
+      result.foreground_mult = null;
     }
     
-    if (deltaState.foreground_spin != null) {
-      foreground_spin.value = overridingState.foreground_spin.value;
-    }
-
-    if (deltaState.foreground_speed != null) {
-      foreground_speed.value = overridingState.foreground_speed.value;
-    }
-
-    if (deltaState.foreground_mult != null) {
-      foreground_mult.value = overridingState.foreground_mult.value;
-    }
-
+    return result;
   }
 
-  void mergeDeltaOfState(AnimationState deltaState) {
+  // any of the contents of "addThis"
+  // overwite the contents of the current state
+  AnimationState plus(AnimationState addThis) {
     
-    if (deltaState.foreground_scale != null) {
-      foreground_scale.value = deltaState.foreground_scale.value;
-    }
+    AnimationState result = new AnimationState(this);
 
-    if (deltaState.foreground_shader != null) {
-      foreground_shader.value = deltaState.foreground_shader.value;
+    if (addThis.foreground_scale != null) {
+      result.foreground_scale = new IntBox(addThis.foreground_scale);
+    }
+    if (addThis.foreground_shader != null) {
+      result.foreground_shader = new IntBox(addThis.foreground_shader);
+    }
+    if (addThis.foreground_spin != null) {
+      result.foreground_spin = new IntBox(addThis.foreground_spin);
+    }
+    if (addThis.foreground_speed != null) {
+      result.foreground_speed = new IntBox(addThis.foreground_speed);
+    }
+    if (addThis.foreground_mult != null) {
+      result.foreground_mult = new IntBox(addThis.foreground_mult);
     }
     
-    if (deltaState.foreground_spin != null) {
-      foreground_spin.value = deltaState.foreground_spin.value;
-    }
-
-    if (deltaState.foreground_speed != null) {
-      foreground_speed.value = deltaState.foreground_speed.value;
-    }
-
-    if (deltaState.foreground_mult != null) {
-      foreground_mult.value = deltaState.foreground_mult.value;
-    }
-
+    return result;
   }
+
 
   String toString() {
     

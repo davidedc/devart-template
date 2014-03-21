@@ -37,7 +37,7 @@ class RadioButton extends ToggleButton {
      if (!isOn) {
        super.touched();
        integerToBeChanged.value = valueToChangeTheIntegerTo;
-       println("animation state foreground scale is now: " + animationState.foreground_scale.value);
+       println("animation state shader is now: " + valueToChangeTheIntegerTo);
        //isOn = true;
        radioButtonsGroup.toggleOffAllButtonsExceptThisOne(this);
      }
