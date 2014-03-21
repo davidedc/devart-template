@@ -20,7 +20,7 @@ After a couple of nights of this you see that the buttons over the clients start
 Back to pen and paper
 ----------------------
 
-The server's account of the UI status is authoritative. Except for the parts of the UI that the user updated since the last communication. And also the changes that the user performs during the 250ms or more *while* the server is contacted need to be taken into account, so those changes will have to resist the updates from the server too, but those need to be sent at the next communication. Oh and don't forget that we definitely don't want the client to send back to the server the changes that it received from server. Also both the clients and the server send (almost) minimal deltas back and forth, so some case is needed to always have an accurate rendition of the states.
+The server's account of the UI status is authoritative. Except for the parts of the UI that the user updated since the last communication. And also the changes that the user performs during the 250ms or more *while* the server is contacted need to be taken into account, so those changes will have to resist the updates from the server too, but those need to be sent at the next communication. Oh and don't forget that we definitely don't want the client to send back to the server the changes that it received from server. Also both the clients and the server send (almost) minimal deltas back and forth, so some care is needed to always have an accurate rendition of the states.
 
 So. After quite a bit ot thinking. This is what synchronising UI over latencies looks like (note that the diagram assumes 10 seconds latency to highlight that things need to work no matter what the amount of latency is):
 
@@ -32,4 +32,4 @@ Or, more clearly:
 
 Once that's done there is still some debugging for inevitable glitches and errors, but the result is that one can now change two sliders (the same or different) on two separate clients without rubber-banding and with evental consistency. Or try to scatter-tap around the UI! It all eventually synchs.
 
-If the "conflict" situations are specifically highlighted (perhaps with flashing of a thunder next to the widget), then we have a pretty reasonable handling of a problem that is not super-simple at all!
+If the "conflict" situations are specifically highlighted (perhaps by flashing a small "thunder" icon next to the widget as it's changed but "other" clients), then we have a pretty reasonable handling of a problem that is not super-simple at all!
