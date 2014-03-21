@@ -13,7 +13,7 @@ How would one go about solving that? One idea is to hope there is no problem and
 
 ![Happy days](https://raw.github.com/davidedc/devart-template/master/project_images/UI-Synch-diagram-1-happy-days.gif)
 
-This is what lead to a couple of nights of manual adjusting. You know the feeling. Maybe you can merge this update. Except in this case. And you need to remember the previous value. But maybe not if you pressed the button recently. And wait about you need a copy of the copy here cause you need it in this case.
+This is what lead to a couple of nights of manual adjusting. You know the feeling. Maybe you can merge this update. Except in this case. And you need to remember the previous value. But maybe not if you pressed the button recently. And wait maybe you need a copy of the copy here cause you need it in this case, but let's leave this old variable name even though it's misleading.
 
 After a couple of nights of this you see that the buttons over the clients start to mimic one another in a dance loop. You swallow the humble sandwich. You figure that some proper thinking is needed.
 
