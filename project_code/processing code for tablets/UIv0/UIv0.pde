@@ -1,4 +1,4 @@
-
+ 
 
 ServerConnectorThread serverConnectorThread;
 String urlToFetch = "http://192.168.0.12/update/?msg=";

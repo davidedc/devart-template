@@ -79,6 +79,7 @@ public class ServerConnectorThread extends Thread {
       }
 
       deltaLocalState = parent.animationState.deltaOfState(previousAnimationState);
+      UIv0.AnimationState animationStateBeforeConnection = parent.animationState.clone();
 
       JSONOfDeltaLocalState = deltaLocalState.toJSON();
       if (JSONOfDeltaLocalState.equals("{}")) {
@@ -112,7 +113,7 @@ public class ServerConnectorThread extends Thread {
       // re-take a snapshot of the UI to figure out
       // what to change and what not to change
       deltaLocalState = parent.animationState.deltaOfState(previousAnimationState);
-      previousAnimationState = parent.animationState.clone();
+      previousAnimationState = animationStateBeforeConnection;
 
 
       UIv0.AnimationState animationStateFromServer;
@@ -149,6 +150,11 @@ public class ServerConnectorThread extends Thread {
       // what the local state is
       System.out.println("*** 3");
       animationStateFromServer.maskOutDeltaOfState(deltaLocalState, parent.animationState);
+      
+      // we don't want the changes that we received from server to be
+      // identified as deltas that we need to re-send so let's
+      // merge them in so we don't pick them up at the next loop.
+      //previousAnimationState.mergeDeltaOfState(animationStateFromServer);
 
       
       // push the server state (minus what the user has changes in the
