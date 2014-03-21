@@ -5,17 +5,17 @@ Rubberbanding is a term well known to whoever engaged in multiplayer first-perso
 
 It's basically a problem of state synching over a network with latency.
 
-So inevitably we had to fight the same problem to some degree, as we are synching the whole UI across a number of clients.
+So inevitably Patrick and I had to fight the same problem to some degree, as we are synching the whole UI across a number of clients.
 
-To be analytical - a part of the problem is inherent and unavoidable, for example concurrent modification of the same slider is going to end up in one winner and one loser. But there is a particular part of the problem that is very annoying and *can* be avoided, i.e. the issue of having a widget updated *while* the user is working with it. Whoever tried to drag a slider that "opposed resistance" or acted erratically knows the feeling. It just completely breaks the feeling of consistency of the UI.
+To be analytical - a part of the problem is inherent and unavoidable, for example concurrent modification of the same slider is going to end up in one winner and one loser. But there is a particular part of the problem that is very annoying and *can* be avoided, i.e. the issue of having a widget updated by an invisible hand *while* the user is working with it. Whoever tried to drag a slider that "opposed resistance" or acted erratically knows the feeling. It just completely breaks the feeling of consistency of the UI.
 
 How would one go about solving that? One idea is to hope there is no problem and hope that some kind of simple magical merge will work, as in this first diagram of mine:
 
 ![Happy days](https://raw.github.com/davidedc/devart-template/master/project_images/UI-Synch-diagram-1-happy-days.gif)
 
-This is what lead to a couple of nights of manual adjusting. You know the feeling. Maybe you can merge this update. Except in this case. And you need to remember the previous value. But maybe not if you pressed the button recently. And wait maybe you need a copy of the copy here cause you need it in this case, but let's leave this old variable name even though it's misleading.
+This is what lead to a couple of nights of organic "growing" of code. You know what that's like. Maybe you can merge this update. Except in this case. And you need to remember the previous value. But maybe not if you pressed the button recently. And wait maybe you need a copy of the copy here cause you need it in this case, but let's leave this old variable name even though it's misleading.
 
-After a couple of nights of this you see that the buttons over the clients start to mimic one another in a dance loop. You swallow the humble sandwich. You figure that some proper thinking is needed.
+After a couple of nights of this you see that the buttons over the clients start to mimic one another in a dance loop. This is not going to fly, you swallow the humble sandwich and you figure that some proper thinking is needed.
 
 Back to pen and paper
 ----------------------
