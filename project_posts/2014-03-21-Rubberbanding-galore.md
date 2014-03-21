@@ -30,6 +30,6 @@ Or, more clearly:
 
 ![done](https://raw.github.com/davidedc/devart-template/master/project_images/UI-Synch-diagram-3-finally-order.gif)
 
-Once that's done there is still some debugging for inevitable glitches and errors, but the result is that one can now change two sliders (the same or different) on two separate clients without rubber-banding and with evental consistency. Or try to scatter-tap around the UI! It all eventually synchs.
+Once that's done there is still some debugging for inevitable glitches and errors, but the result is that one can now change two sliders (the same or different) on two separate clients without rubber-banding and with eventual consistency. Or try to scatter-tap around the UI! It works! It all eventually synchs!
 
 If the "conflict" situations are specifically highlighted (perhaps by flashing a small "thunder" icon next to the widget as it's changed but "other" clients), then we have a pretty reasonable handling of a problem that is not super-simple at all!
