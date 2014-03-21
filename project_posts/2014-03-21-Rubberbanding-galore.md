@@ -9,7 +9,7 @@ So inevitably we had to fight the same problem to some degree, as we are synchin
 
 To be analytical - a part of the problem is inherent and unavoidable, for example concurrent modification of the same slider is going to end up in one winner and one loser. But there is a particular part of the problem that is very annoying and *can* be avoided, i.e. the issue of having a widget updated *while* the user is working with it. Whoever tried to drag a slider that "opposed resistance" or acted erratically knows the feeling. It just completely breaks the feeling of consistency of the UI.
 
-How would one go about solving that? One idea is to hope there is no problem and hope that some kind of merge will work, as in this first diagram of mine:
+How would one go about solving that? One idea is to hope there is no problem and hope that some kind of simple magical merge will work, as in this first diagram of mine:
 
 ![Happy days](https://raw.github.com/davidedc/devart-template/master/project_images/UI-Synch-diagram-1-happy-days.gif)
 
