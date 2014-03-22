@@ -1,7 +1,7 @@
  
 
 ServerConnectorThread serverConnectorThread;
-String urlToFetch = "http://192.168.0.12/update/?msg=";
+String urlToFetch = "http://192.168.0.104/update/?msg=";
 AnimationState animationState;
 int randomSessionID = floor(random(100));
 
