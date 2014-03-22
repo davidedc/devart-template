@@ -5,6 +5,7 @@ class AnimationState {
   IntBox foreground_spin;
   IntBox foreground_speed;
   IntBox foreground_mult;
+  IntBox foreground_palette;
 
   AnimationState ( ) {
   }
@@ -38,6 +39,11 @@ class AnimationState {
       foreground_mult = new IntBox(Integer.parseInt(m[1]));
     }
 
+    m = match(fullStateInJSON, "\"f_paltt\"\\s*:\\s*(\\d+)");
+    if (m != null){
+      foreground_palette = new IntBox(Integer.parseInt(m[1]));
+    }
+
   }
 
   AnimationState (
@@ -45,17 +51,26 @@ class AnimationState {
     IntBox foreground_shader,
     IntBox foreground_spin,
     IntBox foreground_speed,
-    IntBox foreground_mult
+    IntBox foreground_mult,
+    IntBox foreground_palette
   ) {
     this.foreground_scale = new IntBox(foreground_scale);
     this.foreground_shader = new IntBox(foreground_shader);
     this.foreground_spin = new IntBox(foreground_spin);
     this.foreground_speed = new IntBox(foreground_speed);
     this.foreground_mult = new IntBox(foreground_mult);
+    this.foreground_palette = new IntBox(foreground_palette);
   }
 
   AnimationState (AnimationState toBeCloned) {
-    this(toBeCloned.foreground_scale, toBeCloned.foreground_shader, toBeCloned.foreground_spin, toBeCloned.foreground_speed, toBeCloned.foreground_mult);
+    this(
+      toBeCloned.foreground_scale,
+      toBeCloned.foreground_shader,
+      toBeCloned.foreground_spin,
+      toBeCloned.foreground_speed,
+      toBeCloned.foreground_mult,
+      toBeCloned.foreground_palette
+      );
   }
   
   void initialise() {
@@ -64,6 +79,7 @@ class AnimationState {
     foreground_spin = new IntBox(1);
     foreground_speed = new IntBox(1);
     foreground_mult = new IntBox(1);
+    foreground_palette = new IntBox(1);
   }
   
   String toJSON() {
@@ -83,6 +99,9 @@ class AnimationState {
     if (foreground_mult != null){
       JSONToReturn = JSONToReturn + "\"f_mult\":"+foreground_mult.value + ",";
     }
+    if (foreground_palette != null){
+      JSONToReturn = JSONToReturn + "\"f_paltt\":"+foreground_palette.value + ",";
+    }
 
     // strip the last comma but only if any of the
     // fields has been added
@@ -96,7 +115,14 @@ class AnimationState {
 
   
   AnimationState clone() {
-    return new AnimationState(foreground_scale, foreground_shader, foreground_spin, foreground_speed, foreground_mult);
+    return new AnimationState(
+      foreground_scale,
+      foreground_shader,
+      foreground_spin,
+      foreground_speed,
+      foreground_mult,
+      foreground_palette
+      );
   }
 
   // contruct a state
@@ -129,6 +155,11 @@ class AnimationState {
     if (foreground_mult.value != previousAnimationState.foreground_mult.value) {
       deltaState.foreground_mult = new IntBox(foreground_mult);
     }
+
+    if (foreground_palette != null)
+    if (foreground_palette.value != previousAnimationState.foreground_palette.value) {
+      deltaState.foreground_palette = new IntBox(foreground_palette);
+    }
     
     return deltaState;
   }
@@ -156,6 +187,9 @@ class AnimationState {
     if (excludeThis.foreground_mult != null && result.foreground_mult != excludeThis.foreground_mult) {
       result.foreground_mult = null;
     }
+    if (excludeThis.foreground_palette != null && result.foreground_palette != excludeThis.foreground_palette) {
+      result.foreground_palette = null;
+    }
     
     return result;
   }
@@ -181,6 +215,9 @@ class AnimationState {
     if (addThis.foreground_mult != null) {
       result.foreground_mult = new IntBox(addThis.foreground_mult);
     }
+    if (addThis.foreground_palette != null) {
+      result.foreground_palette = new IntBox(addThis.foreground_palette);
+    }
     
     return result;
   }
@@ -204,6 +241,9 @@ class AnimationState {
     }
     if (foreground_mult != null) {
       string += "foreground_mult: " + foreground_mult.value + "\n";
+    }
+    if (foreground_palette != null) {
+      string += "foreground_palette: " + foreground_palette.value + "\n";
     }
 
     

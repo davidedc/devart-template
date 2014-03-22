@@ -6,7 +6,6 @@ AnimationState animationState;
 int randomSessionID = floor(random(100));
 
 UIGrid uiGrid;
-RadioButtonsGroup foregroundShaderRadioButtonsGroup = new RadioButtonsGroup();
 
 // stores which changes we need to
 // apply to the UI to align the UI representation

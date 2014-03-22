@@ -3,6 +3,10 @@ Slider foreground_spinSlider;
 Slider foreground_speedSlider;
 Slider foreground_multSlider;
 
+RadioButtonsGroup foregroundShaderRadioButtonsGroup;
+RadioButtonsGroup palettesRadioButtonsGroup;
+
+
 void buildUI() {
 
   uiGrid = new UIGrid(
@@ -115,6 +119,48 @@ void buildUI() {
   color(255, 0, 255), // color backgroundColor
   uiGrid
     );
+
+////////////////////////////////////////////////////////////////
+// Drawing the palettes
+////////////////////////////////////////////////////////////////
+
+  palettesRadioButtonsGroup = new RadioButtonsGroup();
+
+  // add radio buttons for foreground shader
+  for (int i = 0; i < 15; i++) {
+  for (int j = 0; j < 4; j++) {
+    new RadioButton(
+    "paletteRadioButton" + (i+1), 
+    i, //float xPositionInCells,
+    0.5+j, //float yPositionInCells,
+    1, //float widthInCells,
+    1, //float heightInCells,
+    color(0, 255, 0), // color backgroundColor
+    palettesRadioButtonsGroup, 
+    uiColorCombosPanel, 
+    animationState.foreground_palette,
+    j%15 + i
+      );
+  }
+  }
+
+  for (int i = 0; i < 4; i++) {
+    new RadioButton(
+    "paletteRadioButton" + (60+i), 
+    i, //float xPositionInCells,
+    0.5+4, //float yPositionInCells,
+    1, //float widthInCells,
+    1, //float heightInCells,
+    color(0, 255, 0), // color backgroundColor
+    palettesRadioButtonsGroup, 
+    uiColorCombosPanel, 
+    animationState.foreground_palette,
+    60 + i
+      );
+  }
+
+////////////////////////////////////////////////////////////////
+
 
   UIPanel uiEffectsPanel = new UIPanel(
   "effects panel", 
