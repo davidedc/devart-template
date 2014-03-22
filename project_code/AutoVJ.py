@@ -4,8 +4,8 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 MASTER = True # master plays the music and runs the flask server
 #MASTER = False 
-#MARGIN = 0
-MARGIN = 200 # for debugging make the screen small enough to see round!
+MARGIN = 0
+#MARGIN = 200 # for debugging make the screen small enough to see round!
 
 import demo
 import pi3d
@@ -39,7 +39,7 @@ def slave_checker(ani_state, t_flag):
         ani_state.state[key] = msg[key]
     time.sleep(0.1) #could cause delay if flag has changed to -1 but can't run flat out!
     
-
+    
 counter = [None]*5
 counter[0] = 0
 
@@ -53,7 +53,7 @@ ShaderTypes()
 mykeys = pi3d.Keyboard()
 
 perspectiveCamera = pi3d.Camera(is_3d=True)
-#perspectiveCamera.rotateY(-65)
+#perspectiveCamera.rotateY(65)
 
 box = SimpleCube(perspectiveCamera)
 points = SimplePoints(perspectiveCamera)
@@ -170,16 +170,6 @@ while DISPLAY.loop_running():
         else:
           animation_state.activity = 'l01'
         music.stdin.write(b'LOAD music/' + animation_state.sample_progress() + b'\n')
-        foreground = box
-        animation_state.state['f_type'] = 'box'
-        if  animation_state.activity == 'l04': # do after state reset
-          sp = animation_state.state['f_speed']
-          if sp > 8 and sp < 13:
-            foreground = points
-            animation_state.state['f_type'] = 'points'
-          elif sp == 5 or sp == 18:
-            foreground = sphere
-            animation_state.state['f_type'] = 'sphere'
         refresh = True
     if b'FFT' in l: #frequency analysis
       val_str = l.split()
@@ -215,6 +205,13 @@ while DISPLAY.loop_running():
           animation_state.state['user2'] = [round(i / 255.0, 3) for i in msg[mkey]]
         else:
           animation_state.state[mkey] = msg[mkey]
+          if mkey == 'f_type' and msg[mkey] != foreground.geometry.name:
+            if msg[mkey] == 2:
+              foreground = points
+            elif msg[mkey] == 1:
+              foreground = sphere
+            else:
+              foreground = box
       nextTime = time.time() + freeze_time
       activity += 1.0
       refresh = True
@@ -236,9 +233,9 @@ while DISPLAY.loop_running():
     if t_flag[0] == 1: #fresh info in animation_state by thread 
       this_ftype = animation_state.state['f_type']
       if this_ftype != last_ftype:
-        if this_ftype == 'points':
+        if this_ftype == 2:
           foreground = points
-        elif this_ftype == 'sphere':
+        elif this_ftype == 1:
           foreground = sphere
         else:
           foreground = box
