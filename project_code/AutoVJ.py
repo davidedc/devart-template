@@ -185,6 +185,15 @@ while DISPLAY.loop_running():
           animation_state.state['light'] = round(0.25 + min(0.75, av_amp / 150.0), 3)
           if time.time() > nextTime:
             animation_state.beat_progress()
+            ftype = animation_state.state['f_type']
+            if ftype != foreground.geometry.name:
+              if ftype == 2:
+                foreground = points
+              elif ftype == 1:
+                foreground = sphere
+              else:
+                foreground = box
+
             refresh = True
       last_amp = amp
     #######-----------------------
