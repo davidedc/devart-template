@@ -23,7 +23,8 @@ class RadioButton extends ToggleButton {
     widthInCells, 
     heightInCells,
     backgroundColor,
-    containerUIElement
+    containerUIElement,
+    null
       );
     this.radioButtonsGroup = radioButtonsGroup;
     this.integerToBeChanged = integerToBeChanged;

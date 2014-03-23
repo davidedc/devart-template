@@ -25,6 +25,26 @@ void updateStablePartOfUIWithStateFromServer() {
       foreground_multSlider.setToIntegerValue(deltaStateFromServerToUpdateUI.foreground_mult.value);
       println("### applying UI change to foreground_mult: " + deltaStateFromServerToUpdateUI.foreground_mult.value);
     }
+    if (deltaStateFromServerToUpdateUI.foreground_palette != null) {
+      palettesRadioButtonsGroup.toggleOnNthRadioButton(deltaStateFromServerToUpdateUI.foreground_palette.value);
+      println("### applying UI change to foreground_palette: " + deltaStateFromServerToUpdateUI.foreground_palette.value);
+    }
+    if (deltaStateFromServerToUpdateUI.foreground_fx1 != null) {
+      foreground_fx1Toggle.setToIntegerValue(deltaStateFromServerToUpdateUI.foreground_fx1.value);
+      println("### applying UI change to foreground_fx1: " + deltaStateFromServerToUpdateUI.foreground_fx1.value);
+    }
+    if (deltaStateFromServerToUpdateUI.foreground_fx2 != null) {
+      foreground_fx2Toggle.setToIntegerValue(deltaStateFromServerToUpdateUI.foreground_fx2.value);
+      println("### applying UI change to foreground_fx2: " + deltaStateFromServerToUpdateUI.foreground_fx2.value);
+    }
+    if (deltaStateFromServerToUpdateUI.foreground_fx3 != null) {
+      foreground_fx3Toggle.setToIntegerValue(deltaStateFromServerToUpdateUI.foreground_fx3.value);
+      println("### applying UI change to foreground_fx3: " + deltaStateFromServerToUpdateUI.foreground_fx3.value);
+    }
+    if (deltaStateFromServerToUpdateUI.foreground_fx4 != null) {
+      foreground_fx4Toggle.setToIntegerValue(deltaStateFromServerToUpdateUI.foreground_fx4.value);
+      println("### applying UI change to foreground_fx4: " + deltaStateFromServerToUpdateUI.foreground_fx4.value);
+    }
 
 
     deltaStateFromServerToUpdateUI = null;

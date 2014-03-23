@@ -6,6 +6,11 @@ Slider foreground_multSlider;
 RadioButtonsGroup foregroundShaderRadioButtonsGroup;
 RadioButtonsGroup palettesRadioButtonsGroup;
 
+ToggleButton foreground_fx1Toggle;
+ToggleButton foreground_fx2Toggle;
+ToggleButton foreground_fx3Toggle;
+ToggleButton foreground_fx4Toggle;
+
 
 void buildUI() {
 
@@ -139,7 +144,7 @@ void buildUI() {
     palettesRadioButtonsGroup, 
     uiColorCombosPanel, 
     animationState.foreground_palette,
-    j%15 + i
+    j*15 + i
       );
   }
   }
@@ -159,6 +164,7 @@ void buildUI() {
       );
   }
 
+
 ////////////////////////////////////////////////////////////////
 
 
@@ -172,22 +178,62 @@ void buildUI() {
   uiGrid
     );
 
+////////////////////////////////////////////////////////////////
+// Drawing the background effects toggle buttons
+////////////////////////////////////////////////////////////////
+
+  foreground_fx1Toggle = new ToggleButton(
+  "foreground_fx1Toggle", 
+  8, //float xPositionInCells,
+  1, //float yPositionInCells,
+  3, //float widthInCells,
+  1, //float heightInCells,
+  color(255, 255, 0), // color backgroundColor
+  uiEffectsPanel,
+  animationState.foreground_fx1
+    );
+
+  foreground_fx2Toggle = new ToggleButton(
+  "foreground_fx2Toggle", 
+  11.5, //float xPositionInCells,
+  1, //float yPositionInCells,
+  3, //float widthInCells,
+  1, //float heightInCells,
+  color(255, 255, 0), // color backgroundColor
+  uiEffectsPanel,
+  animationState.foreground_fx2
+    );
+
+  foreground_fx3Toggle = new ToggleButton(
+  "foreground_fx3Toggle", 
+  8, //float xPositionInCells,
+  2, //float yPositionInCells,
+  3, //float widthInCells,
+  1, //float heightInCells,
+  color(255, 255, 0), // color backgroundColor
+  uiEffectsPanel,
+  animationState.foreground_fx3
+    );
+
+  foreground_fx4Toggle = new ToggleButton(
+  "foreground_fx4Toggle", 
+  11.5, //float xPositionInCells,
+  2, //float yPositionInCells,
+  3, //float widthInCells,
+  1, //float heightInCells,
+  color(255, 255, 0), // color backgroundColor
+  uiEffectsPanel,
+  animationState.foreground_fx4
+    );
+
+///////////////////////////////////////////////
+
   SimpleButton simpleButton1 = new SimpleButton(
   "simpleButton1", 
   1, //float xPositionInCells,
   1, //float yPositionInCells,
   1, //float widthInCells,
   1, //float heightInCells,
-  color(0, 0, 255), // color backgroundColor
-  uiSetRecallPresetsPanel
-    );
-
-  ToggleButton toggleButton1 = new ToggleButton(
-  "toggleButton1", 
-  2, //float xPositionInCells,
-  2, //float yPositionInCells,
-  2, //float widthInCells,
-  2, //float heightInCells,
   color(0, 0, 255), // color backgroundColor
   uiSetRecallPresetsPanel
     );
