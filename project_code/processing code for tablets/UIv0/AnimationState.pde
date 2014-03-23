@@ -10,6 +10,7 @@ class AnimationState {
   IntBox foreground_fx2;
   IntBox foreground_fx3;
   IntBox foreground_fx4;
+  IntBox foreground_type;
   
 
   AnimationState ( ) {
@@ -69,6 +70,11 @@ class AnimationState {
       foreground_fx4 = new IntBox(Integer.parseInt(m[1]));
     }
 
+    m = match(fullStateInJSON, "\"f_type\"\\s*:\\s*(\\d+)");
+    if (m != null){
+      foreground_type = new IntBox(Integer.parseInt(m[1]));
+    }
+
   }
 
   AnimationState (
@@ -81,7 +87,8 @@ class AnimationState {
     IntBox foreground_fx1,
     IntBox foreground_fx2,
     IntBox foreground_fx3,
-    IntBox foreground_fx4
+    IntBox foreground_fx4,
+    IntBox foreground_type
   ) {
     this.foreground_scale = new IntBox(foreground_scale);
     this.foreground_shader = new IntBox(foreground_shader);
@@ -93,6 +100,7 @@ class AnimationState {
     this.foreground_fx2 = new IntBox(foreground_fx2);
     this.foreground_fx3 = new IntBox(foreground_fx3);
     this.foreground_fx4 = new IntBox(foreground_fx4);
+    this.foreground_type = new IntBox(foreground_type);
   }
 
   AnimationState (AnimationState toBeCloned) {
@@ -106,7 +114,8 @@ class AnimationState {
       toBeCloned.foreground_fx1,
       toBeCloned.foreground_fx2,
       toBeCloned.foreground_fx3,
-      toBeCloned.foreground_fx4
+      toBeCloned.foreground_fx4,
+      toBeCloned.foreground_type
       );
   }
   
@@ -121,6 +130,7 @@ class AnimationState {
     foreground_fx2 = new IntBox(0);
     foreground_fx3 = new IntBox(0);
     foreground_fx4 = new IntBox(0);
+    foreground_type = new IntBox(1);
   }
   
   String toJSON() {
@@ -155,6 +165,9 @@ class AnimationState {
     if (foreground_fx4 != null){
       JSONToReturn = JSONToReturn + "\"f_fx4\":"+foreground_fx4.value + ",";
     }
+    if (foreground_type != null){
+      JSONToReturn = JSONToReturn + "\"f_type\":"+foreground_type.value + ",";
+    }
 
     // strip the last comma but only if any of the
     // fields has been added
@@ -178,7 +191,8 @@ class AnimationState {
       foreground_fx1,
       foreground_fx2,
       foreground_fx3,
-      foreground_fx4
+      foreground_fx4,
+      foreground_type
       );
   }
 
@@ -237,6 +251,11 @@ class AnimationState {
     if (foreground_fx4.value != previousAnimationState.foreground_fx4.value) {
       deltaState.foreground_fx4 = new IntBox(foreground_fx4);
     }
+
+    if (foreground_type != null)
+    if (foreground_type.value != previousAnimationState.foreground_type.value) {
+      deltaState.foreground_type = new IntBox(foreground_type);
+    }
     
     return deltaState;
   }
@@ -279,6 +298,9 @@ class AnimationState {
     if (excludeThis.foreground_fx4 != null && result.foreground_fx4 != excludeThis.foreground_fx4) {
       result.foreground_fx4 = null;
     }
+    if (excludeThis.foreground_type != null && result.foreground_type != excludeThis.foreground_type) {
+      result.foreground_type = null;
+    }
     
     return result;
   }
@@ -319,6 +341,9 @@ class AnimationState {
     if (addThis.foreground_fx4 != null) {
       result.foreground_fx4 = new IntBox(addThis.foreground_fx4);
     }
+    if (addThis.foreground_type != null) {
+      result.foreground_type = new IntBox(addThis.foreground_type);
+    }
     
     return result;
   }
@@ -357,6 +382,9 @@ class AnimationState {
     }
     if (foreground_fx4 != null) {
       string += "foreground_fx4: " + foreground_fx4.value + "\n";
+    }
+    if (foreground_type != null) {
+      string += "foreground_type: " + foreground_type.value + "\n";
     }
 
     

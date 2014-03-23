@@ -45,6 +45,10 @@ void updateStablePartOfUIWithStateFromServer() {
       foreground_fx4Toggle.setToIntegerValue(deltaStateFromServerToUpdateUI.foreground_fx4.value);
       println("### applying UI change to foreground_fx4: " + deltaStateFromServerToUpdateUI.foreground_fx4.value);
     }
+    if (deltaStateFromServerToUpdateUI.foreground_type != null) {
+      geometryTypesRadioButtonsGroup.toggleOnNthRadioButton(deltaStateFromServerToUpdateUI.foreground_type.value);
+      println("### applying UI change to foreground_type: " + deltaStateFromServerToUpdateUI.foreground_type.value);
+    }
 
 
     deltaStateFromServerToUpdateUI = null;

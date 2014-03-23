@@ -5,6 +5,7 @@ Slider foreground_multSlider;
 
 RadioButtonsGroup foregroundShaderRadioButtonsGroup;
 RadioButtonsGroup palettesRadioButtonsGroup;
+RadioButtonsGroup geometryTypesRadioButtonsGroup;
 
 ToggleButton foreground_fx1Toggle;
 ToggleButton foreground_fx2Toggle;
@@ -35,20 +36,43 @@ void buildUI() {
   uiGrid
     );
 
+////////////////////////////////////////////////////////////////
+// Geometry panel
+////////////////////////////////////////////////////////////////
+
   UIPanel uiGeometryPanel = new UIPanel(
   "geometry panel", 
   0, //float xPositionInCells,
   3, //float yPositionInCells,
   15, //float widthInCells,
-  5, //float heightInCells,
+  6, //float heightInCells,
   color(255, 255, 0), // color backgroundColor
   uiGrid
     );
 
+  geometryTypesRadioButtonsGroup = new RadioButtonsGroup();
+
+  // add radio buttons for foreground type
+  for (int i = 0; i < 3; i++) {
+    new RadioButton(
+    "foregroundShaderRadioButton" + (i+1), 
+    i*5, //float xPositionInCells,
+    1, //float yPositionInCells,
+    5, //float widthInCells,
+    1, //float heightInCells,
+    color(0, 255, 0), // color backgroundColor
+    geometryTypesRadioButtonsGroup, 
+    uiGeometryPanel, 
+    animationState.foreground_type, 
+    i
+      );
+  }
+
+
   foreground_scaleSlider = new Slider(
   "radioButton1", 
   8, //float xPositionInCells,
-  2, //float yPositionInCells,
+  3, //float yPositionInCells,
   3, //float widthInCells,
   1, //float heightInCells,
   color(255, 255, 0), // color backgroundColor
@@ -61,7 +85,7 @@ void buildUI() {
   foreground_spinSlider = new Slider(
   "radioButton1", 
   11.5, //float xPositionInCells,
-  2, //float yPositionInCells,
+  3, //float yPositionInCells,
   3, //float widthInCells,
   1, //float heightInCells,
   color(255, 255, 0), // color backgroundColor
@@ -74,7 +98,7 @@ void buildUI() {
   foreground_speedSlider = new Slider(
   "radioButton1", 
   8, //float xPositionInCells,
-  3, //float yPositionInCells,
+  4, //float yPositionInCells,
   3, //float widthInCells,
   1, //float heightInCells,
   color(255, 255, 0), // color backgroundColor
@@ -87,7 +111,7 @@ void buildUI() {
   foreground_multSlider = new Slider(
   "radioButton1", 
   11.5, //float xPositionInCells,
-  3, //float yPositionInCells,
+  4, //float yPositionInCells,
   3, //float widthInCells,
   1, //float heightInCells,
   color(255, 255, 0), // color backgroundColor
@@ -104,7 +128,7 @@ void buildUI() {
     new RadioButton(
     "foregroundShaderRadioButton" + (i+1), 
     (i+1)*((uiGrid.gridMetrics.gridWidthInCells/2)/(5+1))-0.5 + uiGrid.gridMetrics.gridWidthInCells/2, //float xPositionInCells,
-    1, //float yPositionInCells,
+    2, //float yPositionInCells,
     1, //float widthInCells,
     1, //float heightInCells,
     color(0, 255, 0), // color backgroundColor
@@ -118,7 +142,7 @@ void buildUI() {
   UIPanel uiColorCombosPanel = new UIPanel(
   "color combos", 
   0, //float xPositionInCells,
-  8, //float yPositionInCells,
+  9, //float yPositionInCells,
   15, //float widthInCells,
   8.75, //float heightInCells,
   color(255, 0, 255), // color backgroundColor
@@ -171,9 +195,9 @@ void buildUI() {
   UIPanel uiEffectsPanel = new UIPanel(
   "effects panel", 
   0, //float xPositionInCells,
-  16.75, //float yPositionInCells,
+  17.75, //float yPositionInCells,
   15, //float widthInCells,
-  4, //float heightInCells,
+  3, //float heightInCells,
   color(0, 255, 255), // color backgroundColor
   uiGrid
     );
