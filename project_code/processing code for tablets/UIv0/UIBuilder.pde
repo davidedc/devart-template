@@ -2,6 +2,8 @@ Slider foreground_scaleSlider;
 Slider foreground_spinSlider;
 Slider foreground_speedSlider;
 Slider foreground_multSlider;
+Slider foreground_param1Slider;
+Slider foreground_param2Slider;
 
 RadioButtonsGroup foregroundShaderRadioButtonsGroup;
 RadioButtonsGroup palettesRadioButtonsGroup;
@@ -117,6 +119,32 @@ void buildUI() {
   color(255, 255, 0), // color backgroundColor
   uiGeometryPanel,
   animationState.foreground_mult,
+  0,
+  19
+    );
+
+  foreground_param1Slider = new Slider(
+  "radioButton1", 
+  8, //float xPositionInCells,
+  5, //float yPositionInCells,
+  3, //float widthInCells,
+  1, //float heightInCells,
+  color(255, 255, 0), // color backgroundColor
+  uiGeometryPanel,
+  animationState.foreground_param1,
+  0,
+  19
+    );
+
+  foreground_param2Slider = new Slider(
+  "radioButton1", 
+  11.5, //float xPositionInCells,
+  5, //float yPositionInCells,
+  3, //float widthInCells,
+  1, //float heightInCells,
+  color(255, 255, 0), // color backgroundColor
+  uiGeometryPanel,
+  animationState.foreground_param2,
   0,
   19
     );

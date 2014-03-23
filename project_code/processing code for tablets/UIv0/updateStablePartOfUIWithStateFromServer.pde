@@ -49,6 +49,14 @@ void updateStablePartOfUIWithStateFromServer() {
       geometryTypesRadioButtonsGroup.toggleOnNthRadioButton(deltaStateFromServerToUpdateUI.foreground_type.value);
       println("### applying UI change to foreground_type: " + deltaStateFromServerToUpdateUI.foreground_type.value);
     }
+    if (deltaStateFromServerToUpdateUI.foreground_param1 != null) {
+      foreground_param1Slider.setToIntegerValue(deltaStateFromServerToUpdateUI.foreground_param1.value);
+      println("### applying UI change to foreground_param1: " + deltaStateFromServerToUpdateUI.foreground_param1.value);
+    }
+    if (deltaStateFromServerToUpdateUI.foreground_param2 != null) {
+      foreground_param2Slider.setToIntegerValue(deltaStateFromServerToUpdateUI.foreground_param2.value);
+      println("### applying UI change to foreground_param2: " + deltaStateFromServerToUpdateUI.foreground_param2.value);
+    }
 
 
     deltaStateFromServerToUpdateUI = null;
