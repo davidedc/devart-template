@@ -17,7 +17,7 @@ class AnimationState(object):
             'f_param1':0, 'f_param2':0, 'f_paltt':0, 'f_inv':0, 'f_fx1':0,
             'f_fx2':0, 'f_fx3':0, 'f_fx4':0, 'f_rot':[0.0, 0.0, 0.0],
             'user1':[0.3, 0.3, 0.3], 'user2':[0.6, 0.6, 0.6],
-            'light':0, 'beatf':8, 'f_type':'box'}
+            'light':0, 'beatf':8, 'f_type':0}
     self.last_activity = 'l01'
     self.activity = 'l01'
     self.sample_start = random.randint(0, 75)
@@ -33,7 +33,9 @@ class AnimationState(object):
     while len(self.base_state) < 12:
       key = random.choice(['b_', 'f_']) + random.choice(sl.keys())
       if key == 'b_paltt':
-        key = 'f_paltt' 
+        key = 'f_paltt'
+      if key == 'b_type':
+        key = 'f_type'
       if not(key in self.base_state):
         self.base_state[key] = random.randint(0, 75)
 
