@@ -132,21 +132,21 @@ void buildUI() {
   palettesRadioButtonsGroup = new RadioButtonsGroup();
 
   // add radio buttons for foreground shader
-  for (int i = 0; i < 15; i++) {
   for (int j = 0; j < 4; j++) {
-    new RadioButton(
-    "paletteRadioButton" + (i+1), 
-    i, //float xPositionInCells,
-    0.5+j, //float yPositionInCells,
-    1, //float widthInCells,
-    1, //float heightInCells,
-    color(0, 255, 0), // color backgroundColor
-    palettesRadioButtonsGroup, 
-    uiColorCombosPanel, 
-    animationState.foreground_palette,
-    j*15 + i
-      );
-  }
+    for (int i = 0; i < 15; i++) {
+      new RadioButton(
+      "paletteRadioButton" + (i+1), 
+      i, //float xPositionInCells,
+      0.5+j, //float yPositionInCells,
+      1, //float widthInCells,
+      1, //float heightInCells,
+      color(0, 255, 0), // color backgroundColor
+      palettesRadioButtonsGroup, 
+      uiColorCombosPanel, 
+      animationState.foreground_palette,
+      j*15 + i
+        );
+    }
   }
 
   for (int i = 0; i < 4; i++) {
