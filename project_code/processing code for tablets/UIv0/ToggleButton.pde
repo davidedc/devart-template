@@ -27,7 +27,7 @@ class ToggleButton extends SimpleButton {
   }
   
   void repaintCompletely() {
-    println("drawing toggle button");
+    //println("drawing toggle button");
 
     super.repaintCompletely();
 

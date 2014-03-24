@@ -27,7 +27,7 @@ class SimpleButton extends UIElement {
 
 
   void repaintCompletely() {
-    println("drawing simple button");
+    //println("drawing simple button");
 
     pushStyle();
     if (isFlashing){

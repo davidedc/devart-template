@@ -57,7 +57,7 @@ class UIElement {
   }
 
   void repaintCompletely() {
-    println("drawing UI Element");
+    //println("drawing UI Element");
     for (UIElement eachUiElement : uiElements) {
       eachUiElement.repaintCompletely();
     }

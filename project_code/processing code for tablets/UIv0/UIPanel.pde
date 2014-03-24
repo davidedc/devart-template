@@ -29,7 +29,7 @@ class UIPanel extends UIElement {
 
 
   void repaintCompletely() {
-    println("drawing UI Panel");
+    //println("drawing UI Panel");
 
     pushStyle();
     fill(backgroundColor);

@@ -40,7 +40,7 @@ class Slider extends UIElement {
 
 
   void repaintCompletely() {
-    println("drawing simple button");
+    //println("drawing slider");
 
     pushStyle();
     stroke(255);
