@@ -47,7 +47,7 @@ void buildUI() {
   0, //float xPositionInCells,
   0, //float yPositionInCells,
   15, //float widthInCells,
-  3, //float heightInCells,
+  4, //float heightInCells,
   color(255, 0, 0), // color backgroundColor
   uiGrid
     );
@@ -59,7 +59,7 @@ void buildUI() {
   UIPanel uiGeometryPanel = new UIPanel(
   "geometry panel", 
   0, //float xPositionInCells,
-  3, //float yPositionInCells,
+  4, //float yPositionInCells,
   15, //float widthInCells,
   6, //float heightInCells,
   color(255, 255, 0), // color backgroundColor
@@ -289,9 +289,9 @@ void buildUI() {
   UIPanel uiColorCombosPanel = new UIPanel(
   "color combos", 
   0, //float xPositionInCells,
-  9, //float yPositionInCells,
+  10, //float yPositionInCells,
   15, //float widthInCells,
-  8.75, //float heightInCells,
+  7.75, //float heightInCells,
   color(255, 0, 255), // color backgroundColor
   uiGrid
     );
