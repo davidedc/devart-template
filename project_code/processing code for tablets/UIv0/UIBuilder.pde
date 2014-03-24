@@ -42,6 +42,10 @@ void buildUI() {
   4 // grid elements aligh to 1/nth of a grid
   );
 
+////////////////////////////////////////////////////////////////
+// The set/recall presets Panel
+////////////////////////////////////////////////////////////////
+
   UIPanel uiSetRecallPresetsPanel = new UIPanel(
   "set/recall presets panel", 
   0, //float xPositionInCells,
@@ -51,6 +55,30 @@ void buildUI() {
   color(255, 0, 0), // color backgroundColor
   uiGrid
     );
+
+  for (int i = 0; i < 15; i++) {
+    new SimpleButton(
+    "saveSetButton" + (i+1), 
+    i, //float xPositionInCells,
+    1, //float yPositionInCells,
+    1, //float widthInCells,
+    1, //float heightInCells,
+    color(0, 255, 0), // color backgroundColor
+    uiSetRecallPresetsPanel
+      );
+  }
+
+  for (int i = 0; i < 15; i++) {
+    new SimpleButton(
+    "loadSetButton" + (i+1), 
+    i, //float xPositionInCells,
+    3, //float yPositionInCells,
+    1, //float widthInCells,
+    1, //float heightInCells,
+    color(0, 255, 0), // color backgroundColor
+    uiSetRecallPresetsPanel
+      );
+  }
 
 ////////////////////////////////////////////////////////////////
 // Geometry panel
