@@ -57,26 +57,28 @@ void buildUI() {
     );
 
   for (int i = 0; i < 15; i++) {
-    new SimpleButton(
+    new SaveStateButton(
     "saveSetButton" + (i+1), 
     i, //float xPositionInCells,
     1, //float yPositionInCells,
     1, //float widthInCells,
     1, //float heightInCells,
     color(0, 255, 0), // color backgroundColor
-    uiSetRecallPresetsPanel
+    uiSetRecallPresetsPanel,
+    i
       );
   }
 
   for (int i = 0; i < 15; i++) {
-    new SimpleButton(
+    new LoadStateButton(
     "loadSetButton" + (i+1), 
     i, //float xPositionInCells,
     3, //float yPositionInCells,
     1, //float widthInCells,
     1, //float heightInCells,
     color(0, 255, 0), // color backgroundColor
-    uiSetRecallPresetsPanel
+    uiSetRecallPresetsPanel,
+    i
       );
   }
 

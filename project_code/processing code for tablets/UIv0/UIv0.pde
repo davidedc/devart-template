@@ -5,12 +5,16 @@ String urlToFetch = "http://192.168.0.104/update/?msg=";
 AnimationState animationState;
 int randomSessionID = floor(random(100));
 
+// create 15 slots to load/save the AnimationStates
+AnimationState[] loadSaveAnimationStatesArray = new AnimationState[15];
+
 UIGrid uiGrid;
 
 // stores which changes we need to
 // apply to the UI to align the UI representation
 // with the state we received from the Server
 AnimationState deltaStateFromServerToUpdateUI;
+AnimationState deltaStateFromLoadButtons;
 
 void setup() { 
   // resolution of the Tabtronics mini is 768 x 1024.
@@ -30,6 +34,7 @@ void setup() {
   
   animationState = new AnimationState();
   animationState.initialise();
+  
   
   buildUI();
 
@@ -61,11 +66,22 @@ void draw() {
      serverConnectorThread.start();
   }
   
-  // check whether there are any updates to the UI
+  // Updates the animation state in case the user
+  // has pressed a "load state" button
+  // note that state changes from server are
+  // merged into the "load state" changes.
+  updateStablePartOfUIWithStateFromServer(deltaStateFromLoadButtons);
+  deltaStateFromLoadButtons = null;
+  
+  // Updates the stable part of the UI with
+  // state from server.
+  // I.E. check whether there are any updates to the UI
   // based on state coming from server.
   // Note: we don't update the widgets that the user
-  // is fiddling with, just all the others
-  updateStablePartOfUIWithStateFromServer();
+  // is fiddling with, just all the others.
+  updateStablePartOfUIWithStateFromServer(deltaStateFromServerToUpdateUI);
+  deltaStateFromServerToUpdateUI = null;
+
 
   // just draw a smooth animation
   // so we can check that the socket gets
