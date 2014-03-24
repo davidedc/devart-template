@@ -14,6 +14,20 @@ ToggleButton foreground_fx2Toggle;
 ToggleButton foreground_fx3Toggle;
 ToggleButton foreground_fx4Toggle;
 
+///////// background components
+
+Slider background_scaleSlider;
+Slider background_spinSlider;
+Slider background_speedSlider;
+Slider background_multSlider;
+Slider background_param1Slider;
+Slider background_param2Slider;
+RadioButtonsGroup backgroundShaderRadioButtonsGroup;
+ToggleButton background_fx1Toggle;
+ToggleButton background_fx2Toggle;
+ToggleButton background_fx3Toggle;
+ToggleButton background_fx4Toggle;
+
 
 void buildUI() {
 
@@ -57,7 +71,7 @@ void buildUI() {
   // add radio buttons for foreground type
   for (int i = 0; i < 3; i++) {
     new RadioButton(
-    "foregroundShaderRadioButton" + (i+1), 
+    "geometryTypesRadioButton" + (i+1), 
     i*5, //float xPositionInCells,
     1, //float yPositionInCells,
     5, //float widthInCells,
@@ -70,7 +84,8 @@ void buildUI() {
       );
   }
 
-
+  // foreground parts
+  
   foreground_scaleSlider = new Slider(
   "radioButton1", 
   8, //float xPositionInCells,
@@ -167,6 +182,110 @@ void buildUI() {
       );
   }
 
+//// background parts
+
+  background_scaleSlider = new Slider(
+  "radioButton1", 
+  8 - uiGrid.gridMetrics.gridWidthInCells/2, //float xPositionInCells,
+  3, //float yPositionInCells,
+  3, //float widthInCells,
+  1, //float heightInCells,
+  color(255, 255, 0), // color backgroundColor
+  uiGeometryPanel,
+  animationState.background_scale,
+  0,
+  19
+    );
+
+  background_spinSlider = new Slider(
+  "radioButton1", 
+  11.5 - uiGrid.gridMetrics.gridWidthInCells/2, //float xPositionInCells,
+  3, //float yPositionInCells,
+  3, //float widthInCells,
+  1, //float heightInCells,
+  color(255, 255, 0), // color backgroundColor
+  uiGeometryPanel,
+  animationState.background_spin,
+  0,
+  19
+    );
+
+  background_speedSlider = new Slider(
+  "radioButton1", 
+  8 - uiGrid.gridMetrics.gridWidthInCells/2, //float xPositionInCells,
+  4, //float yPositionInCells,
+  3, //float widthInCells,
+  1, //float heightInCells,
+  color(255, 255, 0), // color backgroundColor
+  uiGeometryPanel,
+  animationState.background_speed,
+  0,
+  19
+    );
+
+  background_multSlider = new Slider(
+  "radioButton1", 
+  11.5 - uiGrid.gridMetrics.gridWidthInCells/2, //float xPositionInCells,
+  4, //float yPositionInCells,
+  3, //float widthInCells,
+  1, //float heightInCells,
+  color(255, 255, 0), // color backgroundColor
+  uiGeometryPanel,
+  animationState.background_mult,
+  0,
+  19
+    );
+
+  background_param1Slider = new Slider(
+  "radioButton1", 
+  8 - uiGrid.gridMetrics.gridWidthInCells/2, //float xPositionInCells,
+  5, //float yPositionInCells,
+  3, //float widthInCells,
+  1, //float heightInCells,
+  color(255, 255, 0), // color backgroundColor
+  uiGeometryPanel,
+  animationState.background_param1,
+  0,
+  19
+    );
+
+  background_param2Slider = new Slider(
+  "radioButton1", 
+  11.5 - uiGrid.gridMetrics.gridWidthInCells/2, //float xPositionInCells,
+  5, //float yPositionInCells,
+  3, //float widthInCells,
+  1, //float heightInCells,
+  color(255, 255, 0), // color backgroundColor
+  uiGeometryPanel,
+  animationState.background_param2,
+  0,
+  19
+    );
+
+  backgroundShaderRadioButtonsGroup = new RadioButtonsGroup();
+
+  // add radio buttons for background shader
+  for (int i = 0; i < 5; i++) {
+    new RadioButton(
+    "backgroundShaderRadioButton" + (i+1), 
+    (i+1)*((uiGrid.gridMetrics.gridWidthInCells/2)/(5+1))-0.5, //float xPositionInCells,
+    2, //float yPositionInCells,
+    1, //float widthInCells,
+    1, //float heightInCells,
+    color(0, 255, 0), // color backgroundColor
+    backgroundShaderRadioButtonsGroup, 
+    uiGeometryPanel, 
+    animationState.background_shader, 
+    i
+      );
+  }
+
+////////////////////////////////////////////////////////////////
+// Drawing the palettes
+////////////////////////////////////////////////////////////////
+
+//////// Palettes panel
+
   UIPanel uiColorCombosPanel = new UIPanel(
   "color combos", 
   0, //float xPositionInCells,
@@ -176,10 +295,6 @@ void buildUI() {
   color(255, 0, 255), // color backgroundColor
   uiGrid
     );
-
-////////////////////////////////////////////////////////////////
-// Drawing the palettes
-////////////////////////////////////////////////////////////////
 
   palettesRadioButtonsGroup = new RadioButtonsGroup();
 
@@ -218,7 +333,8 @@ void buildUI() {
 
 
 ////////////////////////////////////////////////////////////////
-
+// Drawing the foreground effects panel and toggle buttons
+////////////////////////////////////////////////////////////////
 
   UIPanel uiEffectsPanel = new UIPanel(
   "effects panel", 
@@ -229,10 +345,6 @@ void buildUI() {
   color(0, 255, 255), // color backgroundColor
   uiGrid
     );
-
-////////////////////////////////////////////////////////////////
-// Drawing the background effects toggle buttons
-////////////////////////////////////////////////////////////////
 
   foreground_fx1Toggle = new ToggleButton(
   "foreground_fx1Toggle", 
@@ -278,45 +390,53 @@ void buildUI() {
   animationState.foreground_fx4
     );
 
-///////////////////////////////////////////////
+// now the background
 
-  SimpleButton simpleButton1 = new SimpleButton(
-  "simpleButton1", 
-  1, //float xPositionInCells,
+  background_fx1Toggle = new ToggleButton(
+  "background_fx1Toggle", 
+  8 - uiGrid.gridMetrics.gridWidthInCells/2, //float xPositionInCells,
   1, //float yPositionInCells,
-  1, //float widthInCells,
+  3, //float widthInCells,
   1, //float heightInCells,
-  color(0, 0, 255), // color backgroundColor
-  uiSetRecallPresetsPanel
+  color(255, 255, 0), // color backgroundColor
+  uiEffectsPanel,
+  animationState.background_fx1
     );
 
-  RadioButtonsGroup radioButtonsGroup = new RadioButtonsGroup();
+  background_fx2Toggle = new ToggleButton(
+  "background_fx2Toggle", 
+  11.5 - uiGrid.gridMetrics.gridWidthInCells/2, //float xPositionInCells,
+  1, //float yPositionInCells,
+  3, //float widthInCells,
+  1, //float heightInCells,
+  color(255, 255, 0), // color backgroundColor
+  uiEffectsPanel,
+  animationState.background_fx2
+    );
 
-  RadioButton radioButton1 = new RadioButton(
-  "radioButton1", 
-  4, //float xPositionInCells,
+  background_fx3Toggle = new ToggleButton(
+  "background_fx3Toggle", 
+  8 - uiGrid.gridMetrics.gridWidthInCells/2, //float xPositionInCells,
   2, //float yPositionInCells,
-  1, //float widthInCells,
+  3, //float widthInCells,
   1, //float heightInCells,
-  color(0, 255, 0), // color backgroundColor
-  radioButtonsGroup, 
-  uiSetRecallPresetsPanel, 
-  animationState.foreground_scale, 
-  1
+  color(255, 255, 0), // color backgroundColor
+  uiEffectsPanel,
+  animationState.background_fx3
     );
 
-  RadioButton radioButton2 = new RadioButton(
-  "radioButton1", 
-  5, //float xPositionInCells,
+  background_fx4Toggle = new ToggleButton(
+  "background_fx4Toggle", 
+  11.5 - uiGrid.gridMetrics.gridWidthInCells/2, //float xPositionInCells,
   2, //float yPositionInCells,
-  1, //float widthInCells,
+  3, //float widthInCells,
   1, //float heightInCells,
-  color(0, 255, 0), // color backgroundColor
-  radioButtonsGroup, 
-  uiSetRecallPresetsPanel, 
-  animationState.foreground_scale, 
-  2
+  color(255, 255, 0), // color backgroundColor
+  uiEffectsPanel,
+  animationState.background_fx4
     );
+
+
 
 }
 

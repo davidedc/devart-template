@@ -1,5 +1,6 @@
 class AnimationState {
 
+  // foreground
   IntBox foreground_scale;
   IntBox foreground_shader;
   IntBox foreground_spin;
@@ -13,6 +14,19 @@ class AnimationState {
   IntBox foreground_type;
   IntBox foreground_param1;
   IntBox foreground_param2;
+  
+  // background
+  IntBox background_scale;
+  IntBox background_shader;
+  IntBox background_spin;
+  IntBox background_speed;
+  IntBox background_mult;
+  IntBox background_fx1;
+  IntBox background_fx2;
+  IntBox background_fx3;
+  IntBox background_fx4;
+  IntBox background_param1;
+  IntBox background_param2;
   
 
   AnimationState ( ) {
@@ -87,9 +101,68 @@ class AnimationState {
       foreground_param2 = new IntBox(Integer.parseInt(m[1]));
     }
 
+///// background state
+
+    m = match(fullStateInJSON, "\"b_scale\"\\s*:\\s*(\\d+)");
+    if (m != null){
+      background_scale = new IntBox(Integer.parseInt(m[1]));
+    }
+    
+    m = match(fullStateInJSON, "\"b_shader\"\\s*:\\s*(\\d+)");
+    if (m != null){
+      background_shader = new IntBox(Integer.parseInt(m[1]));
+    }
+
+    m = match(fullStateInJSON, "\"b_spin\"\\s*:\\s*(\\d+)");
+    if (m != null){
+      background_spin = new IntBox(Integer.parseInt(m[1]));
+    }
+
+    m = match(fullStateInJSON, "\"b_speed\"\\s*:\\s*(\\d+)");
+    if (m != null){
+      background_speed = new IntBox(Integer.parseInt(m[1]));
+    }
+
+    m = match(fullStateInJSON, "\"b_mult\"\\s*:\\s*(\\d+)");
+    if (m != null){
+      background_mult = new IntBox(Integer.parseInt(m[1]));
+    }
+
+    m = match(fullStateInJSON, "\"b_fx1\"\\s*:\\s*(\\d+)");
+    if (m != null){
+      background_fx1 = new IntBox(Integer.parseInt(m[1]));
+    }
+
+    m = match(fullStateInJSON, "\"b_fx2\"\\s*:\\s*(\\d+)");
+    if (m != null){
+      background_fx2 = new IntBox(Integer.parseInt(m[1]));
+    }
+
+    m = match(fullStateInJSON, "\"b_fx3\"\\s*:\\s*(\\d+)");
+    if (m != null){
+      background_fx3 = new IntBox(Integer.parseInt(m[1]));
+    }
+
+    m = match(fullStateInJSON, "\"b_fx4\"\\s*:\\s*(\\d+)");
+    if (m != null){
+      background_fx4 = new IntBox(Integer.parseInt(m[1]));
+    }
+
+    m = match(fullStateInJSON, "\"b_param1\"\\s*:\\s*(\\d+)");
+    if (m != null){
+      background_param1 = new IntBox(Integer.parseInt(m[1]));
+    }
+
+    m = match(fullStateInJSON, "\"b_param2\"\\s*:\\s*(\\d+)");
+    if (m != null){
+      background_param2 = new IntBox(Integer.parseInt(m[1]));
+    }
+
+
   }
 
   AnimationState (
+    // foreground
     IntBox foreground_scale,
     IntBox foreground_shader,
     IntBox foreground_spin,
@@ -102,8 +175,21 @@ class AnimationState {
     IntBox foreground_fx4,
     IntBox foreground_type,
     IntBox foreground_param1,
-    IntBox foreground_param2
+    IntBox foreground_param2,
+    // background
+    IntBox background_scale,
+    IntBox background_shader,
+    IntBox background_spin,
+    IntBox background_speed,
+    IntBox background_mult,
+    IntBox background_fx1,
+    IntBox background_fx2,
+    IntBox background_fx3,
+    IntBox background_fx4,
+    IntBox background_param1,
+    IntBox background_param2
   ) {
+    // foreground
     this.foreground_scale = new IntBox(foreground_scale);
     this.foreground_shader = new IntBox(foreground_shader);
     this.foreground_spin = new IntBox(foreground_spin);
@@ -117,10 +203,23 @@ class AnimationState {
     this.foreground_type = new IntBox(foreground_type);
     this.foreground_param1 = new IntBox(foreground_param1);
     this.foreground_param2 = new IntBox(foreground_param2);
+    // background
+    this.background_scale = new IntBox(background_scale);
+    this.background_shader = new IntBox(background_shader);
+    this.background_spin = new IntBox(background_spin);
+    this.background_speed = new IntBox(background_speed);
+    this.background_mult = new IntBox(background_mult);
+    this.background_fx1 = new IntBox(background_fx1);
+    this.background_fx2 = new IntBox(background_fx2);
+    this.background_fx3 = new IntBox(background_fx3);
+    this.background_fx4 = new IntBox(background_fx4);
+    this.background_param1 = new IntBox(background_param1);
+    this.background_param2 = new IntBox(background_param2);
   }
 
   AnimationState (AnimationState toBeCloned) {
     this(
+      // foreground
       toBeCloned.foreground_scale,
       toBeCloned.foreground_shader,
       toBeCloned.foreground_spin,
@@ -133,11 +232,24 @@ class AnimationState {
       toBeCloned.foreground_fx4,
       toBeCloned.foreground_type,
       toBeCloned.foreground_param1,
-      toBeCloned.foreground_param2
+      toBeCloned.foreground_param2,
+      // background
+      toBeCloned.background_scale,
+      toBeCloned.background_shader,
+      toBeCloned.background_spin,
+      toBeCloned.background_speed,
+      toBeCloned.background_mult,
+      toBeCloned.background_fx1,
+      toBeCloned.background_fx2,
+      toBeCloned.background_fx3,
+      toBeCloned.background_fx4,
+      toBeCloned.background_param1,
+      toBeCloned.background_param2
       );
   }
   
   void initialise() {
+    // foreground
     foreground_scale = new IntBox(1);
     foreground_shader = new IntBox(1);
     foreground_spin = new IntBox(1);
@@ -151,10 +263,26 @@ class AnimationState {
     foreground_type = new IntBox(1);
     foreground_param1 = new IntBox(1);
     foreground_param2 = new IntBox(1);
+    // background
+    background_scale = new IntBox(1);
+    background_shader = new IntBox(1);
+    background_spin = new IntBox(1);
+    background_speed = new IntBox(1);
+    background_mult = new IntBox(1);
+    background_fx1 = new IntBox(0);
+    background_fx2 = new IntBox(0);
+    background_fx3 = new IntBox(0);
+    background_fx4 = new IntBox(0);
+    background_param1 = new IntBox(1);
+    background_param2 = new IntBox(1);
+
   }
   
   String toJSON() {
     String JSONToReturn = "{";
+    
+    // foreground
+
     if (foreground_scale != null){
       JSONToReturn = JSONToReturn + "\"f_scale\":"+foreground_scale.value + ",";
     }
@@ -195,6 +323,42 @@ class AnimationState {
       JSONToReturn = JSONToReturn + "\"f_param2\":"+foreground_param2.value + ",";
     }
 
+    // background
+
+    if (background_scale != null){
+      JSONToReturn = JSONToReturn + "\"b_scale\":"+background_scale.value + ",";
+    }
+    if (background_shader != null){
+      JSONToReturn = JSONToReturn + "\"b_shader\":"+background_shader.value + ",";
+    }
+    if (background_spin != null){
+      JSONToReturn = JSONToReturn + "\"b_spin\":"+background_spin.value + ",";
+    }
+    if (background_speed != null){
+      JSONToReturn = JSONToReturn + "\"b_speed\":"+background_speed.value + ",";
+    }
+    if (background_mult != null){
+      JSONToReturn = JSONToReturn + "\"b_mult\":"+background_mult.value + ",";
+    }
+    if (background_fx1 != null){
+      JSONToReturn = JSONToReturn + "\"b_fx1\":"+background_fx1.value + ",";
+    }
+    if (background_fx2 != null){
+      JSONToReturn = JSONToReturn + "\"b_fx2\":"+background_fx2.value + ",";
+    }
+    if (background_fx3 != null){
+      JSONToReturn = JSONToReturn + "\"b_fx3\":"+background_fx3.value + ",";
+    }
+    if (background_fx4 != null){
+      JSONToReturn = JSONToReturn + "\"b_fx4\":"+background_fx4.value + ",";
+    }
+    if (background_param1 != null){
+      JSONToReturn = JSONToReturn + "\"b_param1\":"+background_param1.value + ",";
+    }
+    if (background_param2 != null){
+      JSONToReturn = JSONToReturn + "\"b_param2\":"+background_param2.value + ",";
+    }
+
     // strip the last comma but only if any of the
     // fields has been added
     if (!JSONToReturn.equals("{")){
@@ -208,6 +372,7 @@ class AnimationState {
   
   AnimationState clone() {
     return new AnimationState(
+      // foreground
       foreground_scale,
       foreground_shader,
       foreground_spin,
@@ -220,7 +385,19 @@ class AnimationState {
       foreground_fx4,
       foreground_type,
       foreground_param1,
-      foreground_param2
+      foreground_param2,
+      // background
+      background_scale,
+      background_shader,
+      background_spin,
+      background_speed,
+      background_mult,
+      background_fx1,
+      background_fx2,
+      background_fx3,
+      background_fx4,
+      background_param1,
+      background_param2
       );
   }
 
@@ -230,6 +407,8 @@ class AnimationState {
     
     AnimationState deltaState = new AnimationState();
 
+    // foreground
+    
     if (foreground_scale != null)
     if (foreground_scale.value != previousAnimationState.foreground_scale.value) {
       deltaState.foreground_scale = new IntBox(foreground_scale);
@@ -294,7 +473,63 @@ class AnimationState {
     if (foreground_param2.value != previousAnimationState.foreground_param2.value) {
       deltaState.foreground_param2 = new IntBox(foreground_param2);
     }
+
+    // background
     
+    if (background_scale != null)
+    if (background_scale.value != previousAnimationState.background_scale.value) {
+      deltaState.background_scale = new IntBox(background_scale);
+    }
+
+    if (background_shader != null)
+    if (background_shader.value != previousAnimationState.background_shader.value) {
+      deltaState.background_shader = new IntBox(background_shader);
+    }
+
+    if (background_spin != null)
+    if (background_spin.value != previousAnimationState.background_spin.value) {
+      deltaState.background_spin = new IntBox(background_spin);
+    }
+
+    if (background_speed != null)
+    if (background_speed.value != previousAnimationState.background_speed.value) {
+      deltaState.background_speed = new IntBox(background_speed);
+    }
+
+    if (background_mult != null)
+    if (background_mult.value != previousAnimationState.background_mult.value) {
+      deltaState.background_mult = new IntBox(background_mult);
+    }
+
+    if (background_fx1 != null)
+    if (background_fx1.value != previousAnimationState.background_fx1.value) {
+      deltaState.background_fx1 = new IntBox(background_fx1);
+    }
+
+    if (background_fx2 != null)
+    if (background_fx2.value != previousAnimationState.background_fx2.value) {
+      deltaState.background_fx2 = new IntBox(background_fx2);
+    }
+
+    if (background_fx3 != null)
+    if (background_fx3.value != previousAnimationState.background_fx3.value) {
+      deltaState.background_fx3 = new IntBox(background_fx3);
+    }
+
+    if (background_fx4 != null)
+    if (background_fx4.value != previousAnimationState.background_fx4.value) {
+      deltaState.background_fx4 = new IntBox(background_fx4);
+    }
+
+    if (background_param1 != null)
+    if (background_param1.value != previousAnimationState.background_param1.value) {
+      deltaState.background_param1 = new IntBox(background_param1);
+    }
+
+    if (background_param2 != null)
+    if (background_param2.value != previousAnimationState.background_param2.value) {
+      deltaState.background_param2 = new IntBox(background_param2);
+    }    
     return deltaState;
   }
 
@@ -306,6 +541,7 @@ class AnimationState {
     
     AnimationState result = new AnimationState(this);
 
+    // foreground
     if (excludeThis.foreground_scale != null && result.foreground_scale != excludeThis.foreground_scale) {
       result.foreground_scale = null;
     }
@@ -345,7 +581,41 @@ class AnimationState {
     if (excludeThis.foreground_param2 != null && result.foreground_param2 != excludeThis.foreground_param2) {
       result.foreground_param2 = null;
     }
-    
+
+    // background
+    if (excludeThis.background_scale != null && result.background_scale != excludeThis.background_scale) {
+      result.background_scale = null;
+    }
+    if (excludeThis.background_shader != null && result.background_shader != excludeThis.background_shader) {
+      result.background_shader = null;
+    }
+    if (excludeThis.background_spin != null && result.background_spin != excludeThis.background_spin) {
+      result.background_spin = null;
+    }
+    if (excludeThis.background_speed != null && result.background_speed != excludeThis.background_speed) {
+      result.background_speed = null;
+    }
+    if (excludeThis.background_mult != null && result.background_mult != excludeThis.background_mult) {
+      result.background_mult = null;
+    }
+    if (excludeThis.background_fx1 != null && result.background_fx1 != excludeThis.background_fx1) {
+      result.background_fx1 = null;
+    }
+    if (excludeThis.background_fx2 != null && result.background_fx2 != excludeThis.background_fx2) {
+      result.background_fx2 = null;
+    }
+    if (excludeThis.background_fx3 != null && result.background_fx3 != excludeThis.background_fx3) {
+      result.background_fx3 = null;
+    }
+    if (excludeThis.background_fx4 != null && result.background_fx4 != excludeThis.background_fx4) {
+      result.background_fx4 = null;
+    }
+    if (excludeThis.background_param1 != null && result.background_param1 != excludeThis.background_param1) {
+      result.background_param1 = null;
+    }
+    if (excludeThis.background_param2 != null && result.background_param2 != excludeThis.background_param2) {
+      result.background_param2 = null;
+    }    
     return result;
   }
 
@@ -355,6 +625,7 @@ class AnimationState {
     
     AnimationState result = new AnimationState(this);
 
+    // foreground
     if (addThis.foreground_scale != null) {
       result.foreground_scale = new IntBox(addThis.foreground_scale);
     }
@@ -394,6 +665,41 @@ class AnimationState {
     if (addThis.foreground_param2 != null) {
       result.foreground_param2 = new IntBox(addThis.foreground_param2);
     }
+
+    // background
+    if (addThis.background_scale != null) {
+      result.background_scale = new IntBox(addThis.background_scale);
+    }
+    if (addThis.background_shader != null) {
+      result.background_shader = new IntBox(addThis.background_shader);
+    }
+    if (addThis.background_spin != null) {
+      result.background_spin = new IntBox(addThis.background_spin);
+    }
+    if (addThis.background_speed != null) {
+      result.background_speed = new IntBox(addThis.background_speed);
+    }
+    if (addThis.background_mult != null) {
+      result.background_mult = new IntBox(addThis.background_mult);
+    }
+    if (addThis.background_fx1 != null) {
+      result.background_fx1 = new IntBox(addThis.background_fx1);
+    }
+    if (addThis.background_fx2 != null) {
+      result.background_fx2 = new IntBox(addThis.background_fx2);
+    }
+    if (addThis.background_fx3 != null) {
+      result.background_fx3 = new IntBox(addThis.background_fx3);
+    }
+    if (addThis.background_fx4 != null) {
+      result.background_fx4 = new IntBox(addThis.background_fx4);
+    }
+    if (addThis.background_param1 != null) {
+      result.background_param1 = new IntBox(addThis.background_param1);
+    }
+    if (addThis.background_param2 != null) {
+      result.background_param2 = new IntBox(addThis.background_param2);
+    }
     
     return result;
   }
@@ -403,6 +709,8 @@ class AnimationState {
     
     String string = "";
 
+    // foreground
+    
     if (foreground_scale != null) {
       string += "foreground_scale: " + foreground_scale.value + "\n";
     }
@@ -443,6 +751,41 @@ class AnimationState {
       string += "foreground_param2: " + foreground_param2.value + "\n";
     }
 
+    // background
+    
+    if (background_scale != null) {
+      string += "background_scale: " + background_scale.value + "\n";
+    }
+    if (background_shader != null) {
+      string += "background_shader: " + background_shader.value + "\n";
+    }
+    if (background_spin != null) {
+      string += "background_spin: " + background_spin.value + "\n";
+    }
+    if (background_speed != null) {
+      string += "background_speed: " + background_speed.value + "\n";
+    }
+    if (background_mult != null) {
+      string += "background_mult: " + background_mult.value + "\n";
+    }
+    if (background_fx1 != null) {
+      string += "background_fx1: " + background_fx1.value + "\n";
+    }
+    if (background_fx2 != null) {
+      string += "background_fx2: " + background_fx2.value + "\n";
+    }
+    if (background_fx3 != null) {
+      string += "background_fx3: " + background_fx3.value + "\n";
+    }
+    if (background_fx4 != null) {
+      string += "background_fx4: " + background_fx4.value + "\n";
+    }
+    if (background_param1 != null) {
+      string += "background_param1: " + background_param1.value + "\n";
+    }
+    if (background_param2 != null) {
+      string += "background_param2: " + background_param2.value + "\n";
+    }
     
     return string;
   }
