@@ -9,7 +9,7 @@ MARGIN = 0
 
 import demo
 import pi3d
-import random, time, glob, json
+import random, time, glob, json, os
 
 from subprocess import Popen, PIPE, STDOUT
 from multiprocessing import Process, Queue
@@ -123,6 +123,9 @@ if MASTER:
   music = Popen(['mpg321', '-R', '-F', 'testPlayer'], stdout=PIPE, stdin=PIPE, stderr=STDOUT)
   music.stdin.write(b'LOAD music/' + animation_state.sample_progress() + b'\n')
   #############################
+
+  os.nice(-5) # reduce niceness of process after spawning child processes
+
 else: ## not MASTER so SLAVE!
   import urllib2
   t_flag = [0]
@@ -186,7 +189,7 @@ while DISPLAY.loop_running():
           if time.time() > nextTime:
             animation_state.beat_progress()
             ftype = animation_state.state['f_type']
-            if ftype != foreground.geometry.name:
+            if ftype != int(foreground.geometry.name):
               if ftype == 2:
                 foreground = points
               elif ftype == 1:
@@ -214,7 +217,7 @@ while DISPLAY.loop_running():
           animation_state.state['user2'] = [round(i / 255.0, 3) for i in msg[mkey]]
         else:
           animation_state.state[mkey] = msg[mkey]
-          if mkey == 'f_type' and msg[mkey] != foreground.geometry.name:
+          if mkey == 'f_type' and msg[mkey] != int(foreground.geometry.name):
             if msg[mkey] == 2:
               foreground = points
             elif msg[mkey] == 1:
@@ -241,14 +244,13 @@ while DISPLAY.loop_running():
       t_flag[0] = -1
     if t_flag[0] == 1: #fresh info in animation_state by thread 
       this_ftype = animation_state.state['f_type']
-      if this_ftype != last_ftype:
+      if this_ftype != int(foreground.geometry.name):
         if this_ftype == 2:
           foreground = points
         elif this_ftype == 1:
           foreground = sphere
         else:
           foreground = box
-        last_ftype = this_ftype
       background.geometry.rotateToX(animation_state.state['b_rot'][0])
       background.geometry.rotateToY(animation_state.state['b_rot'][1])
       background.geometry.rotateToZ(animation_state.state['b_rot'][2])
