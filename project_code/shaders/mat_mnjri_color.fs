@@ -16,8 +16,8 @@ void main(void) {
 
 
   float a = unif[18][2] * 800.0;
-  float b = unif[18][0] * 10.0 + 300.0;
-  float c = unif[18][1] * 200.0 + 150.0;
+  float b = unif[18][0] * 20.0 + 150.0;
+  float c = unif[18][1] * 300.0 + 50.0;
   float g = 0.25;
   float e = b * (uv.x * 0.5 - 0.5);
   float f = b * (uv.y * 0.5 - 0.5);
@@ -28,8 +28,8 @@ void main(void) {
   e = (r * cos(q)) - a / 2.0;
   f = (r * sin(q)) - a / 2.0;
   float h = ((f + d) + a / 2.0) * g;
-  i += cos(h * 2.3 * sin(a / 350.0 - q)) * 184.0 * sin(q - (r * 4.3 + a / 12.0) * g) + 
-       tan(r * g + h) * 184.0 * cos(r * g + h);
+  i += cos(h * 2.3 * sin(a / 350.0 - q)) * 184.0 * sin(q - (r * 4.3 + a / 12.0) * g) 
+     + sin(r * g + h) * 184.0;
   i = mod(i / 5.6, 256.0)/64.0;
   i = 2.0 - abs(i - 2.0);
   d = r / 350.0;
