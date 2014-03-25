@@ -37,6 +37,7 @@ void main(void) {
   f = (sin(a * g) + 1.0) / 2.0;
   gl_FragColor = vec4(mix(rgbi, rgbf, vec3(f * i / 1.6, i / 2.0 + d / 13.0, i) * d * uv.x +
                       vec3(i / 1.3 + d / 8.0, i / 2.0 + d / 18.0, i) * d * (1.0 - uv.x)), 1.0);
+  if (gl_FragColor.r < 0.0 || gl_FragColor.g < 0.0 || gl_FragColor.b < 0.0) discard;
 }
 
 
