@@ -50,7 +50,10 @@ void setup() {
 
 void draw() {
 
+  
   if (frameCount == 1) {
+    fill(0);
+    rect(0,0,width,height);
     // only draw the whole UI once.
     // in the following frames we'll only
     // repaint the UI elements that requested to
