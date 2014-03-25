@@ -39,5 +39,5 @@ becomes
   ...+ sin(r * g + h) * 184.0;
 
 ![done](https://raw.github.com/davidedc/devart-template/master/project_images/Screenshot03-2501.jpg)
-![done](https://raw.github.com/davidedc/devart-template/master/project_images/Screenshot03-2501.jpg)
-![done](https://raw.github.com/davidedc/devart-template/master/project_images/Screenshot03-2501.jpg)
+![done](https://raw.github.com/davidedc/devart-template/master/project_images/Screenshot03-2502.jpg)
+![done](https://raw.github.com/davidedc/devart-template/master/project_images/Screenshot03-2503.jpg)
