@@ -5,7 +5,7 @@ class Slider extends UIElement {
   // "margin" specifies how much of the edges of the slider actually clamp to the
   // same "extreme" values. Othewise it's very difficult to move the bar right
   // at the edges to get those values.
-  float margin = 0.1;
+  float margin = 0.2;
   IntBox integerToBeChanged;
   float minValue;
   float maxValue;
@@ -42,7 +42,14 @@ class Slider extends UIElement {
   void repaintCompletely() {
     //println("drawing slider");
 
+    int cursorPositionInPixels = floor(extensionInPixels[0]*cursorPosition);
+    // clamp the cursor position to stay within the oblong
+    cursorPositionInPixels = floor(Math.max(uiGrid.gridMetrics.pixelsPerCell/2, Math.min((widthInCells-0.5)*uiGrid.gridMetrics.pixelsPerCell, cursorPositionInPixels)));
+
+    clearBoundingRectangle();
+
     pushStyle();
+
     stroke(255);
     if (isFlashing){
       fill(255);
@@ -52,15 +59,20 @@ class Slider extends UIElement {
     else {
       fill(backgroundColor);
     }
-    rect(
-      topLeftCornerInPixels[0], 
-      topLeftCornerInPixels[1], 
-      extensionInPixels[0], 
-      extensionInPixels[1]
-    );
-    int cursorPositionInPixels = floor(extensionInPixels[0]*cursorPosition);
-    line(topLeftCornerInPixels[0] + cursorPositionInPixels,topLeftCornerInPixels[1], topLeftCornerInPixels[0] + cursorPositionInPixels, topLeftCornerInPixels[1] + extensionInPixels[1]);
+
+
+    fill(255,0,255);
+    drawOblong(circleRadius);
+    fill(255,0,0);
+    ellipse(
+      topLeftCornerInPixels[0] + cursorPositionInPixels,
+      topLeftCornerInPixels[1] + uiGrid.gridMetrics.pixelsPerCell/2,
+      uiGrid.gridMetrics.pixelsPerCell * circleRadius,
+      uiGrid.gridMetrics.pixelsPerCell * circleRadius
+      );
+
     popStyle();
+
     super.repaintCompletely();
 
    }
@@ -85,7 +97,9 @@ class Slider extends UIElement {
    }
    
    void touched(){
-     cursorPosition = (mouseX - topLeftCornerInPixels[0])/extensionInPixels[0];
+     float theMouseX;
+     theMouseX = Math.max(topLeftCornerInPixels[0] + uiGrid.gridMetrics.pixelsPerCell/2, Math.min(topLeftCornerInPixels[0] + (widthInCells-0.5)*uiGrid.gridMetrics.pixelsPerCell, mouseX));
+     cursorPosition = (theMouseX - topLeftCornerInPixels[0])/extensionInPixels[0];
      integerToBeChanged.value = floor(mappedValue());
      println(stringID + " moved to: " + cursorPosition + "integer value: " + integerToBeChanged.value);
      // in this case flashing the widget as
