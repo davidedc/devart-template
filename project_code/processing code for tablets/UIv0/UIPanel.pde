@@ -11,7 +11,8 @@ class UIPanel extends UIElement {
   float widthInCells, 
   float heightInCells, 
   color backgroundColor,
-  UIElement containerUIElement
+  UIElement containerUIElement,
+  String UIElementText
     ) {  
     super(
     stringID,
@@ -20,7 +21,8 @@ class UIPanel extends UIElement {
     widthInCells, 
     heightInCells,
     containerUIElement,
-    backgroundColor
+    backgroundColor,
+    UIElementText
       );
     println("created panel");
   }

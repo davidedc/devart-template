@@ -14,7 +14,8 @@ class RadioButton extends ToggleButton {
   RadioButtonsGroup radioButtonsGroup,
   UIElement containerUIElement,
   IntBox integerToBeChanged,
-  int valueToChangeTheIntegerTo
+  int valueToChangeTheIntegerTo,
+  String UIElementText
     ) {  
     super(
     stringID,
@@ -24,7 +25,8 @@ class RadioButton extends ToggleButton {
     heightInCells,
     backgroundColor,
     containerUIElement,
-    null
+    null,
+    UIElementText
       );
     this.radioButtonsGroup = radioButtonsGroup;
     this.integerToBeChanged = integerToBeChanged;

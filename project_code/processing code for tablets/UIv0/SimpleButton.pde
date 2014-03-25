@@ -9,7 +9,8 @@ class SimpleButton extends UIElement {
   float widthInCells, 
   float heightInCells, 
   color backgroundColor,
-  UIElement containerUIElement
+  UIElement containerUIElement,
+  String UIElementText
     ) {  
     super(
     stringID,
@@ -18,7 +19,8 @@ class SimpleButton extends UIElement {
     widthInCells, 
     heightInCells,
     containerUIElement,
-    backgroundColor
+    backgroundColor,
+    UIElementText
       );
     println("created SimpleButton");
   }
@@ -34,6 +36,18 @@ class SimpleButton extends UIElement {
 
   void repaintDirty() {
     repaintCompletely();
+
+    fill(0);
+    textAlign(CENTER);
+    textSize(14);
+    text(
+      UIElementText,
+      topLeftCornerInPixels[0], 
+      5+topLeftCornerInPixels[1] + uiGrid.gridMetrics.pixelsPerCell/4,
+      widthInCells * uiGrid.gridMetrics.pixelsPerCell, 
+      heightInCells * uiGrid.gridMetrics.pixelsPerCell    
+    );
+
   }
 
    

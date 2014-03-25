@@ -11,7 +11,8 @@ class SaveStateButton extends SimpleButton {
   float heightInCells, 
   color backgroundColor,
   UIElement containerUIElement,
-  int stateNumber
+  int stateNumber,
+  String UIElementText
     ) {  
     super(
     stringID,
@@ -20,7 +21,8 @@ class SaveStateButton extends SimpleButton {
     widthInCells, 
     heightInCells,
     backgroundColor,
-    containerUIElement
+    containerUIElement,
+    UIElementText
       );
     this.stateNumber = stateNumber;
     println("created SaveStateButton");

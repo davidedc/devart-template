@@ -11,7 +11,8 @@ class ToggleButton extends SimpleButton {
   float heightInCells, 
   color backgroundColor,
   UIElement containerUIElement,
-  IntBox integerToBeChanged
+  IntBox integerToBeChanged,
+  String UIElementText
     ) {  
     super(
     stringID,
@@ -20,7 +21,8 @@ class ToggleButton extends SimpleButton {
     widthInCells, 
     heightInCells,
     backgroundColor,
-    containerUIElement
+    containerUIElement,
+    UIElementText
       );
     this.integerToBeChanged = integerToBeChanged;
     println("created ToggleButton");
@@ -41,6 +43,16 @@ class ToggleButton extends SimpleButton {
     pushStyle();
     fill(255,0,255);
     drawOblong(circleRadius);
+    fill(0);
+    textAlign(CENTER);
+    textSize(14);
+    text(
+      UIElementText,
+      topLeftCornerInPixels[0], 
+      5+topLeftCornerInPixels[1] + uiGrid.gridMetrics.pixelsPerCell/4,
+      widthInCells * uiGrid.gridMetrics.pixelsPerCell, 
+      heightInCells * uiGrid.gridMetrics.pixelsPerCell    
+    );
     popStyle();
 
 

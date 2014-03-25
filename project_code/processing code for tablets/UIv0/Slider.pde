@@ -20,7 +20,8 @@ class Slider extends UIElement {
   UIElement containerUIElement,
   IntBox integerToBeChanged,
   float minValue,
-  float maxValue
+  float maxValue,
+  String UIElementText
     ) {  
     super(
     stringID,
@@ -29,7 +30,8 @@ class Slider extends UIElement {
     widthInCells, 
     heightInCells,
     containerUIElement,
-    backgroundColor
+    backgroundColor,
+    UIElementText
       );
     this.integerToBeChanged = integerToBeChanged;
     this.minValue = minValue;
@@ -63,6 +65,18 @@ class Slider extends UIElement {
 
     fill(255,0,255);
     drawOblong(circleRadius);
+
+    fill(0);
+    textAlign(CENTER);
+    textSize(14);
+    text(
+      UIElementText,
+      topLeftCornerInPixels[0], 
+      5+topLeftCornerInPixels[1] + uiGrid.gridMetrics.pixelsPerCell/4,
+      widthInCells * uiGrid.gridMetrics.pixelsPerCell, 
+      heightInCells * uiGrid.gridMetrics.pixelsPerCell    
+    );
+
     fill(255,0,0);
     ellipse(
       topLeftCornerInPixels[0] + cursorPositionInPixels,

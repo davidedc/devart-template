@@ -17,7 +17,7 @@ class UIGrid extends UIElement {
       int cellSubdivisions
       ) {  
 
-    super("grid",0,0,0,0,null,color(0,155,255));
+    super("grid",0,0,0,0,null,color(0,155,255),"");
     
     this.cellSubdivisions = cellSubdivisions;
 

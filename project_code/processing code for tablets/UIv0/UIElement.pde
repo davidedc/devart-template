@@ -9,6 +9,7 @@ class UIElement {
   String stringID;
   color backgroundColor;
   float circleRadius = 0.7;
+  String UIElementText;
 
   UIElement (
   String stringID,
@@ -17,7 +18,8 @@ class UIElement {
   float widthInCells, 
   float heightInCells,
   UIElement containerUIElement,
-  color backgroundColor
+  color backgroundColor,
+  String UIElementText
     ) {  
     println("creating Element: " + stringID);
     this.stringID = stringID;
@@ -27,6 +29,7 @@ class UIElement {
     this.heightInCells = heightInCells;
     this.containerUIElement = containerUIElement;
     this.backgroundColor = backgroundColor;
+    this.UIElementText = UIElementText;
     // a UIGrid is not attached to anything so it
     // has a null here, catering for that case.
     if (containerUIElement != null){

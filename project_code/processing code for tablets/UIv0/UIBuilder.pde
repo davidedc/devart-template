@@ -36,8 +36,8 @@ void buildUI() {
   15, 20.75, // number of horizontal, vertical cells in the grid
   // padding of the grid within the screen
   // (so to stay a little off the edge of the screen if needed)
-  0.5, // minimum horiz padding (in cell units)
-  0.5, // minimum vertical padding (in cell units)
+  0.0, // minimum horiz padding (in cell units)
+  0.0, // minimum vertical padding (in cell units)
   0.6, // buttonSize - when 1 the button touches the cell borders
   4 // grid elements aligh to 1/nth of a grid
   );
@@ -53,7 +53,8 @@ void buildUI() {
   15, //float widthInCells,
   4, //float heightInCells,
   color(255, 0, 0), // color backgroundColor
-  uiGrid
+  uiGrid,
+  ""
     );
 
   for (int i = 0; i < 15; i++) {
@@ -65,7 +66,8 @@ void buildUI() {
     1, //float heightInCells,
     color(0, 255, 0), // color backgroundColor
     uiSetRecallPresetsPanel,
-    i
+    i,
+    "+"
       );
   }
 
@@ -78,7 +80,8 @@ void buildUI() {
     1, //float heightInCells,
     color(0, 255, 0), // color backgroundColor
     uiSetRecallPresetsPanel,
-    i
+    i,
+    "v"
       );
   }
 
@@ -93,10 +96,13 @@ void buildUI() {
   15, //float widthInCells,
   6, //float heightInCells,
   color(255, 255, 0), // color backgroundColor
-  uiGrid
+  uiGrid,
+  ""
     );
 
   geometryTypesRadioButtonsGroup = new RadioButtonsGroup();
+
+  String geometrySelectionLables[]={"box","sphere","points"};
 
   // add radio buttons for foreground type
   for (int i = 0; i < 3; i++) {
@@ -110,7 +116,8 @@ void buildUI() {
     geometryTypesRadioButtonsGroup, 
     uiGeometryPanel, 
     animationState.foreground_type, 
-    i
+    i,
+    geometrySelectionLables[i]
       );
   }
 
@@ -126,7 +133,8 @@ void buildUI() {
   uiGeometryPanel,
   animationState.foreground_scale,
   0,
-  19
+  19,
+  "scale"
     );
 
   foreground_spinSlider = new Slider(
@@ -139,7 +147,8 @@ void buildUI() {
   uiGeometryPanel,
   animationState.foreground_spin,
   0,
-  19
+  19,
+  "spin"
     );
 
   foreground_speedSlider = new Slider(
@@ -152,7 +161,8 @@ void buildUI() {
   uiGeometryPanel,
   animationState.foreground_speed,
   0,
-  19
+  19,
+  "speed"
     );
 
   foreground_multSlider = new Slider(
@@ -165,7 +175,8 @@ void buildUI() {
   uiGeometryPanel,
   animationState.foreground_mult,
   0,
-  19
+  19,
+  "density"
     );
 
   foreground_param1Slider = new Slider(
@@ -178,7 +189,8 @@ void buildUI() {
   uiGeometryPanel,
   animationState.foreground_param1,
   0,
-  19
+  19,
+  ""
     );
 
   foreground_param2Slider = new Slider(
@@ -191,7 +203,8 @@ void buildUI() {
   uiGeometryPanel,
   animationState.foreground_param2,
   0,
-  19
+  19,
+  ""
     );
 
   foregroundShaderRadioButtonsGroup = new RadioButtonsGroup();
@@ -208,7 +221,8 @@ void buildUI() {
     foregroundShaderRadioButtonsGroup, 
     uiGeometryPanel, 
     animationState.foreground_shader, 
-    i
+    i,
+    ""
       );
   }
 
@@ -224,7 +238,8 @@ void buildUI() {
   uiGeometryPanel,
   animationState.background_scale,
   0,
-  19
+  19,
+  "scale"
     );
 
   background_spinSlider = new Slider(
@@ -237,7 +252,8 @@ void buildUI() {
   uiGeometryPanel,
   animationState.background_spin,
   0,
-  19
+  19,
+  "spin"
     );
 
   background_speedSlider = new Slider(
@@ -250,7 +266,8 @@ void buildUI() {
   uiGeometryPanel,
   animationState.background_speed,
   0,
-  19
+  19,
+  "speed"
     );
 
   background_multSlider = new Slider(
@@ -263,7 +280,8 @@ void buildUI() {
   uiGeometryPanel,
   animationState.background_mult,
   0,
-  19
+  19,
+  "mult"
     );
 
   background_param1Slider = new Slider(
@@ -276,7 +294,8 @@ void buildUI() {
   uiGeometryPanel,
   animationState.background_param1,
   0,
-  19
+  19,
+  ""
     );
 
   background_param2Slider = new Slider(
@@ -289,7 +308,8 @@ void buildUI() {
   uiGeometryPanel,
   animationState.background_param2,
   0,
-  19
+  19,
+  ""
     );
 
   backgroundShaderRadioButtonsGroup = new RadioButtonsGroup();
@@ -306,7 +326,8 @@ void buildUI() {
     backgroundShaderRadioButtonsGroup, 
     uiGeometryPanel, 
     animationState.background_shader, 
-    i
+    i,
+    ""
       );
   }
 
@@ -323,7 +344,8 @@ void buildUI() {
   15, //float widthInCells,
   7.75, //float heightInCells,
   color(255, 0, 255), // color backgroundColor
-  uiGrid
+  uiGrid,
+  ""
     );
 
   palettesRadioButtonsGroup = new RadioButtonsGroup();
@@ -341,7 +363,8 @@ void buildUI() {
       palettesRadioButtonsGroup, 
       uiColorCombosPanel, 
       animationState.foreground_palette,
-      j*15 + i
+      j*15 + i,
+      ""
         );
     }
   }
@@ -357,7 +380,8 @@ void buildUI() {
     palettesRadioButtonsGroup, 
     uiColorCombosPanel, 
     animationState.foreground_palette,
-    60 + i
+    60 + i,
+    ""
       );
   }
 
@@ -373,7 +397,8 @@ void buildUI() {
   15, //float widthInCells,
   3, //float heightInCells,
   color(0, 255, 255), // color backgroundColor
-  uiGrid
+  uiGrid,
+  ""
     );
 
   foreground_fx1Toggle = new ToggleButton(
@@ -384,7 +409,8 @@ void buildUI() {
   1, //float heightInCells,
   color(255, 255, 0), // color backgroundColor
   uiEffectsPanel,
-  animationState.foreground_fx1
+  animationState.foreground_fx1,
+  "fx1"
     );
 
   foreground_fx2Toggle = new ToggleButton(
@@ -395,7 +421,8 @@ void buildUI() {
   1, //float heightInCells,
   color(255, 255, 0), // color backgroundColor
   uiEffectsPanel,
-  animationState.foreground_fx2
+  animationState.foreground_fx2,
+  "fx2"
     );
 
   foreground_fx3Toggle = new ToggleButton(
@@ -406,7 +433,8 @@ void buildUI() {
   1, //float heightInCells,
   color(255, 255, 0), // color backgroundColor
   uiEffectsPanel,
-  animationState.foreground_fx3
+  animationState.foreground_fx3,
+  "fx3"
     );
 
   foreground_fx4Toggle = new ToggleButton(
@@ -417,7 +445,8 @@ void buildUI() {
   1, //float heightInCells,
   color(255, 255, 0), // color backgroundColor
   uiEffectsPanel,
-  animationState.foreground_fx4
+  animationState.foreground_fx4,
+  "fx4"
     );
 
 // now the background
@@ -430,7 +459,8 @@ void buildUI() {
   1, //float heightInCells,
   color(255, 255, 0), // color backgroundColor
   uiEffectsPanel,
-  animationState.background_fx1
+  animationState.background_fx1,
+  "fx1"
     );
 
   background_fx2Toggle = new ToggleButton(
@@ -441,7 +471,8 @@ void buildUI() {
   1, //float heightInCells,
   color(255, 255, 0), // color backgroundColor
   uiEffectsPanel,
-  animationState.background_fx2
+  animationState.background_fx2,
+  "fx2"
     );
 
   background_fx3Toggle = new ToggleButton(
@@ -452,7 +483,8 @@ void buildUI() {
   1, //float heightInCells,
   color(255, 255, 0), // color backgroundColor
   uiEffectsPanel,
-  animationState.background_fx3
+  animationState.background_fx3,
+  "fx3"
     );
 
   background_fx4Toggle = new ToggleButton(
@@ -463,7 +495,8 @@ void buildUI() {
   1, //float heightInCells,
   color(255, 255, 0), // color backgroundColor
   uiEffectsPanel,
-  animationState.background_fx4
+  animationState.background_fx4,
+  "fx4"
     );
 
 
