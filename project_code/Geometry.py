@@ -134,7 +134,7 @@ class Geometry(object):
     param1 = ShaderTypes.petalTable[i % len(ShaderTypes.petalTable)]
 
     i = int(ani_state.state[state_part + 'param2'])
-    param2 = ShaderTypes.powerTable[i % len(ShaderTypes.powerTable)]
+    param2 = ShaderTypes.powerTable[i % len(ShaderTypes.powerTable)] + (ani_state.frameCount % 1000) / 250.0 - 2.0
 
     geometry.set_custom_data(54, [shaderScale, param1, param2]) # number of stripes etc
 
