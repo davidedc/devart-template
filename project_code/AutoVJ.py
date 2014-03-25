@@ -46,14 +46,15 @@ counter[0] = 0
 if MASTER:
   DISPLAY = pi3d.Display.create(x=MARGIN, y=MARGIN)
 else:
-  DISPLAY = pi3d.Display.create(x=MARGIN, y=MARGIN, frames_per_second=20)
+  DISPLAY = pi3d.Display.create(x=MARGIN, y=MARGIN, frames_per_second=15)
 
 ShaderTypes()
 
 mykeys = pi3d.Keyboard()
 
 perspectiveCamera = pi3d.Camera(is_3d=True)
-#perspectiveCamera.rotateY(65)
+#perspectiveCamera.rotateX(-5)
+#perspectiveCamera.rotateY(35)
 
 box = SimpleCube(perspectiveCamera)
 points = SimplePoints(perspectiveCamera)
@@ -151,7 +152,7 @@ while DISPLAY.loop_running():
   animation_state.updateTimeAndFrameCount()
   if MASTER:
     ####### music checking #######
-    for i in range(10):
+    for i in range(13):
       """ Ideally there would be a better way of stopping hiccups than this.
       This loop has to read all the FFTs churned out since last loop
       which will probably depend on the sample rate but generally means

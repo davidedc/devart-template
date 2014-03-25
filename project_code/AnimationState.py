@@ -45,6 +45,8 @@ class AnimationState(object):
     for key in self.base_state:
       slkey = key[2:]
       self.state[key] = sl[slkey][(self.base_state[key] + delta) % len(sl[slkey])]
+      if key == 'b_shader' and self.state[key] % 5 == 0:
+        self.state[key] += 1
 
   def sample_progress(self):
     if self.last_activity != self.activity:
