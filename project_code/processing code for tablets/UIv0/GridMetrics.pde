@@ -15,7 +15,7 @@ class GridMetrics {
   float screenWidth, screenHeight; 
   float gridWidthInCells, gridHeightInCells; 
 
-  float cellSizeInPixels, gridOffsetXInPixels, gridOffsetYInPixels; 
+  float gridOffsetXInPixels, gridOffsetYInPixels; 
   float actualHorizPadding, actualVerticalPadding;
   float buttonSize; // when 1, the button touches the cell borders
 
