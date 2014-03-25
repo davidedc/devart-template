@@ -33,15 +33,28 @@ class ToggleButton extends SimpleButton {
 
     clearBoundingRectangle();
 
+    // draw the highlighting if
+    // this UI component is somewhat
+    // "on" or "selected"
     if (isOn) {
       pushStyle();
-      fill(0);
+      // in case of yellow use red,
+      // in all other cases use white
+      if (
+        255.0-red(backgroundColor) < 20.0 &&
+        255.0-green(backgroundColor) < 20.0 &&
+        blue(backgroundColor) < 65.0){
+        fill(255,0,0);
+      }
+      else {
+        fill(255,255,255);
+      }
       drawOblong(circleRadius+0.2);
       popStyle();
     }
 
     pushStyle();
-    fill(255,0,255);
+    fill(backgroundColor);
     drawOblong(circleRadius);
     fill(0);
     textAlign(CENTER);

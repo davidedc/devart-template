@@ -31,8 +31,17 @@ class SimpleButton extends UIElement {
 
     clearBoundingRectangle();
 
-    fill(255,255,0);
-    drawOblong(circleRadius);
+    if (isFlashing){
+      fill(255);
+      drawOblong(circleRadius);
+      isFlashing = false;
+      requiresRepaint();
+      return;      
+    }
+    else {
+      fill(backgroundColor);
+      drawOblong(circleRadius);
+    }
 
     fill(0);
     textAlign(CENTER);

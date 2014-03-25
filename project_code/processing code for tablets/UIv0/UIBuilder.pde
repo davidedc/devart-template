@@ -52,7 +52,7 @@ void buildUI() {
   0, //float yPositionInCells,
   15, //float widthInCells,
   4, //float heightInCells,
-  color(255, 0, 0), // color backgroundColor
+  color(42, 93, 102), // color backgroundColor
   uiGrid,
   ""
     );
@@ -64,7 +64,7 @@ void buildUI() {
     1, //float yPositionInCells,
     1, //float widthInCells,
     1, //float heightInCells,
-    color(0, 255, 0), // color backgroundColor
+    color(114, 232, 254), // color backgroundColor
     uiSetRecallPresetsPanel,
     i,
     "+"
@@ -78,7 +78,7 @@ void buildUI() {
     3, //float yPositionInCells,
     1, //float widthInCells,
     1, //float heightInCells,
-    color(0, 255, 0), // color backgroundColor
+    color(114, 232, 254), // color backgroundColor
     uiSetRecallPresetsPanel,
     i,
     "v"
@@ -95,7 +95,7 @@ void buildUI() {
   4, //float yPositionInCells,
   15, //float widthInCells,
   6, //float heightInCells,
-  color(255, 255, 0), // color backgroundColor
+  color(131, 16, 8), // color backgroundColor
   uiGrid,
   ""
     );
@@ -112,7 +112,7 @@ void buildUI() {
     1, //float yPositionInCells,
     5, //float widthInCells,
     1, //float heightInCells,
-    color(0, 255, 0), // color backgroundColor
+    color(255, 42, 26), // color backgroundColor
     geometryTypesRadioButtonsGroup, 
     uiGeometryPanel, 
     animationState.foreground_type, 
@@ -129,7 +129,8 @@ void buildUI() {
   3, //float yPositionInCells,
   3, //float widthInCells,
   1, //float heightInCells,
-  color(255, 255, 0), // color backgroundColor
+  color(255, 42, 26), // color backgroundColor
+  color(0, 0, 0), // color backgroundColor
   uiGeometryPanel,
   animationState.foreground_scale,
   0,
@@ -143,7 +144,8 @@ void buildUI() {
   3, //float yPositionInCells,
   3, //float widthInCells,
   1, //float heightInCells,
-  color(255, 255, 0), // color backgroundColor
+  color(255, 42, 26), // color backgroundColor
+  color(0, 0, 0), // color backgroundColor
   uiGeometryPanel,
   animationState.foreground_spin,
   0,
@@ -157,7 +159,8 @@ void buildUI() {
   4, //float yPositionInCells,
   3, //float widthInCells,
   1, //float heightInCells,
-  color(255, 255, 0), // color backgroundColor
+  color(255, 42, 26), // color backgroundColor
+  color(0, 0, 0), // color backgroundColor
   uiGeometryPanel,
   animationState.foreground_speed,
   0,
@@ -171,7 +174,8 @@ void buildUI() {
   4, //float yPositionInCells,
   3, //float widthInCells,
   1, //float heightInCells,
-  color(255, 255, 0), // color backgroundColor
+  color(255, 42, 26), // color backgroundColor
+  color(0, 0, 0), // color backgroundColor
   uiGeometryPanel,
   animationState.foreground_mult,
   0,
@@ -185,7 +189,8 @@ void buildUI() {
   5, //float yPositionInCells,
   3, //float widthInCells,
   1, //float heightInCells,
-  color(255, 255, 0), // color backgroundColor
+  color(255, 42, 26), // color backgroundColor
+  color(0, 0, 0), // color backgroundColor
   uiGeometryPanel,
   animationState.foreground_param1,
   0,
@@ -199,7 +204,8 @@ void buildUI() {
   5, //float yPositionInCells,
   3, //float widthInCells,
   1, //float heightInCells,
-  color(255, 255, 0), // color backgroundColor
+  color(255, 42, 26), // color backgroundColor
+  color(0, 0, 0), // color backgroundColor
   uiGeometryPanel,
   animationState.foreground_param2,
   0,
@@ -217,7 +223,7 @@ void buildUI() {
     2, //float yPositionInCells,
     1, //float widthInCells,
     1, //float heightInCells,
-    color(0, 255, 0), // color backgroundColor
+    color(255, 42, 26), // color backgroundColor
     foregroundShaderRadioButtonsGroup, 
     uiGeometryPanel, 
     animationState.foreground_shader, 
@@ -234,7 +240,8 @@ void buildUI() {
   3, //float yPositionInCells,
   3, //float widthInCells,
   1, //float heightInCells,
-  color(255, 255, 0), // color backgroundColor
+  color(255, 42, 26), // color backgroundColor
+  color(0, 0, 0), // color backgroundColor
   uiGeometryPanel,
   animationState.background_scale,
   0,
@@ -248,7 +255,8 @@ void buildUI() {
   3, //float yPositionInCells,
   3, //float widthInCells,
   1, //float heightInCells,
-  color(255, 255, 0), // color backgroundColor
+  color(255, 42, 26), // color backgroundColor
+  color(0, 0, 0), // color backgroundColor
   uiGeometryPanel,
   animationState.background_spin,
   0,
@@ -262,7 +270,8 @@ void buildUI() {
   4, //float yPositionInCells,
   3, //float widthInCells,
   1, //float heightInCells,
-  color(255, 255, 0), // color backgroundColor
+  color(255, 42, 26), // color backgroundColor
+  color(0, 0, 0), // color backgroundColor
   uiGeometryPanel,
   animationState.background_speed,
   0,
@@ -276,7 +285,8 @@ void buildUI() {
   4, //float yPositionInCells,
   3, //float widthInCells,
   1, //float heightInCells,
-  color(255, 255, 0), // color backgroundColor
+  color(255, 42, 26), // color backgroundColor
+  color(0, 0, 0), // color backgroundColor
   uiGeometryPanel,
   animationState.background_mult,
   0,
@@ -290,7 +300,8 @@ void buildUI() {
   5, //float yPositionInCells,
   3, //float widthInCells,
   1, //float heightInCells,
-  color(255, 255, 0), // color backgroundColor
+  color(255, 42, 26), // color backgroundColor
+  color(0, 0, 0), // color backgroundColor
   uiGeometryPanel,
   animationState.background_param1,
   0,
@@ -304,7 +315,8 @@ void buildUI() {
   5, //float yPositionInCells,
   3, //float widthInCells,
   1, //float heightInCells,
-  color(255, 255, 0), // color backgroundColor
+  color(255, 42, 26), // color backgroundColor
+  color(0, 0, 0), // color backgroundColor
   uiGeometryPanel,
   animationState.background_param2,
   0,
@@ -322,7 +334,7 @@ void buildUI() {
     2, //float yPositionInCells,
     1, //float widthInCells,
     1, //float heightInCells,
-    color(0, 255, 0), // color backgroundColor
+    color(255, 42, 26), // color backgroundColor
     backgroundShaderRadioButtonsGroup, 
     uiGeometryPanel, 
     animationState.background_shader, 
@@ -343,7 +355,7 @@ void buildUI() {
   10, //float yPositionInCells,
   15, //float widthInCells,
   7.75, //float heightInCells,
-  color(255, 0, 255), // color backgroundColor
+  color(113, 111, 17), // color backgroundColor
   uiGrid,
   ""
     );
@@ -359,7 +371,7 @@ void buildUI() {
       0.5+j, //float yPositionInCells,
       1, //float widthInCells,
       1, //float heightInCells,
-      color(0, 255, 0), // color backgroundColor
+      color(254, 249, 53), // color backgroundColor
       palettesRadioButtonsGroup, 
       uiColorCombosPanel, 
       animationState.foreground_palette,
@@ -376,7 +388,7 @@ void buildUI() {
     0.5+4, //float yPositionInCells,
     1, //float widthInCells,
     1, //float heightInCells,
-    color(0, 255, 0), // color backgroundColor
+    color(254, 249, 53), // color backgroundColor
     palettesRadioButtonsGroup, 
     uiColorCombosPanel, 
     animationState.foreground_palette,
@@ -396,7 +408,7 @@ void buildUI() {
   17.75, //float yPositionInCells,
   15, //float widthInCells,
   3, //float heightInCells,
-  color(0, 255, 255), // color backgroundColor
+  color(0, 98, 11), // color backgroundColor
   uiGrid,
   ""
     );
@@ -407,7 +419,7 @@ void buildUI() {
   1, //float yPositionInCells,
   3, //float widthInCells,
   1, //float heightInCells,
-  color(255, 255, 0), // color backgroundColor
+  color(0, 247, 44), // color backgroundColor
   uiEffectsPanel,
   animationState.foreground_fx1,
   "fx1"
@@ -419,7 +431,7 @@ void buildUI() {
   1, //float yPositionInCells,
   3, //float widthInCells,
   1, //float heightInCells,
-  color(255, 255, 0), // color backgroundColor
+  color(0, 247, 44), // color backgroundColor
   uiEffectsPanel,
   animationState.foreground_fx2,
   "fx2"
@@ -431,7 +443,7 @@ void buildUI() {
   2, //float yPositionInCells,
   3, //float widthInCells,
   1, //float heightInCells,
-  color(255, 255, 0), // color backgroundColor
+  color(0, 247, 44), // color backgroundColor
   uiEffectsPanel,
   animationState.foreground_fx3,
   "fx3"
@@ -443,7 +455,7 @@ void buildUI() {
   2, //float yPositionInCells,
   3, //float widthInCells,
   1, //float heightInCells,
-  color(255, 255, 0), // color backgroundColor
+  color(0, 247, 44), // color backgroundColor
   uiEffectsPanel,
   animationState.foreground_fx4,
   "fx4"
@@ -457,7 +469,7 @@ void buildUI() {
   1, //float yPositionInCells,
   3, //float widthInCells,
   1, //float heightInCells,
-  color(255, 255, 0), // color backgroundColor
+  color(0, 247, 44), // color backgroundColor
   uiEffectsPanel,
   animationState.background_fx1,
   "fx1"
@@ -469,7 +481,7 @@ void buildUI() {
   1, //float yPositionInCells,
   3, //float widthInCells,
   1, //float heightInCells,
-  color(255, 255, 0), // color backgroundColor
+  color(0, 247, 44), // color backgroundColor
   uiEffectsPanel,
   animationState.background_fx2,
   "fx2"
@@ -481,7 +493,7 @@ void buildUI() {
   2, //float yPositionInCells,
   3, //float widthInCells,
   1, //float heightInCells,
-  color(255, 255, 0), // color backgroundColor
+  color(0, 247, 44), // color backgroundColor
   uiEffectsPanel,
   animationState.background_fx3,
   "fx3"
@@ -493,7 +505,7 @@ void buildUI() {
   2, //float yPositionInCells,
   3, //float widthInCells,
   1, //float heightInCells,
-  color(255, 255, 0), // color backgroundColor
+  color(0, 247, 44), // color backgroundColor
   uiEffectsPanel,
   animationState.background_fx4,
   "fx4"

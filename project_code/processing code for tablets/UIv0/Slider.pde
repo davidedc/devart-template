@@ -9,6 +9,7 @@ class Slider extends UIElement {
   IntBox integerToBeChanged;
   float minValue;
   float maxValue;
+  color foregroundColor;
 
   Slider (
   String stringID,
@@ -17,6 +18,7 @@ class Slider extends UIElement {
   float widthInCells, 
   float heightInCells, 
   color backgroundColor,
+  color foregroundColor,
   UIElement containerUIElement,
   IntBox integerToBeChanged,
   float minValue,
@@ -36,6 +38,7 @@ class Slider extends UIElement {
     this.integerToBeChanged = integerToBeChanged;
     this.minValue = minValue;
     this.maxValue = maxValue;
+    this.foregroundColor = foregroundColor;
     println("created Slider");
   }
 
@@ -63,7 +66,7 @@ class Slider extends UIElement {
     }
 
 
-    fill(255,0,255);
+    fill(backgroundColor);
     drawOblong(circleRadius);
 
     fill(0);
@@ -77,7 +80,7 @@ class Slider extends UIElement {
       heightInCells * uiGrid.gridMetrics.pixelsPerCell    
     );
 
-    fill(255,0,0);
+    fill(foregroundColor);
     ellipse(
       topLeftCornerInPixels[0] + cursorPositionInPixels,
       topLeftCornerInPixels[1] + uiGrid.gridMetrics.pixelsPerCell/2,
