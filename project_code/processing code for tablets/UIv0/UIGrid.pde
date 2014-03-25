@@ -17,7 +17,7 @@ class UIGrid extends UIElement {
       int cellSubdivisions
       ) {  
 
-    super("grid",0,0,0,0,null);
+    super("grid",0,0,0,0,null,color(0,155,255));
     
     this.cellSubdivisions = cellSubdivisions;
 
@@ -30,9 +30,9 @@ class UIGrid extends UIElement {
     
     touchedElementFinder = new TouchedElementFinder(gridMetrics, cellSubdivisions);
 
-    containingElement = this;
+    containerUIElement = this;
     containingGrid = this;
-    println("created grid: " + containingElement.toString());
+    println("created grid: " + containerUIElement.toString());
 
   }
 

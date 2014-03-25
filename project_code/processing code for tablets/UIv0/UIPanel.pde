@@ -3,7 +3,6 @@
 
 class UIPanel extends UIElement {
 
-  color backgroundColor;
 
   UIPanel (
   String stringID,
@@ -20,9 +19,9 @@ class UIPanel extends UIElement {
     yPositionInCells, 
     widthInCells, 
     heightInCells,
-    containerUIElement
+    containerUIElement,
+    backgroundColor
       );
-    this.backgroundColor = backgroundColor;
     println("created panel");
   }
 

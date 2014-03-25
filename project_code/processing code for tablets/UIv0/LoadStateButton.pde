@@ -1,6 +1,5 @@
 class LoadStateButton extends SimpleButton {
 
-  color backgroundColor;
   boolean isFlashing = false;
   int stateNumber;
 

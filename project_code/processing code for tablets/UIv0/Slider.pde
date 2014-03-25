@@ -1,6 +1,5 @@
 class Slider extends UIElement {
 
-  color backgroundColor;
   boolean isFlashing = false;
   float cursorPosition = 0.5;
   // "margin" specifies how much of the edges of the slider actually clamp to the
@@ -29,7 +28,8 @@ class Slider extends UIElement {
     yPositionInCells, 
     widthInCells, 
     heightInCells,
-    containerUIElement
+    containerUIElement,
+    backgroundColor
       );
     this.integerToBeChanged = integerToBeChanged;
     this.minValue = minValue;

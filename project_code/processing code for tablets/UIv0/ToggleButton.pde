@@ -29,25 +29,20 @@ class ToggleButton extends SimpleButton {
   void repaintCompletely() {
     //println("drawing toggle button");
 
-    super.repaintCompletely();
+    clearBoundingRectangle();
+
+    if (isOn) {
+      pushStyle();
+      fill(0);
+      drawOblong(circleRadius+0.2);
+      popStyle();
+    }
 
     pushStyle();
-    if (isOn) {
-      line(
-        topLeftCornerInPixels[0], 
-        topLeftCornerInPixels[1], 
-        topLeftCornerInPixels[0] + extensionInPixels[0], 
-        topLeftCornerInPixels[1] + extensionInPixels[1]
-      );
-      line(
-        topLeftCornerInPixels[0] + extensionInPixels[0], 
-        topLeftCornerInPixels[1], 
-        topLeftCornerInPixels[0], 
-        topLeftCornerInPixels[1] + extensionInPixels[1]
-      );
-
-    }
+    fill(255,0,255);
+    drawOblong(circleRadius);
     popStyle();
+
 
    }
 

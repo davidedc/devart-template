@@ -1,7 +1,7 @@
 class SimpleButton extends UIElement {
 
-  color backgroundColor;
   boolean isFlashing = false;
+  float circleRadius = 0.7;
 
   SimpleButton (
   String stringID,
@@ -18,33 +18,44 @@ class SimpleButton extends UIElement {
     yPositionInCells, 
     widthInCells, 
     heightInCells,
-    containerUIElement
+    containerUIElement,
+    backgroundColor
       );
-    this.backgroundColor = backgroundColor;
     println("created SimpleButton");
   }
 
-
+  void drawOblong(float circleRadius){
+      noStroke();
+      float edgeDistance = uiGrid.gridMetrics.pixelsPerCell * (1-circleRadius);
+      ellipse(
+        topLeftCornerInPixels[0] + uiGrid.gridMetrics.pixelsPerCell/2, 
+        topLeftCornerInPixels[1] + uiGrid.gridMetrics.pixelsPerCell/2, 
+        uiGrid.gridMetrics.pixelsPerCell * circleRadius, 
+        uiGrid.gridMetrics.pixelsPerCell * circleRadius
+      );
+      // if the button spans more than one
+      // cell then we need do draw the oblong
+      // instead of just a circle
+      if (widthInCells > 1){
+        ellipse(
+          topLeftCornerInPixels[0] + uiGrid.gridMetrics.pixelsPerCell/2 + (widthInCells-1) * uiGrid.gridMetrics.pixelsPerCell, 
+          topLeftCornerInPixels[1] + uiGrid.gridMetrics.pixelsPerCell/2, 
+          uiGrid.gridMetrics.pixelsPerCell * circleRadius, 
+          uiGrid.gridMetrics.pixelsPerCell * circleRadius
+        );
+        rect(
+          topLeftCornerInPixels[0] + uiGrid.gridMetrics.pixelsPerCell/2, 
+          topLeftCornerInPixels[1] + edgeDistance/2,
+          (widthInCells-1) * uiGrid.gridMetrics.pixelsPerCell, 
+          uiGrid.gridMetrics.pixelsPerCell - edgeDistance
+        );
+      }
+  }
 
   void repaintCompletely() {
     //println("drawing simple button");
 
-    pushStyle();
-    if (isFlashing){
-      fill(255);
-      isFlashing = false;
-      requiresRepaint();
-    }
-    else {
-      fill(backgroundColor);
-    }
-    rect(
-      topLeftCornerInPixels[0], 
-      topLeftCornerInPixels[1], 
-      extensionInPixels[0], 
-      extensionInPixels[1]
-    );
-    popStyle();
+    clearBoundingRectangle();
     super.repaintCompletely();
 
    }
