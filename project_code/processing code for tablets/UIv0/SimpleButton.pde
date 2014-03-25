@@ -30,12 +30,9 @@ class SimpleButton extends UIElement {
     //println("drawing simple button");
 
     clearBoundingRectangle();
-    super.repaintCompletely();
 
-   }
-
-  void repaintDirty() {
-    repaintCompletely();
+    fill(255,255,0);
+    drawOblong(circleRadius);
 
     fill(0);
     textAlign(CENTER);
@@ -47,6 +44,14 @@ class SimpleButton extends UIElement {
       widthInCells * uiGrid.gridMetrics.pixelsPerCell, 
       heightInCells * uiGrid.gridMetrics.pixelsPerCell    
     );
+
+    super.repaintCompletely();
+
+   }
+
+  void repaintDirty() {
+    repaintCompletely();
+
 
   }
 
