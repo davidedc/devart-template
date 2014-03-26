@@ -57,6 +57,19 @@ void buildUI() {
   ""
     );
 
+  new Label(
+    "uiSetRecallPresets Label", 
+    0, //float xPositionInCells,
+    0, //float yPositionInCells,
+    15, //float widthInCells,
+    1, //float heightInCells,
+    color(114, 232, 254), // color backgroundColor
+    color(0), // color backgroundColor
+    uiSetRecallPresetsPanel,
+    "Set/Recall Presets",
+    Label.ALIGN_LEFT
+  );
+
   for (int i = 0; i < 15; i++) {
     new SaveStateButton(
     "saveSetButton" + (i+1), 
@@ -99,6 +112,19 @@ void buildUI() {
   uiGrid,
   ""
     );
+
+  new Label(
+    "uiSetRecallPresets Label", 
+    0, //float xPositionInCells,
+    0, //float yPositionInCells,
+    15, //float widthInCells,
+    1, //float heightInCells,
+    color(255, 42, 26), // color backgroundColor
+    color(0), // color backgroundColor
+    uiGeometryPanel,
+    "Geometry",
+    Label.ALIGN_LEFT
+  );
 
   geometryTypesRadioButtonsGroup = new RadioButtonsGroup();
 
@@ -360,6 +386,19 @@ void buildUI() {
   ""
     );
 
+  new Label(
+    "uiSetRecallPresets Label", 
+    0, //float xPositionInCells,
+    0, //float yPositionInCells,
+    15, //float widthInCells,
+    1, //float heightInCells,
+    color(254, 249, 53), // color backgroundColor
+    color(0), // color backgroundColor
+    uiColorCombosPanel,
+    "Color combos",
+    Label.ALIGN_LEFT
+  );
+
   palettesRadioButtonsGroup = new RadioButtonsGroup();
 
   // add radio buttons for foreground shader
@@ -412,6 +451,19 @@ void buildUI() {
   uiGrid,
   ""
     );
+
+  new Label(
+    "uiSetRecallPresets Label", 
+    0, //float xPositionInCells,
+    0, //float yPositionInCells,
+    15, //float widthInCells,
+    1, //float heightInCells,
+    color(0, 247, 44), // color backgroundColor
+    color(0), // color backgroundColor
+    uiEffectsPanel,
+    "Effects",
+    Label.ALIGN_LEFT
+  );
 
   foreground_fx1Toggle = new ToggleButton(
   "foreground_fx1Toggle", 
