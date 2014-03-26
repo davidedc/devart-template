@@ -47,7 +47,18 @@ if MASTER:
   DISPLAY = pi3d.Display.create(x=MARGIN, y=MARGIN)
 else:
   DISPLAY = pi3d.Display.create(x=MARGIN, y=MARGIN, frames_per_second=15)
-
+############## edge masking for projection onto table ##################
+matsh = pi3d.Shader("mat_flat")
+left_edge = pi3d.Triangle(corners=((-1.0, 0.0), (0.0, 2.0), (0.0, -2.0)), x=-0.75, y=0.0, z=1.0, rz=5)
+left_edge.set_material((0, 0, 0))
+left_edge.set_shader(matsh)
+right_edge = pi3d.Triangle(corners=((1.0, 0.0), (0.0, -2.0), (0.0, 2.0)), x=0.60, y=0.0, z=1.0, rz=15)
+right_edge.set_material((0, 0, 0))
+right_edge.set_shader(matsh)
+top_edge = pi3d.Triangle(corners=((-2.0, 0.0), (0.0, 1.0), (2.0, 0.0)), x=0.0, y=0.36, z=1.0, rz=-3)
+top_edge.set_material((0, 0, 0))
+top_edge.set_shader(matsh)
+########################################################################
 ShaderTypes()
 
 mykeys = pi3d.Keyboard()
@@ -148,6 +159,9 @@ freeze_time = 10.0 # seconds after a user mod before auto restarts
 
 
 while DISPLAY.loop_running():
+  left_edge.draw()
+  right_edge.draw()
+  top_edge.draw()
   refresh = False #only send new state info to server subprocess if changed
   animation_state.updateTimeAndFrameCount()
   if MASTER:
