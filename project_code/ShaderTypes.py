@@ -21,7 +21,8 @@ class ShaderTypes(object):
       pi3d.Shader('shaders/mat_rings_color'),
       pi3d.Shader('shaders/mat_grad_color'),
       pi3d.Shader('shaders/mat_stripe_color'),
-      pi3d.Shader('shaders/mat_mnjri_color')
+      pi3d.Shader('shaders/mat_mnjri_color'),
+      pi3d.Shader('shaders/mat_noise_color')
    ]
     
     ShaderTypes.petalTable = [0.01, 0.03, 0.05, 0.06, 0.08, 0.1, 0.12,

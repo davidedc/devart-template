@@ -75,9 +75,9 @@ preset = [   {'b_scale':1, 'b_spin':0, 'b_speed':0, 'b_shader':2, 'b_mult':9, 'b
         ]
 ## these are the fields sent in json form to and from the web server
 fields = [
-        ['bkga', [['f_scale',20], ['f_spin',6], ['f_speed',20], ['f_shader',5], ['f_mult',20], ['f_param1',20], ['f_param2',20]]],
+        ['bkga', [['f_scale',20], ['f_spin',6], ['f_speed',20], ['f_shader',6], ['f_mult',20], ['f_param1',20], ['f_param2',20]]],
         ['bkgb', [['f_paltt',20], ['f_inv',2], ['f_fx1',2], ['f_fx2',2], ['f_fx3',2], ['f_fx4',2]]],
-        ['bkga', [['b_scale',20], ['b_spin',6], ['b_speed',20], ['b_shader',5], ['b_mult',20], ['b_param1',20], ['b_param2',20]]],
+        ['bkga', [['b_scale',20], ['b_spin',6], ['b_speed',20], ['b_shader',6], ['b_mult',20], ['b_param1',20], ['b_param2',20]]],
         ['bkgb', [['b_inv',2], ['b_fx1',2], ['b_fx2',2], ['b_fx3',2], ['b_fx4',2]]],
         ['bkga', [['preset_get',16]]],
         ['bkgb', [['preset_set',16]]],
