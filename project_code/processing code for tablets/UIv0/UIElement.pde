@@ -73,18 +73,22 @@ class UIElement {
   void repaintDirty() {
   }
 
-  void clearBoundingRectangle() {
-    pushStyle();
-    
-    // clear the whole of the containing rectangle
-    noStroke();
-    fill(containerUIElement.backgroundColor);
+  void paintBoundingRectangle() {
       rect(
         topLeftCornerInPixels[0], 
         topLeftCornerInPixels[1],
         widthInCells * uiGrid.gridMetrics.pixelsPerCell, 
         heightInCells * uiGrid.gridMetrics.pixelsPerCell
       );
+  }
+
+  void clearBoundingRectangle() {
+    pushStyle();
+    
+    // clear the whole of the containing rectangle
+    noStroke();
+    fill(containerUIElement.backgroundColor);
+    paintBoundingRectangle();
     popStyle();
   }
 
