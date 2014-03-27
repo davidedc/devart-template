@@ -79,6 +79,5 @@ class PaletteTypes(object):
     [Colors.black, Colors.user1],
     [Colors.black, Colors.user2],
     [Colors.transparent, Colors.user1],
-    [Colors.transparent, Colors.user2]
   ]
   
