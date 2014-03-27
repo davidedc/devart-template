@@ -2,8 +2,13 @@ class Label extends UIElement {
 
   public static final int ALIGN_LEFT = 0;
   public static final int ALIGN_CENTER = 1;
+  public static final int SIZE_BIG = 0;
+  public static final int SIZE_NORMAL = 1;
+  public static final int SIZE_SMALL = 2;
+
   int alignment;
   color foregroundColor;
+  int size;
 
   Label (
   String stringID,
@@ -15,7 +20,8 @@ class Label extends UIElement {
   color foregroundColor,
   UIElement containerUIElement,
   String UIElementText,
-  int alignment
+  int alignment,
+  int size
     ) {  
     super(
     stringID,
@@ -29,6 +35,7 @@ class Label extends UIElement {
       );
     this.foregroundColor = foregroundColor;
     this.alignment = alignment;
+    this.size = size;
     println("created label");
   }
 
@@ -56,18 +63,26 @@ class Label extends UIElement {
 */
 
     fill(0);
+    int alignmentCorrection = 0;
     if (alignment == ALIGN_LEFT){
         textAlign(LEFT);
+        alignmentCorrection= 5;        
     }
     else {
         textAlign(CENTER);
     }
 
-    textSize(14);
+    if (size == SIZE_BIG){
+      textSize(21);
+    }
+    else if (size == SIZE_NORMAL){
+      textSize(14);
+    }
+    
     fill(foregroundColor);
     text(
       UIElementText,
-      topLeftCornerInPixels[0], 
+      topLeftCornerInPixels[0] + alignmentCorrection, 
       5+topLeftCornerInPixels[1] + uiGrid.gridMetrics.pixelsPerCell/4,
       widthInCells * uiGrid.gridMetrics.pixelsPerCell, 
       heightInCells * uiGrid.gridMetrics.pixelsPerCell    
