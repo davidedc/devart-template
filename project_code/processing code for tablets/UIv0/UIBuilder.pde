@@ -66,7 +66,7 @@ void buildUI() {
     color(114, 232, 254), // color backgroundColor
     color(0), // color backgroundColor
     uiSetRecallPresetsPanel,
-    "Set/Recall Presets",
+    "SET/RECALL PRESETS",
     Label.ALIGN_LEFT
   );
 
@@ -107,7 +107,7 @@ void buildUI() {
   0, //float xPositionInCells,
   4, //float yPositionInCells,
   15, //float widthInCells,
-  6, //float heightInCells,
+  8, //float heightInCells,
   color(131, 16, 8), // color backgroundColor
   uiGrid,
   ""
@@ -122,7 +122,7 @@ void buildUI() {
     color(255, 42, 26), // color backgroundColor
     color(0), // color backgroundColor
     uiGeometryPanel,
-    "Geometry",
+    "GEOMETRY",
     Label.ALIGN_LEFT
   );
 
@@ -149,10 +149,23 @@ void buildUI() {
 
   // foreground parts
   
+   new Label(
+    "shader options", 
+    8, //float xPositionInCells,
+    4, //float yPositionInCells,
+    6, //float widthInCells,
+    1, //float heightInCells,
+    color(130, 16, 8), // color backgroundColor
+    color(0), // color backgroundColor
+    uiGeometryPanel,
+    "Foreground parameters:",
+    Label.ALIGN_CENTER
+  );
+
   foreground_scaleSlider = new Slider(
   "radioButton1", 
   8, //float xPositionInCells,
-  3, //float yPositionInCells,
+  5, //float yPositionInCells,
   3, //float widthInCells,
   1, //float heightInCells,
   color(255, 42, 26), // color backgroundColor
@@ -167,7 +180,7 @@ void buildUI() {
   foreground_spinSlider = new Slider(
   "radioButton1", 
   11.5, //float xPositionInCells,
-  3, //float yPositionInCells,
+  5, //float yPositionInCells,
   3, //float widthInCells,
   1, //float heightInCells,
   color(255, 42, 26), // color backgroundColor
@@ -182,7 +195,7 @@ void buildUI() {
   foreground_speedSlider = new Slider(
   "radioButton1", 
   8, //float xPositionInCells,
-  4, //float yPositionInCells,
+  6, //float yPositionInCells,
   3, //float widthInCells,
   1, //float heightInCells,
   color(255, 42, 26), // color backgroundColor
@@ -197,7 +210,7 @@ void buildUI() {
   foreground_multSlider = new Slider(
   "radioButton1", 
   11.5, //float xPositionInCells,
-  4, //float yPositionInCells,
+  6, //float yPositionInCells,
   3, //float widthInCells,
   1, //float heightInCells,
   color(255, 42, 26), // color backgroundColor
@@ -212,7 +225,7 @@ void buildUI() {
   foreground_param1Slider = new Slider(
   "radioButton1", 
   8, //float xPositionInCells,
-  5, //float yPositionInCells,
+  7, //float yPositionInCells,
   3, //float widthInCells,
   1, //float heightInCells,
   color(255, 42, 26), // color backgroundColor
@@ -227,7 +240,7 @@ void buildUI() {
   foreground_param2Slider = new Slider(
   "radioButton1", 
   11.5, //float xPositionInCells,
-  5, //float yPositionInCells,
+  7, //float yPositionInCells,
   3, //float widthInCells,
   1, //float heightInCells,
   color(255, 42, 26), // color backgroundColor
@@ -239,14 +252,28 @@ void buildUI() {
   ""
     );
 
+  new Label(
+    "shader options", 
+    8, //float xPositionInCells,
+    2, //float yPositionInCells,
+    6, //float widthInCells,
+    1, //float heightInCells,
+    color(130, 16, 8), // color backgroundColor
+    color(0), // color backgroundColor
+    uiGeometryPanel,
+    "Foreground design:",
+    Label.ALIGN_CENTER
+  );
+
+
   foregroundShaderRadioButtonsGroup = new RadioButtonsGroup();
 
   // add radio buttons for foreground shader
-  for (int i = 0; i < 5; i++) {
+  for (int i = 0; i < 6; i++) {
     new RadioButton(
     "foregroundShaderRadioButton" + (i+1), 
-    (i+1)*((uiGrid.gridMetrics.gridWidthInCells/2)/(5+1))-0.5 + uiGrid.gridMetrics.gridWidthInCells/2, //float xPositionInCells,
-    2, //float yPositionInCells,
+    (i+1)*((uiGrid.gridMetrics.gridWidthInCells/2)/(6+1))-0.5 + uiGrid.gridMetrics.gridWidthInCells/2, //float xPositionInCells,
+    3, //float yPositionInCells,
     1, //float widthInCells,
     1, //float heightInCells,
     color(255, 42, 26), // color backgroundColor
@@ -259,11 +286,23 @@ void buildUI() {
   }
 
 //// background parts
+  new Label(
+    "shader options", 
+    1, //float xPositionInCells,
+    4, //float yPositionInCells,
+    6, //float widthInCells,
+    1, //float heightInCells,
+    color(130, 16, 8), // color backgroundColor
+    color(0), // color backgroundColor
+    uiGeometryPanel,
+    "Background parameters:",
+    Label.ALIGN_CENTER
+  );
 
   background_scaleSlider = new Slider(
   "radioButton1", 
   8 - uiGrid.gridMetrics.gridWidthInCells/2, //float xPositionInCells,
-  3, //float yPositionInCells,
+  5, //float yPositionInCells,
   3, //float widthInCells,
   1, //float heightInCells,
   color(255, 42, 26), // color backgroundColor
@@ -278,7 +317,7 @@ void buildUI() {
   background_spinSlider = new Slider(
   "radioButton1", 
   11.5 - uiGrid.gridMetrics.gridWidthInCells/2, //float xPositionInCells,
-  3, //float yPositionInCells,
+  5, //float yPositionInCells,
   3, //float widthInCells,
   1, //float heightInCells,
   color(255, 42, 26), // color backgroundColor
@@ -293,7 +332,7 @@ void buildUI() {
   background_speedSlider = new Slider(
   "radioButton1", 
   8 - uiGrid.gridMetrics.gridWidthInCells/2, //float xPositionInCells,
-  4, //float yPositionInCells,
+  6, //float yPositionInCells,
   3, //float widthInCells,
   1, //float heightInCells,
   color(255, 42, 26), // color backgroundColor
@@ -308,7 +347,7 @@ void buildUI() {
   background_multSlider = new Slider(
   "radioButton1", 
   11.5 - uiGrid.gridMetrics.gridWidthInCells/2, //float xPositionInCells,
-  4, //float yPositionInCells,
+  6, //float yPositionInCells,
   3, //float widthInCells,
   1, //float heightInCells,
   color(255, 42, 26), // color backgroundColor
@@ -323,7 +362,7 @@ void buildUI() {
   background_param1Slider = new Slider(
   "radioButton1", 
   8 - uiGrid.gridMetrics.gridWidthInCells/2, //float xPositionInCells,
-  5, //float yPositionInCells,
+  7, //float yPositionInCells,
   3, //float widthInCells,
   1, //float heightInCells,
   color(255, 42, 26), // color backgroundColor
@@ -338,7 +377,7 @@ void buildUI() {
   background_param2Slider = new Slider(
   "radioButton1", 
   11.5 - uiGrid.gridMetrics.gridWidthInCells/2, //float xPositionInCells,
-  5, //float yPositionInCells,
+  7, //float yPositionInCells,
   3, //float widthInCells,
   1, //float heightInCells,
   color(255, 42, 26), // color backgroundColor
@@ -350,14 +389,27 @@ void buildUI() {
   ""
     );
 
+  new Label(
+    "shader options", 
+    1, //float xPositionInCells,
+    2, //float yPositionInCells,
+    6, //float widthInCells,
+    1, //float heightInCells,
+    color(130, 16, 8), // color backgroundColor
+    color(0), // color backgroundColor
+    uiGeometryPanel,
+    "Background design:",
+    Label.ALIGN_CENTER
+  );
+
   backgroundShaderRadioButtonsGroup = new RadioButtonsGroup();
 
   // add radio buttons for background shader
-  for (int i = 0; i < 5; i++) {
+  for (int i = 0; i < 6; i++) {
     new RadioButton(
     "backgroundShaderRadioButton" + (i+1), 
-    (i+1)*((uiGrid.gridMetrics.gridWidthInCells/2)/(5+1))-0.5, //float xPositionInCells,
-    2, //float yPositionInCells,
+    (i+1)*((uiGrid.gridMetrics.gridWidthInCells/2)/(6+1))-0.5, //float xPositionInCells,
+    3, //float yPositionInCells,
     1, //float widthInCells,
     1, //float heightInCells,
     color(255, 42, 26), // color backgroundColor
@@ -378,9 +430,9 @@ void buildUI() {
   UIPanel uiColorCombosPanel = new UIPanel(
   "color combos", 
   0, //float xPositionInCells,
-  10, //float yPositionInCells,
+  12, //float yPositionInCells,
   15, //float widthInCells,
-  7.75, //float heightInCells,
+  5.75, //float heightInCells,
   color(113, 111, 17), // color backgroundColor
   uiGrid,
   ""
@@ -395,7 +447,7 @@ void buildUI() {
     color(254, 249, 53), // color backgroundColor
     color(0), // color backgroundColor
     uiColorCombosPanel,
-    "Color combos",
+    "COLOR COMBOS",
     Label.ALIGN_LEFT
   );
 
@@ -461,7 +513,7 @@ void buildUI() {
     color(0, 247, 44), // color backgroundColor
     color(0), // color backgroundColor
     uiEffectsPanel,
-    "Effects",
+    "EFFECTS",
     Label.ALIGN_LEFT
   );
 
