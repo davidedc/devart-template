@@ -260,20 +260,19 @@ while DISPLAY.loop_running():
       t_flag[0] = -1
     if t_flag[0] == 1: #fresh info in animation_state by thread 
       this_ftype = animation_state.state['f_type']
-      if this_ftype != int(foreground.geometry.name):
-        if this_ftype == 2:
-          foreground = points
-        elif this_ftype == 1:
-          foreground = sphere
-        else:
-          foreground = box
+      if this_ftype == 2:
+        foreground = points
+      elif this_ftype == 1:
+        foreground = sphere
+      else:
+        foreground = box
       background.geometry.rotateToX(animation_state.state['b_rot'][0])
       background.geometry.rotateToY(animation_state.state['b_rot'][1])
       background.geometry.rotateToZ(animation_state.state['b_rot'][2])
       foreground.geometry.rotateToX(animation_state.state['f_rot'][0])
       foreground.geometry.rotateToY(animation_state.state['f_rot'][1])
       foreground.geometry.rotateToZ(animation_state.state['f_rot'][2])
-      animation_state.frameCount = animation_state.state['frame']
+      animation_state.frameCount = animation_state.state['frame'] - 3 # guess allowance for delay
       t_flag[0] = 0
 
   foreground.draw(animation_state)
