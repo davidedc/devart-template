@@ -251,11 +251,12 @@ while DISPLAY.loop_running():
         queue_down.get()
       animation_state.state['b_rot'] = [round(i, 1) for i in background.geometry.unif[3:6]]
       animation_state.state['f_rot'] = [round(i, 1) for i in foreground.geometry.unif[3:6]]
+      animation_state.state['frame'] = animation_state.frameCount
       queue_down.put(animation_state.state)
       #######----------------------
 
   else: ## not MASTER so SLAVE!
-    if (animation_state.frameCount % 9) == 0:
+    if (animation_state.frameCount % 3) == 0:
       t_flag[0] = -1
     if t_flag[0] == 1: #fresh info in animation_state by thread 
       this_ftype = animation_state.state['f_type']
@@ -272,6 +273,7 @@ while DISPLAY.loop_running():
       foreground.geometry.rotateToX(animation_state.state['f_rot'][0])
       foreground.geometry.rotateToY(animation_state.state['f_rot'][1])
       foreground.geometry.rotateToZ(animation_state.state['f_rot'][2])
+      animation_state.frameCount = animation_state.state['frame']
       t_flag[0] = 0
 
   foreground.draw(animation_state)

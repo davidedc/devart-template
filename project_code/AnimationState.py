@@ -17,7 +17,7 @@ class AnimationState(object):
             'f_param1':0, 'f_param2':0, 'f_paltt':0, 'f_inv':0, 'f_fx1':0,
             'f_fx2':0, 'f_fx3':0, 'f_fx4':0, 'f_rot':[0.0, 0.0, 0.0],
             'user1':[0.3, 0.3, 0.3], 'user2':[0.6, 0.6, 0.6],
-            'light':0, 'beatf':8, 'f_type':0}
+            'light':0, 'beatf':8, 'f_type':0, 'frame':0}
     self.last_activity = 'l01'
     self.activity = 'l01'
     self.sample_start = random.randint(0, 75)

@@ -5,7 +5,8 @@
   'b_param2':0, 'b_paltt':0, 'b_inv':0, 'b_fx1':0, 'b_fx2':0, 'b_fx3':0, 'b_fx4':0,
   'f_scale':0, 'f_spin':0, 'f_speed':0, 'f_shader':0, 'f_mult':0, 'f_param1':0,
   'f_param2':0, 'f_paltt':0, 'f_inv':0, 'f_fx1':0, 'f_fx2':0, 'f_fx3':0, 'f_fx4':0,
-  'preset_get':0, 'preset_set':0, 'user1':[0.3, 0.3, 0.3], 'user2':[0.6, 0.6, 0.6], 'f_type':0}"""
+  'preset_get':0, 'preset_set':0, 'user1':[0.3, 0.3, 0.3], 'user2':[0.6, 0.6, 0.6], 
+  'f_type':0, frame:0}"""
   
 ## geometry preset, the geometry part of the animation state will jump to these values
 preset = [   {'b_scale':1, 'b_spin':0, 'b_speed':0, 'b_shader':2, 'b_mult':9, 'b_param1':2, 'b_param2':2,
