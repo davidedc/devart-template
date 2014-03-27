@@ -281,7 +281,7 @@ void buildUI() {
     uiGeometryPanel, 
     animationState.foreground_shader, 
     i,
-    ""
+    (i+1)+""
       );
   }
 
@@ -417,7 +417,7 @@ void buildUI() {
     uiGeometryPanel, 
     animationState.background_shader, 
     i,
-    ""
+    (i+1)+""
       );
   }
 
