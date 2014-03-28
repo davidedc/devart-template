@@ -50,3 +50,4 @@ As well as pi3d we have used
 [![Vimeo video](project_images/Vimeo-video.png)](https://vimeo.com/90281174)
 [![2nd Youtube video](project_images/2nd-Youtube-video.png)](https://www.youtube.com/watch?v=-tzrObu8aOI)
 [![1st Youtube video](project_images/1st-Youtube-video.png)](https://www.youtube.com/watch?v=vGw0udNDoug)
+![Project thumbnails](project_images/project-thumbnails.png "Project thumbnails")
