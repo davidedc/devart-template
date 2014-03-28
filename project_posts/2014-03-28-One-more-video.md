@@ -1,7 +1,7 @@
 One more video
 --------------
 
-Last day of the project, and some friends came over to play with the final installation. I can't stress enough how how much we cared that this was built thing.
+Last day of the project, and some friends came over to play with the final installation. I can't stress enough how much we cared that this was a *built* installation.
 
 They liked it :-)
 
