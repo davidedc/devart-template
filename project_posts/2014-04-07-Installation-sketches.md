@@ -24,4 +24,4 @@ Sketches with sample projections (and strobo effect, in the last one):
 ![installation-sketch-1.png](https://raw.github.com/davidedc/devart-template/master/project_images/installation-sketch-1.png)
 ![installation-sketch-2.png](https://raw.github.com/davidedc/devart-template/master/project_images/installation-sketch-2.png)
 ![installation-sketch-3.png](https://raw.github.com/davidedc/devart-template/master/project_images/installation-sketch-3.png)
-![installation-sketch-4.png](https://raw.github.com/davidedc/devart-template/master/project_images/installation-sketch-4.png)
+![installation-sketch-4-strobos.png](https://raw.github.com/davidedc/devart-template/master/project_images/installation-sketch-4-strobos.png)
